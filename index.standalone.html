@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LOEN LULLABY — North Beach, Miami Beach</title>
+
+<!-- Resources referenced in code (string literals) so the bundler can capture them -->
+<meta name="ext-resource-dependency" content=".image-slots.state.json" data-resource-id="imageSlotsState" />
+<meta name="ext-resource-dependency" content="uploads/TRANSITION.MP4" data-resource-id="video_transition" />
+<meta name="ext-resource-dependency" content="uploads/VIBE.MP4"       data-resource-id="video_vibe" />
+
+<template id="__bundler_thumbnail" data-bg-color="#EFE6D3">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#EFE6D3"/>
+    <!-- Horizon -->
+    <rect x="0" y="520" width="1200" height="280" fill="#E3D7BD"/>
+    <!-- Sun -->
+    <circle cx="600" cy="460" r="120" fill="#C97A4B"/>
+    <!-- Building silhouette -->
+    <rect x="430" y="320" width="340" height="280" fill="#1E2528"/>
+    <rect x="460" y="360" width="60" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="540" y="360" width="60" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="620" y="360" width="60" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="700" y="360" width="40" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="460" y="430" width="60" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="540" y="430" width="60" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="620" y="430" width="60" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="700" y="430" width="40" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="460" y="500" width="60" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="540" y="500" width="60" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="620" y="500" width="60" height="40" fill="#EFE6D3" opacity=".25"/>
+    <rect x="700" y="500" width="40" height="40" fill="#EFE6D3" opacity=".25"/>
+    <!-- Wordmark -->
+    <text x="600" y="720" text-anchor="middle"
+          font-family="Georgia, serif" font-style="italic"
+          font-size="56" fill="#1E2528" letter-spacing="6">
+      LOEN LULLABY
+    </text>
+  </svg>
+</template>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --sand:        #EFE6D3;
+    --sand-deep:   #E3D7BD;
+    --cream:       #F7F0DF;
+    --ink:         #1E2528;
+    --ink-soft:    #3A4144;
+    --accent:      #C97A4B;
+    --accent-deep: #A55E33;
+    --water:       #2F6B73;
+    --water-deep:  #1F4F56;
+    --rule:        rgba(30,37,40,.14);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif;
+    background:var(--sand);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    font-size:16px;
+    line-height:1.55;
+  }
+  .display{font-family:'Italiana',serif;font-weight:400;letter-spacing:.005em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit}
+
+  image-slot{
+    background:rgba(30,37,40,.04);
+  }
+  image-slot::part(frame){
+    background:
+      repeating-linear-gradient(135deg,
+        rgba(30,37,40,.025) 0 14px,
+        rgba(30,37,40,0) 14px 28px),
+      var(--cream);
+  }
+  image-slot::part(ring){
+    border:1px dashed rgba(30,37,40,.18);
+  }
+
+  ::selection{background:var(--accent);color:var(--cream)}
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="src/image-slot.standalone.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="src/tweaks-panel.jsx"></script>
+  <script type="text/babel" src="src/palettes.js"></script>
+  <script type="text/babel" src="src/sections.standalone.jsx"></script>
+  <script type="text/babel" src="src/transition-video.standalone.jsx"></script>
+  <script type="text/babel" src="src/app.jsx"></script>
+</body>
+</html>

@@ -7,8 +7,8 @@
 
 <!-- Resources referenced in code (string literals) so the bundler can capture them -->
 <meta name="ext-resource-dependency" content=".image-slots.state.json" data-resource-id="imageSlotsState" />
-<meta name="ext-resource-dependency" content="uploads/TRANSITION.MP4" data-resource-id="video_transition" />
-<meta name="ext-resource-dependency" content="uploads/VIBE.MP4"       data-resource-id="video_vibe" />
+<!-- Videos omitted from the standalone bundle (would push it past 30 MB).
+     LLVideoSection falls back to its empty drop-zone state for both interludes. -->
 
 <template id="__bundler_thumbnail" data-bg-color="#EFE6D3">
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
@@ -88,6 +88,39 @@
   }
 
   ::selection{background:var(--accent);color:var(--cream)}
+
+  @media (max-width: 980px){
+    .ll-section{ padding-left:5vw !important; padding-right:5vw !important; }
+    .ll-section-py{ padding-top:90px !important; padding-bottom:90px !important; }
+    .ll-2col{ grid-template-columns:1fr !important; gap:48px !important; }
+    .ll-hero-editorial-img{ aspect-ratio: 4 / 3 !important; }
+    .ll-render-grid{
+      grid-template-columns: repeat(2,1fr) !important;
+      grid-auto-rows: 220px !important;
+    }
+    .ll-render-grid > *{ grid-column: span 1 !important; grid-row: span 1 !important; }
+    .ll-render-grid > *:first-child{ grid-column: span 2 !important; }
+    .ll-stats-4{ grid-template-columns: repeat(2,1fr) !important; gap:28px !important; }
+    .ll-nav-links{ display:none !important; }
+  }
+  @media (max-width: 640px){
+    .ll-section-py{ padding-top:72px !important; padding-bottom:72px !important; }
+    .ll-hero-postcard-stats{ grid-template-columns: repeat(2,1fr) !important; }
+    .ll-render-grid{ grid-template-columns: 1fr !important; grid-auto-rows: 240px !important; }
+    .ll-render-grid > *:first-child{ grid-column: span 1 !important; }
+    .ll-stats-4{ grid-template-columns: 1fr !important; }
+    .ll-form-2{ grid-template-columns: 1fr !important; gap:18px !important; }
+    .ll-nav{ padding:14px 5vw !important; }
+    .ll-nav-cta-label{ display:none !important; }
+    .ll-nav-cta{ padding:10px 14px !important; }
+    .ll-video-shell{ aspect-ratio: 4 / 3 !important; }
+    .ll-visit-grid{ gap:36px !important; }
+    .ll-section h2{ text-wrap: balance; }
+  }
+  @media (max-width: 420px){
+    .ll-plan-canvas{ aspect-ratio: 1 / 1 !important; }
+    .ll-interest-pills button{ font-size: 12px !important; padding: 8px 12px !important; }
+  }
 </style>
 
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -102,6 +135,7 @@
   <script type="text/babel" src="src/tweaks-panel.jsx"></script>
   <script type="text/babel" src="src/palettes.js"></script>
   <script type="text/babel" src="src/sections.standalone.jsx"></script>
+  <script type="text/babel" src="src/neighborhood.standalone.jsx"></script>
   <script type="text/babel" src="src/transition-video.standalone.jsx"></script>
   <script type="text/babel" src="src/app.jsx"></script>
 </body>

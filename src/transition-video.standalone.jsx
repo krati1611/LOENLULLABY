@@ -46,8 +46,9 @@ function LLVideoSection({
   const inputRef = React.useRef(null);
 
   const defaults = React.useMemo(() => {
-    const R = (typeof window !== 'undefined' && window.__resources) || {};
-    const lifted = R[`video_${slug}`];
+    const lifted =
+      (typeof window !== 'undefined' && window.__resources && window.__resources['video_' + slug])
+      || null;
     if (lifted) return [lifted];
     return [
       `uploads/${slug}.mp4`,
@@ -86,7 +87,7 @@ function LLVideoSection({
   };
 
   return (
-    <section data-screen-label={screenLabel} style={{
+    <section data-screen-label={screenLabel} className="ll-section ll-section-py" style={{
       padding: '120px 6vw 140px',
       background: bg,
     }}>
@@ -110,6 +111,7 @@ function LLVideoSection({
         </div>
 
         <div
+          className="ll-video-shell"
           onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
           onDragLeave={() => setDrag(false)}
           onDrop={onDrop}

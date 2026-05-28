@@ -165,8 +165,8 @@ function HeroPleinAir() {
             maxWidth: 480, margin: 0, fontSize: 17, lineHeight: 1.55,
             color: 'rgba(247,240,223,.92)',
           }}>
-            A thirty-two-residence boutique on the cusp of Ocean Terrace,
-            measured in travertine, banded teak, and the long blue afternoon.
+            Four duplex residences on Byron Avenue, two blocks from the Atlantic.
+            Three bedrooms, three terraces, a rooftop solarium — quietly Miami.
           </p>
           <div className="mono" style={{ color: 'rgba(247,240,223,.7)', whiteSpace: 'nowrap' }}>
             ↓ Scroll
@@ -198,7 +198,8 @@ function HeroEditorial() {
           <div>
             <div className="mono" style={{ color: 'var(--ink-soft)', marginBottom: 6 }}>The Building</div>
             <div style={{ fontSize: 15.5, color: 'var(--ink-soft)' }}>
-              32 residences across eight quiet stories, two blocks from the Atlantic.
+              Four duplex residences across four storeys + parking. Three
+              bedrooms, three terraces, two parking spaces each.
             </div>
           </div>
           <div>
@@ -283,10 +284,10 @@ function HeroPostcard() {
         gap: 24, borderTop: '1px solid var(--rule)', paddingTop: 22,
       }}>
         {[
-          ['EST.', '2027'],
-          ['UNITS', '32 Residences'],
-          ['STORIES', 'Eight'],
-          ['DISTANCE TO OCEAN', '120 m'],
+          ['GROUNDBREAKING', 'Q1 2026'],
+          ['RESIDENCES', 'Four Duplexes'],
+          ['STORIES', 'Four + Parking'],
+          ['TO THE OCEAN', '2 Blocks'],
         ].map(([k, v]) => (
           <div key={k}>
             <div className="mono" style={{ color: 'var(--ink-soft)', marginBottom: 8 }}>{k}</div>
@@ -422,19 +423,19 @@ function LLRenderings() {
           gap: 18,
         }}>
           <div style={{ gridColumn: 'span 8', gridRow: 'span 5' }}>
-            <RGSlot id="r1" caption="PL.02 — Exterior, seen from Ocean Terrace" />
+            <RGSlot id="r1" caption="PL.02 — The Living Room" />
           </div>
           <div style={{ gridColumn: 'span 4', gridRow: 'span 5' }}>
-            <RGSlot id="r2" caption="PL.03 — Lobby, late afternoon" />
+            <RGSlot id="r2" caption="PL.03 — The Façade, at golden hour" />
           </div>
           <div style={{ gridColumn: 'span 4', gridRow: 'span 4' }}>
-            <RGSlot id="r3" caption="PL.04 — Residence, living room" />
+            <RGSlot id="r3" caption="PL.04 — The Sitting Room" />
           </div>
           <div style={{ gridColumn: 'span 5', gridRow: 'span 4' }}>
-            <RGSlot id="r4" caption="PL.05 — Kitchen at the corner" />
+            <RGSlot id="r4" caption="PL.05 — The Kitchen" />
           </div>
           <div style={{ gridColumn: 'span 3', gridRow: 'span 4' }}>
-            <RGSlot id="r5" caption="PL.06 — Roof, dusk" />
+            <RGSlot id="r5" caption="PL.06 — The Patio" />
           </div>
         </div>
       </div>
@@ -461,10 +462,10 @@ function RGSlot({ id, caption }) {
 // ── Floor plans ────────────────────────────────────────────────────────────
 
 const PLAN_LIST = [
-  { id: 'A', name: 'Residence A · One Bedroom',     area: '892 sf', bb: '1 BR · 1.5 BA', exp: 'East · Sunrise',   note: 'A compact study of light and air. East-facing windows, a long galley kitchen, a quiet bedroom.' },
-  { id: 'B', name: 'Residence B · Two Bedroom',     area: '1,340 sf', bb: '2 BR · 2 BA',   exp: 'South · Park',    note: 'Open plan facing the new park. Corner balcony, full-width living, two equal bedrooms.' },
-  { id: 'C', name: 'Residence C · Corner Three',    area: '1,840 sf', bb: '3 BR · 3 BA',   exp: 'South-East · Ocean', note: 'A true corner residence with ocean glimpses, primary suite on its own wing.' },
-  { id: 'D', name: 'Penthouse — The Lullaby',       area: '3,210 sf', bb: '4 BR · 4.5 BA', exp: 'Full · 360°',     note: 'Sole occupant of the eighth floor. Private roof, plunge pool, summer kitchen.' },
+  { id: 'A', name: 'Residence 01 · Garden Duplex',  area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Lower duplex · East',   note: 'A two-storey home opening onto the front garden. Living, dining and kitchen on the entry level; three bedrooms above; rear and rooftop terraces.' },
+  { id: 'B', name: 'Residence 02 · Park Duplex',    area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Lower duplex · West',   note: 'Park-facing lower duplex with a quiet front terrace, full-width living, and three bedrooms upstairs.' },
+  { id: 'C', name: 'Residence 03 · Sky Duplex',     area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Upper duplex · East',   note: 'Upper duplex with east-facing terraces, an internal stair, and direct access to the rooftop solarium.' },
+  { id: 'D', name: 'Residence 04 · Sun Duplex',     area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Upper duplex · West',   note: 'A west-facing upper duplex — long afternoon light, three terraces, and a private corner of the rooftop solarium.' },
 ];
 
 function LLFloorPlans() {
@@ -491,8 +492,8 @@ function LLFloorPlans() {
             </h2>
           </div>
           <div style={{ maxWidth: 380, color: 'var(--ink-soft)', fontSize: 15 }}>
-            From a one-bedroom study to the eighth-floor penthouse. Each residence
-            has its own corner, its own light.
+            Four duplex homes, each ≈ 181 m² — 118 m² of interior living plus 62 m² of
+            front, rear and rooftop terraces. Two parking spaces apiece.
           </div>
         </div>
 
@@ -595,23 +596,33 @@ function LLInvestorBand() {
       background: 'var(--ink)', color: 'var(--cream)',
     }}>
       <div style={{ maxWidth: 1480, margin: '0 auto' }}>
-        <EyebrowLine color="rgba(247,240,223,.7)">A footnote, for those who like footnotes</EyebrowLine>
+        <EyebrowLine color="rgba(247,240,223,.7)">The neighborhood, and the building</EyebrowLine>
         <h2 className="display" style={{
           fontSize: 'clamp(40px, 5vw, 72px)',
-          margin: '20px 0 56px', lineHeight: 1, maxWidth: 900,
+          margin: '20px 0 32px', lineHeight: 1, maxWidth: 900,
           color: 'var(--cream)',
         }}>
-          The neighborhood is rewriting itself, quietly.
+          A quiet home on a neighborhood becoming itself.
         </h2>
+        <p style={{
+          maxWidth: 760, fontSize: 17, lineHeight: 1.6,
+          color: 'rgba(247,240,223,.78)', margin: '0 0 56px',
+        }}>
+          A four-storey family building of four duplex residences on Byron
+          Avenue — near a school, the parks and the Atlantic, and fifteen to
+          twenty minutes from the bustle of South Beach. Modest streets are
+          quietly becoming Miami, and Lullaby Residences is meant to belong
+          to both.
+        </p>
 
         <div className="ll-stats-4" style={{
           display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 40,
         }}>
           {[
-            ['Five-year price\nappreciation', '+47%', 'North Beach condos, 2020–2025'],
-            ['New parkland\non block', '4.1 ac', 'Ocean Terrace · Oceanside upgrades'],
-            ['Walk to\nAtlantic Ocean', '2 min', '120 m from front door'],
-            ['Reservation\nDeposit', '10%', 'Refundable through Q1 2026'],
+            ['A quiet four-storey\nfamily building', '4 Duplexes', 'Three bedrooms · three terraces · two parking each'],
+            ['Walk to\nAtlantic Ocean', '2 Blocks', 'A few minutes from the front door'],
+            ['Drive to\nSouth Beach', '15–20 min', 'Quiet here — lively a few miles south'],
+            ['Outdoor\nLiving', '34%', 'Of every residence — terrace & solarium'],
           ].map(([k, v, sub]) => (
             <div key={k} style={{ borderTop: '1px solid rgba(247,240,223,.18)', paddingTop: 22 }}>
               <div className="mono" style={{ color: 'rgba(247,240,223,.6)', whiteSpace: 'pre-line', marginBottom: 20 }}>
@@ -631,8 +642,9 @@ function LLInvestorBand() {
         </div>
 
         <div style={{ marginTop: 56, fontSize: 12, color: 'rgba(247,240,223,.45)', maxWidth: 720 }}>
-          Figures are illustrative and drawn from public North Beach comparables; not a representation
-          of expected return. Investment materials available on request.
+          Areas are approximate — each residence is ≈ 181 m² (≈ 1,950 sf), comprising
+          118.5 m² of interior living and 62.5 m² of front, rear and rooftop terraces.
+          Investment materials and full pro‑forma available on request.
         </div>
       </div>
     </section>
@@ -654,7 +666,7 @@ function LLVisit() {
     }}>
       <div style={{ maxWidth: 1480, margin: '0 auto' }}>
         <div style={{ marginBottom: 64, maxWidth: 820 }}>
-          <EyebrowLine>Chapter Four — Visit</EyebrowLine>
+          <EyebrowLine>Chapter Five — Visit</EyebrowLine>
           <h2 className="display" style={{
             fontSize: 'clamp(48px, 6.5vw, 96px)',
             margin: '20px 0 0', lineHeight: .98, letterSpacing: '-.008em',
@@ -665,7 +677,7 @@ function LLVisit() {
             marginTop: 28, fontSize: 17, lineHeight: 1.6,
             color: 'var(--ink-soft)', maxWidth: 620,
           }}>
-            Private visits to the site and to a furnished one-bedroom model are
+            Private visits to the site and to the furnished model duplex are
             held on Wednesdays and Saturdays by appointment. Allow about ninety
             minutes; we'll walk you through the building, the park, and the plans.
           </p>
@@ -761,7 +773,7 @@ function LLVisit() {
             }}>
               <iframe
                 title="LOEN LULLABY location"
-                src="https://www.google.com/maps?q=North+Beach+Oceanside+Park,+Miami+Beach,+FL&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                src="https://www.google.com/maps?q=7920+Byron+Ave,+Miami+Beach,+FL+33141&t=&z=16&ie=UTF8&iwloc=&output=embed"
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, filter: 'grayscale(.35) contrast(.95) saturate(.85)' }}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -780,11 +792,11 @@ function LLVisit() {
                     North Beach · Miami Beach
                   </div>
                   <div style={{ marginTop: 10, fontSize: 14, color: 'var(--ink-soft)' }}>
-                    Ocean Terrace at 75th Street<br/>
+                    7920 Byron Avenue<br/>
                     Miami Beach, Florida 33141
                   </div>
                 </div>
-                <a href="https://maps.app.goo.gl/jHi6j6nzDEAHFecv8" target="_blank" rel="noreferrer"
+                <a href="https://www.google.com/maps/place/7920+Byron+Ave,+Miami+Beach,+FL+33141" target="_blank" rel="noreferrer"
                    className="mono" style={{
                   color: 'var(--accent)',
                   borderBottom: '1px solid var(--accent)',
@@ -843,21 +855,49 @@ function LLFooter() {
       background: 'var(--ink)', color: 'rgba(247,240,223,.7)',
       fontSize: 12,
     }}>
-      <div style={{
-        maxWidth: 1480, margin: '0 auto',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        gap: 24, flexWrap: 'wrap',
-      }}>
-        <div className="mono" style={{ letterSpacing: '.22em' }}>
-          LOEN&nbsp;LULLABY · MMXXVI
+      <div style={{ maxWidth: 1480, margin: '0 auto' }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: 24, flexWrap: 'wrap',
+        }}>
+          <div className="mono" style={{ letterSpacing: '.22em' }}>
+            LOEN&nbsp;LULLABY · MMXXVI
+          </div>
+          <div style={{ display: 'flex', gap: 24 }} className="mono">
+            <span>7920 BYRON AVE</span>
+            <span>MIAMI BEACH</span>
+            <span>FL 33141</span>
+          </div>
+          <div className="mono" style={{ opacity: .55 }}>
+            Designed at the edge of the Atlantic
+          </div>
         </div>
-        <div style={{ display: 'flex', gap: 24 }} className="mono">
-          <span>NORTH BEACH</span>
-          <span>MIAMI BEACH</span>
-          <span>FL 33141</span>
-        </div>
-        <div className="mono" style={{ opacity: .55 }}>
-          Designed at the edge of the Atlantic
+
+        <div style={{
+          marginTop: 36, paddingTop: 24,
+          borderTop: '1px solid rgba(247,240,223,.12)',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: 24, flexWrap: 'wrap',
+        }}>
+          <div className="mono" style={{ opacity: .55, letterSpacing: '.18em' }}>
+            For the press &amp; marketing team
+          </div>
+          <a
+            href="Social Templates.html"
+            className="mono"
+            style={{
+              color: 'var(--cream)',
+              borderBottom: '1px solid var(--accent)',
+              paddingBottom: 2,
+              letterSpacing: '.18em',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+            }}
+          >
+            Social Templates
+            <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
     </footer>

@@ -1,0 +1,1484 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>LOEN LULLABY — Social Templates</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --sand:        #EFE6D3;
+    --sand-deep:   #E3D7BD;
+    --cream:       #F7F0DF;
+    --ink:         #1E2528;
+    --ink-soft:    #3A4144;
+    --accent:      #C97A4B;
+    --accent-deep: #A55E33;
+    --water:       #2F6B73;
+    --water-deep:  #1F4F56;
+    --rule:        rgba(30,37,40,.14);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#E8E0CC}
+  body{
+    font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .display{font-family:'Italiana',serif;font-weight:400;letter-spacing:.005em}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase}
+
+  /* Image-slot baseline — matches main site */
+  image-slot{ background:rgba(30,37,40,.04); }
+  image-slot::part(frame){
+    background:
+      repeating-linear-gradient(135deg,
+        rgba(30,37,40,.03) 0 16px,
+        rgba(30,37,40,0) 16px 32px),
+      var(--cream);
+  }
+  image-slot::part(ring){ border:1px dashed rgba(30,37,40,.20); }
+  image-slot::part(caption){
+    font-family:'JetBrains Mono',ui-monospace,monospace !important;
+    letter-spacing:.16em !important;
+    text-transform:uppercase !important;
+    font-size:11px !important;
+  }
+
+  /* Tiny atoms */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:14px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:.18em;text-transform:uppercase;
+  }
+  .eyebrow::before{
+    content:"";display:inline-block;width:36px;height:1px;
+    background:currentColor;opacity:.55;
+  }
+  .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+
+  /* ── Templates ─────────────────────────────────────────────────────── */
+
+  /* SQUARE — Announcement */
+  .tpl-sq-announcement{
+    width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:var(--ink);color:var(--cream);
+  }
+  .tpl-sq-announcement .slot{ position:absolute;inset:0; }
+  .tpl-sq-announcement .veil{
+    position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,
+      rgba(30,37,40,.40) 0%,
+      rgba(30,37,40,0) 26%,
+      rgba(30,37,40,0) 48%,
+      rgba(30,37,40,.78) 100%);
+  }
+  .tpl-sq-announcement .top{
+    position:absolute;top:64px;left:72px;right:72px;
+    display:flex;align-items:center;justify-content:space-between;color:var(--cream);
+    font-size:16px;
+  }
+  .tpl-sq-announcement .bot{
+    position:absolute;left:72px;right:72px;bottom:72px;color:var(--cream);
+  }
+  .tpl-sq-announcement h1{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:168px;line-height:.9;letter-spacing:-.01em;margin:0;
+  }
+  .tpl-sq-announcement .meta{
+    margin-top:36px;display:flex;align-items:flex-end;justify-content:space-between;gap:40px;
+  }
+  .tpl-sq-announcement .meta p{
+    margin:0;max-width:520px;font-size:22px;line-height:1.5;
+    color:rgba(247,240,223,.92);
+  }
+
+  /* SQUARE — Editorial split */
+  .tpl-sq-editorial{
+    width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:var(--sand);color:var(--ink);
+    display:grid;grid-template-columns:1fr 1fr;
+  }
+  .tpl-sq-editorial .slot{ position:relative;width:100%;height:100%; }
+  .tpl-sq-editorial .panel{
+    padding:80px 72px;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .tpl-sq-editorial .panel .eyebrow{font-size:14px;color:var(--ink-soft)}
+  .tpl-sq-editorial h2{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:108px;line-height:.94;letter-spacing:-.005em;margin:0;
+    text-wrap:balance;
+  }
+  .tpl-sq-editorial .body{ font-size:21px;line-height:1.55;color:var(--ink-soft);max-width:380px;margin:0; }
+  .tpl-sq-editorial .footline{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid var(--rule);padding-top:22px;color:var(--ink-soft);
+  }
+
+  /* SQUARE — Typographic quote */
+  .tpl-sq-quote{
+    width:1080px;height:1080px;position:relative;overflow:hidden;
+    background:var(--cream);color:var(--ink);
+    padding:96px;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .tpl-sq-quote .quote{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:108px;line-height:1;letter-spacing:-.005em;margin:0;
+    text-wrap:balance;
+  }
+  .tpl-sq-quote .quote em{ color:var(--accent);font-style:italic; }
+  .tpl-sq-quote .head{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    font-size:14px;color:var(--ink-soft);
+  }
+  .tpl-sq-quote .foot{
+    display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
+    font-size:14px;color:var(--ink-soft);
+  }
+  .tpl-sq-quote .foot .attr{
+    font-family:'Italiana',serif;font-size:22px;letter-spacing:.01em;color:var(--ink);
+    text-transform:none;
+  }
+
+  /* STORY — Hero */
+  .tpl-st-hero{
+    width:1080px;height:1920px;position:relative;overflow:hidden;
+    background:var(--ink);color:var(--cream);
+  }
+  .tpl-st-hero .slot{ position:absolute;inset:0; }
+  .tpl-st-hero .veil{
+    position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(180deg,
+      rgba(30,37,40,.55) 0%,
+      rgba(30,37,40,0) 20%,
+      rgba(30,37,40,0) 50%,
+      rgba(30,37,40,.82) 100%);
+  }
+  .tpl-st-hero .top{
+    position:absolute;top:130px;left:80px;right:80px;
+    display:flex;justify-content:space-between;align-items:center;color:var(--cream);
+    font-size:18px;
+  }
+  .tpl-st-hero .bot{
+    position:absolute;left:80px;right:80px;bottom:170px;color:var(--cream);
+  }
+  .tpl-st-hero h1{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:200px;line-height:.88;letter-spacing:-.01em;margin:0;
+  }
+  .tpl-st-hero .sub{
+    margin-top:40px;font-size:26px;line-height:1.45;color:rgba(247,240,223,.92);max-width:760px;
+  }
+  .tpl-st-hero .swipe{
+    position:absolute;left:0;right:0;bottom:72px;
+    display:flex;justify-content:center;align-items:center;gap:14px;
+    font-size:14px;color:rgba(247,240,223,.78);
+  }
+
+  /* STORY — Detail card */
+  .tpl-st-detail{
+    width:1080px;height:1920px;position:relative;overflow:hidden;
+    background:var(--sand);color:var(--ink);
+    display:grid;grid-template-rows:1fr 1.05fr;
+  }
+  .tpl-st-detail .top{
+    padding:96px 80px 56px;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .tpl-st-detail .top .head{
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:18px;color:var(--ink-soft);
+  }
+  .tpl-st-detail h2{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:160px;line-height:.92;letter-spacing:-.01em;margin:0 0 36px;
+    text-wrap:balance;
+  }
+  .tpl-st-detail .specs{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+    border-top:1px solid var(--rule);padding-top:32px;
+  }
+  .tpl-st-detail .specs .k{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+    margin-bottom:8px;
+  }
+  .tpl-st-detail .specs .v{
+    font-family:'Italiana',serif;font-size:42px;line-height:1;color:var(--ink);
+  }
+  .tpl-st-detail .slot{ position:relative;width:100%;height:100%; }
+
+  /* PORTRAIT — Listing */
+  .tpl-pt-listing{
+    width:1080px;height:1350px;position:relative;overflow:hidden;
+    background:var(--sand);color:var(--ink);
+    display:grid;grid-template-rows:880px 1fr;
+  }
+  .tpl-pt-listing .slot{ position:relative;width:100%;height:100%; }
+  .tpl-pt-listing .panel{
+    padding:56px 64px;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .tpl-pt-listing .row1{ display:flex;justify-content:space-between;align-items:flex-start;gap:28px; }
+  .tpl-pt-listing h2{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:88px;line-height:.92;letter-spacing:-.005em;margin:0;
+  }
+  .tpl-pt-listing .badge{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--cream);background:var(--ink);
+    padding:10px 16px;border-radius:999px;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .tpl-pt-listing .row2{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+    border-top:1px solid var(--rule);padding-top:24px;margin-top:24px;
+  }
+  .tpl-pt-listing .row2 .k{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  .tpl-pt-listing .row2 .v{
+    font-family:'Italiana',serif;font-size:30px;line-height:1;color:var(--ink);
+  }
+
+  /* PORTRAIT — Editorial postcard */
+  .tpl-pt-postcard{
+    width:1080px;height:1350px;position:relative;overflow:hidden;
+    background:var(--cream);color:var(--ink);
+    padding:80px 72px;display:flex;flex-direction:column;gap:48px;
+  }
+  .tpl-pt-postcard .head{
+    display:flex;justify-content:space-between;align-items:center;color:var(--ink-soft);
+    font-size:14px;
+  }
+  .tpl-pt-postcard h2{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:128px;line-height:.92;letter-spacing:-.008em;margin:0;
+    text-wrap:balance;
+  }
+  .tpl-pt-postcard .slot{ flex:1;min-height:0;position:relative;width:100%; }
+  .tpl-pt-postcard .foot{
+    display:grid;grid-template-columns:1.5fr 1fr;gap:36px;align-items:end;
+    border-top:1px solid var(--rule);padding-top:28px;
+  }
+  .tpl-pt-postcard .foot p{
+    margin:0;font-size:20px;line-height:1.55;color:var(--ink-soft);max-width:520px;
+  }
+  .tpl-pt-postcard .foot .sig{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+    text-align:right;
+  }
+  .tpl-pt-postcard .foot .sig .big{
+    font-family:'Italiana',serif;font-size:32px;letter-spacing:.01em;
+    text-transform:none;color:var(--ink);display:block;margin-bottom:6px;
+  }
+
+  /* ── CAROUSELS · 9:16 (1080×1920) ──────────────────────────────────── */
+
+  /* Shared frame — every carousel slide uses .car for chrome */
+  .car{
+    width:1080px;height:1920px;position:relative;overflow:hidden;
+    color:var(--ink);
+  }
+  .car .chrome{
+    position:absolute;top:80px;left:80px;right:80px;z-index:3;
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:16px;
+  }
+  .car .pager{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:.16em;text-transform:uppercase;font-size:14px;
+  }
+  .car .pager .pg-dots{
+    display:inline-flex;gap:6px;margin-left:14px;
+  }
+  .car .pager .pg-dots i{
+    width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.32;
+  }
+  .car .pager .pg-dots i.on{ opacity:1; }
+  .car .swipe{
+    position:absolute;left:0;right:0;bottom:90px;z-index:4;
+    display:flex;justify-content:center;align-items:center;gap:14px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:13px;
+    opacity:.82;
+  }
+  .car.dark{ background:var(--ink);color:var(--cream); }
+  .car.sand{ background:var(--sand); }
+  .car.cream{ background:var(--cream); }
+  .car .slot-full{ position:absolute;inset:0;z-index:1; }
+  .car .veil-bottom{
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(180deg,
+      rgba(30,37,40,.45) 0%,
+      rgba(30,37,40,0) 22%,
+      rgba(30,37,40,0) 48%,
+      rgba(30,37,40,.82) 100%);
+  }
+  .car .body{ position:absolute;left:80px;right:80px;bottom:200px;z-index:3; }
+  .car h1.title{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:188px;line-height:.88;letter-spacing:-.01em;margin:0;
+  }
+  .car h1.title.lg{ font-size:218px; }
+  .car h1.title.md{ font-size:148px; }
+  .car .sub{
+    margin-top:34px;font-size:26px;line-height:1.45;max-width:820px;
+    color:inherit;opacity:.92;
+  }
+  .car .eyebrow-line{
+    display:inline-flex;align-items:center;gap:14px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:15px;
+  }
+  .car .eyebrow-line::before{
+    content:"";display:inline-block;width:36px;height:1px;
+    background:currentColor;opacity:.55;
+  }
+
+  /* Stat-card slide */
+  .car.stat .stat-wrap{
+    position:absolute;inset:0;padding:80px 80px 190px;z-index:3;
+    pointer-events:none;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .car.stat .big-num{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:520px;line-height:.84;letter-spacing:-.02em;
+    color:var(--accent);
+  }
+  .car.stat .big-num.small{ font-size:380px; }
+  .car.stat .label{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:18px;
+    color:var(--ink-soft);margin-bottom:18px;
+  }
+  .car.stat .cap{
+    font-size:24px;line-height:1.5;max-width:760px;color:var(--ink-soft);
+  }
+
+  /* Split image+text slide */
+  .car.split{ display:grid;grid-template-rows:1fr 1fr; }
+  .car.split .slot-half{ position:relative;width:100%;height:100%; }
+  .car.split .panel{
+    padding:80px 80px 190px;display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .car.split h2{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:132px;line-height:.92;letter-spacing:-.008em;margin:0;
+    text-wrap:balance;
+  }
+  .car.split .panel p{
+    margin:0;font-size:24px;line-height:1.5;color:var(--ink-soft);max-width:760px;
+  }
+
+  /* List slide (e.g. "What's nearby") */
+  .car.list .list-wrap{
+    position:absolute;inset:0;padding:80px 80px 190px;z-index:3;
+    pointer-events:none;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .car.list h2{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:148px;line-height:.92;letter-spacing:-.01em;margin:0;
+    text-wrap:balance;
+  }
+  .car.list .rows{ display:flex;flex-direction:column; }
+  .car.list .row{
+    border-top:1px solid var(--rule);
+    padding:32px 0;
+    display:grid;grid-template-columns:1fr auto;gap:24px;align-items:baseline;
+  }
+  .car.list .row:last-child{ border-bottom:1px solid var(--rule); }
+  .car.list .row .k{
+    font-family:'Italiana',serif;font-size:48px;line-height:1;color:var(--ink);
+  }
+  .car.list .row .v{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);
+  }
+
+  /* Timeline slide */
+  .car.timeline .tl-wrap{
+    position:absolute;inset:0;padding:80px 80px 190px;z-index:3;
+    pointer-events:none;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .car.timeline h2{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:128px;line-height:.92;letter-spacing:-.008em;margin:0;
+  }
+  .car.timeline .tl{
+    display:grid;grid-template-columns:1fr;gap:0;margin-top:40px;
+  }
+  .car.timeline .item{
+    display:grid;grid-template-columns:140px 1fr;gap:32px;
+    padding:36px 0;border-top:1px solid var(--rule);align-items:baseline;
+  }
+  .car.timeline .item:last-child{ border-bottom:1px solid var(--rule); }
+  .car.timeline .item .yr{
+    font-family:'Italiana',serif;font-size:64px;line-height:1;color:var(--accent);
+  }
+  .car.timeline .item .place{
+    font-family:'Italiana',serif;font-size:44px;line-height:1.05;color:var(--ink);
+  }
+  .car.timeline .item .place small{
+    display:block;font-family:'DM Sans',sans-serif;font-size:18px;
+    color:var(--ink-soft);margin-top:8px;letter-spacing:0;text-transform:none;
+  }
+
+  /* CTA slide */
+  .car.cta .cta-wrap{
+    position:absolute;inset:0;padding:80px;z-index:3;
+    pointer-events:none;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .car.cta h2{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:188px;line-height:.9;letter-spacing:-.01em;margin:0;
+  }
+  .car.cta .url{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:22px;
+  }
+  .car.cta .pill{
+    display:inline-flex;align-items:center;gap:14px;
+    padding:24px 32px;border-radius:999px;
+    background:var(--accent);color:var(--cream);
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:18px;letter-spacing:.18em;text-transform:uppercase;
+    align-self:flex-start;
+  }
+  .car.cta .pill .arrow{
+    width:14px;height:14px;border-top:2px solid currentColor;
+    border-right:2px solid currentColor;transform:rotate(45deg);display:inline-block;
+  }
+
+  /* ── Background image-slots (every carousel slide) ──────────────────
+     Empty state: transparent, so the slide's brand color shows through.
+     Filled state: image visible + auto-scrim for text legibility. */
+  .car image-slot.slot-bg,
+  .car image-slot.slot-full,
+  .car image-slot.slot-half{
+    background:transparent !important;
+    display:block !important;
+    width:100% !important;
+    height:100% !important;
+  }
+  .car image-slot.slot-bg::part(frame),
+  .car image-slot.slot-full::part(frame),
+  .car image-slot.slot-half::part(frame){
+    background:transparent;
+  }
+  .car image-slot.slot-bg::part(ring),
+  .car image-slot.slot-full::part(ring),
+  .car image-slot.slot-half::part(ring){
+    border:0;
+    box-shadow:none;
+  }
+  /* Hide the centered placeholder block entirely — keep the surface clean. */
+  .car image-slot.slot-bg::part(empty),
+  .car image-slot.slot-full::part(empty),
+  .car image-slot.slot-half::part(empty){
+    opacity:0;
+  }
+  /* Subtle "+ photo" corner hint, visible on hover only. */
+  .car image-slot.slot-bg::part(frame):hover,
+  .car image-slot.slot-full::part(frame):hover,
+  .car image-slot.slot-half::part(frame):hover{
+    outline:1px dashed rgba(30,37,40,.22);
+    outline-offset:-12px;
+  }
+  .car.dark image-slot.slot-bg::part(frame):hover,
+  .car.dark image-slot.slot-full::part(frame):hover{
+    outline-color:rgba(247,240,223,.30);
+  }
+
+  /* Always-visible upload affordance on empty slides — small mono pill in the
+     bottom-right that goes away as soon as an image is dropped. */
+  .car .upload-hint{
+    position:absolute;right:80px;bottom:90px;z-index:4;
+    display:inline-flex;align-items:center;gap:8px;
+    padding:9px 14px;border-radius:999px;
+    border:1px dashed rgba(30,37,40,.28);
+    background:rgba(247,240,223,.55);
+    color:var(--ink-soft);
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    pointer-events:none;
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+    transition:opacity .25s ease;
+  }
+  .car.dark .upload-hint{
+    border-color:rgba(247,240,223,.30);
+    background:rgba(30,37,40,.45);
+    color:rgba(247,240,223,.78);
+  }
+  .car .upload-hint::before{
+    content:"";display:inline-block;width:10px;height:10px;
+    border-radius:50%;border:1px dashed currentColor;
+  }
+  /* Hide the hint as soon as the slide's backdrop slot has an image. */
+  .car:has(image-slot.slot-bg[data-filled]) .upload-hint,
+  .car:has(image-slot.slot-full[data-filled]) .upload-hint,
+  .car:has(image-slot.slot-half[data-filled]) .upload-hint{
+    opacity:0;
+  }
+  /* On split slides the slot is the TOP half — anchor the hint there. */
+  .car.split .upload-hint{
+    bottom:auto;top:160px;
+  }
+
+  .car .slot-bg{ position:absolute;inset:0;z-index:1; }
+
+  /* Auto-veil — visible only when a background image-slot is filled.
+     Variants tinted to match the slide's palette. */
+  .car .veil-auto{
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    opacity:0;transition:opacity .25s ease;
+  }
+  .car:has(image-slot.slot-bg[data-filled]) .veil-auto,
+  .car:has(image-slot.slot-full[data-filled]) .veil-auto{
+    opacity:1;
+  }
+  /* Dark variant — gradient darkens top + bottom so chrome and body read. */
+  .car.dark .veil-auto{
+    background:linear-gradient(180deg,
+      rgba(30,37,40,.55) 0%,
+      rgba(30,37,40,0) 22%,
+      rgba(30,37,40,0) 48%,
+      rgba(30,37,40,.85) 100%);
+  }
+  /* Sand variant — warm wash, image reads as toned imagery. */
+  .car.sand .veil-auto{
+    background:
+      linear-gradient(180deg,
+        rgba(239,230,211,.65) 0%,
+        rgba(239,230,211,.42) 28%,
+        rgba(239,230,211,.42) 64%,
+        rgba(239,230,211,.85) 100%);
+  }
+  /* Cream variant — same idea, lighter. */
+  .car.cream .veil-auto{
+    background:
+      linear-gradient(180deg,
+        rgba(247,240,223,.68) 0%,
+        rgba(247,240,223,.48) 28%,
+        rgba(247,240,223,.48) 64%,
+        rgba(247,240,223,.88) 100%);
+  }
+
+  /* ── VIDEO TEMPLATES ───────────────────────────────────────────────── */
+
+  /* Vertical · 1080 × 1920 (9:16) */
+  .vid-9x16{
+    width:1080px;height:1920px;position:relative;overflow:hidden;
+    background:var(--ink);color:var(--cream);
+  }
+  /* Horizontal · 1920 × 1080 (16:9) */
+  .vid-16x9{
+    width:1920px;height:1080px;position:relative;overflow:hidden;
+    background:var(--ink);color:var(--cream);
+  }
+
+  .vid-slot{ position:absolute;inset:0;z-index:1;background:var(--ink); }
+  .vid-slot video{
+    width:100%;height:100%;object-fit:cover;display:block;
+    background:var(--ink);
+  }
+
+  /* Drop affordance — clean center prompt on empty state. */
+  .vid-empty{
+    position:absolute;inset:0;z-index:2;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:18px;color:rgba(247,240,223,.78);
+    border:1px dashed rgba(247,240,223,.18);
+    outline-offset:-32px;
+    transition:background .2s, border-color .2s;
+    pointer-events:auto;
+  }
+  .vid-empty.drag{
+    background:rgba(201,122,75,.18);
+    border-color:rgba(201,122,75,.65);
+    color:var(--cream);
+  }
+  .vid-empty .glyph{
+    width:80px;height:80px;border-radius:50%;
+    border:1px solid currentColor;display:flex;align-items:center;justify-content:center;
+    font-size:28px;line-height:1;
+  }
+  .vid-empty .label{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:.18em;text-transform:uppercase;font-size:14px;
+    text-align:center;
+  }
+  .vid-empty .sub{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:.14em;text-transform:uppercase;font-size:11px;
+    opacity:.62;
+  }
+
+  /* Bottom veil for legibility once a video is in. */
+  .vid-veil{
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:linear-gradient(180deg,
+      rgba(30,37,40,.45) 0%,
+      rgba(30,37,40,0) 22%,
+      rgba(30,37,40,0) 56%,
+      rgba(30,37,40,.85) 100%);
+  }
+  .vid-empty + .vid-veil{ opacity:0; }            /* hide when no video */
+  .vid-slot[data-filled] ~ .vid-veil{ opacity:1; }/* show once filled */
+
+  /* Chrome — same DNA as the carousels. */
+  .vid-chrome{
+    position:absolute;top:60px;left:60px;right:60px;z-index:3;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:.16em;text-transform:uppercase;font-size:14px;
+    color:var(--cream);pointer-events:none;
+  }
+  .vid-chrome .dot{
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .vid-chrome .dot::before{
+    content:"";display:inline-block;width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+  }
+
+  /* Lower text band. */
+  .vid-band{
+    position:absolute;left:60px;right:60px;bottom:80px;z-index:3;
+    color:var(--cream);pointer-events:none;
+  }
+  .vid-9x16 .vid-band{ bottom:130px; }
+  .vid-band h1{
+    font-family:'Italiana',serif;font-weight:400;
+    font-size:128px;line-height:.92;letter-spacing:-.008em;margin:0;
+    text-wrap:balance;
+  }
+  .vid-9x16 .vid-band h1{ font-size:148px; }
+  .vid-band .sub{
+    margin-top:22px;font-size:22px;line-height:1.5;color:rgba(247,240,223,.86);
+    max-width:760px;
+  }
+  .vid-9x16 .vid-band .sub{ font-size:24px; max-width:880px; }
+
+  /* Removable video — small mono "Replace / Remove" control. */
+  .vid-controls{
+    position:absolute;z-index:4;
+    right:24px;bottom:24px;display:flex;gap:8px;
+  }
+  .vid-controls button{
+    appearance:none;border:0;cursor:pointer;
+    padding:8px 14px;border-radius:999px;
+    background:rgba(0,0,0,.55);color:#F7F0DF;
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="src/image-slot.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel">
+    /* global DesignCanvas, DCSection, DCArtboard */
+
+    // Tiny helper to render an image-slot with the brand placeholder treatment.
+    function Slot({ id, placeholder, className }) {
+      return (
+        <image-slot
+          id={id}
+          class={className || 'slot'}
+          shape="rect"
+          placeholder={placeholder}
+        ></image-slot>
+      );
+    }
+
+    // ── Carousel atoms ─────────────────────────────────────────────────
+    // Pager dots ("01 / 05" + dots) for any carousel slide.
+    function Pager({ n, total }) {
+      const dots = [];
+      for (let i = 1; i <= total; i++) dots.push(
+        <i key={i} className={i === n ? 'on' : ''} />
+      );
+      return (
+        <span className="pager">
+          <span>Nº {String(n).padStart(2,'0')} / {String(total).padStart(2,'0')}</span>
+          <span className="pg-dots">{dots}</span>
+        </span>
+      );
+    }
+
+    // Top-bar chrome shared by every carousel slide.
+    function CarChrome({ n, total, brand = 'LOEN LULLABY' }) {
+      return (
+        <div className="chrome">
+          <span className="mono" style={{ fontSize: 14 }}>{brand}</span>
+          <Pager n={n} total={total} />
+        </div>
+      );
+    }
+
+    function Swipe({ children = '↑ Swipe', style }) {
+      return <div className="swipe" style={style}>{children}</div>;
+    }
+
+    // Background image-slot for any carousel slide. Empty = slide color,
+    // filled = image with an auto-tinted veil for legibility.
+    function CarBg({ id, placeholder }) {
+      return (
+        <React.Fragment>
+          <image-slot
+            id={id}
+            class="slot-bg"
+            shape="rect"
+            placeholder={placeholder || 'Drop a backdrop'}
+          ></image-slot>
+          <div className="veil-auto" />
+          <div className="upload-hint">Drop image</div>
+        </React.Fragment>
+      );
+    }
+
+    // Standalone hint for slides that bring their own image-slot (covers).
+    function UploadHint() {
+      return <div className="upload-hint">Drop image</div>;
+    }
+
+    // ── Video slot ─────────────────────────────────────────────────────
+    // In-memory drag-drop video player. Persists across the session via the
+    // <video src>'s blob URL; lost on reload (videos are too large for the
+    // sidecar JSON the image-slot uses).
+    function VideoSlot({ id, label }) {
+      const [src, setSrc] = React.useState(null);
+      const [drag, setDrag] = React.useState(false);
+      const inputRef = React.useRef(null);
+      const slotRef = React.useRef(null);
+
+      const accept = (file) => {
+        if (!file || !file.type.startsWith('video/')) return;
+        if (src) URL.revokeObjectURL(src);
+        setSrc(URL.createObjectURL(file));
+      };
+      const onDrop = (e) => {
+        e.preventDefault(); setDrag(false);
+        accept(e.dataTransfer?.files?.[0]);
+      };
+      const onPick = (e) => accept(e.target.files?.[0]);
+      const onClear = (e) => {
+        e.stopPropagation();
+        if (src) URL.revokeObjectURL(src);
+        setSrc(null);
+      };
+      const onReplace = (e) => {
+        e.stopPropagation();
+        inputRef.current?.click();
+      };
+
+      return (
+        <React.Fragment>
+          <div
+            ref={slotRef}
+            className="vid-slot"
+            data-filled={src ? '' : undefined}
+            onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
+            onDragLeave={() => setDrag(false)}
+            onDrop={onDrop}
+          >
+            {src ? (
+              <video src={src} autoPlay muted loop playsInline />
+            ) : null}
+          </div>
+
+          {!src ? (
+            <div
+              className={'vid-empty' + (drag ? ' drag' : '')}
+              onClick={() => inputRef.current?.click()}
+              onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
+              onDragLeave={() => setDrag(false)}
+              onDrop={onDrop}
+            >
+              <span className="glyph">▶</span>
+              <span className="label">{label || 'Drop a video'}</span>
+              <span className="sub">MP4 · WEBM · MOV</span>
+            </div>
+          ) : null}
+
+          <div className="vid-veil" />
+
+          {src ? (
+            <div className="vid-controls">
+              <button onClick={onReplace}>Replace</button>
+              <button onClick={onClear}>Remove</button>
+            </div>
+          ) : null}
+
+          <input
+            ref={inputRef}
+            type="file"
+            accept="video/*"
+            style={{ display: 'none' }}
+            onChange={onPick}
+          />
+        </React.Fragment>
+      );
+    }
+
+    function App() {
+      return (
+        <DesignCanvas>
+          <DCSection
+            id="square"
+            title="Square · 1080 × 1080"
+            subtitle="Feed posts. Three approaches — full image, editorial split, typographic."
+          >
+            {/* 1. Square — Announcement */}
+            <DCArtboard id="sq-announce" label="Announcement" width={1080} height={1080}>
+              <div className="tpl-sq-announcement">
+                <Slot id="tpl-sq-announce-img" placeholder="Hero image — drop a rendering" />
+                <div className="veil" />
+                <div className="top">
+                  <span className="mono" style={{ fontSize: 14 }}>LOEN&nbsp;LULLABY</span>
+                  <span className="mono" style={{ fontSize: 14 }}>MMXXVI</span>
+                </div>
+                <div className="bot">
+                  <span className="eyebrow" style={{ fontSize: 14, marginBottom: 28, color: 'rgba(247,240,223,.85)' }}>
+                    North Beach · Miami Beach
+                  </span>
+                  <h1>Loen<br/>Lullaby</h1>
+                  <div className="meta">
+                    <p>Four duplex residences on Byron Avenue,<br/>two blocks from the Atlantic.</p>
+                    <span className="mono" style={{ fontSize: 13, color: 'rgba(247,240,223,.78)' }}>
+                      loenlullaby.com
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+
+            {/* 2. Square — Editorial */}
+            <DCArtboard id="sq-editorial" label="Editorial split" width={1080} height={1080}>
+              <div className="tpl-sq-editorial">
+                <Slot id="tpl-sq-editorial-img" placeholder="Interior or terrace" />
+                <div className="panel">
+                  <div>
+                    <span className="eyebrow" style={{ fontSize: 13, color: 'var(--ink-soft)' }}>
+                      The Residences
+                    </span>
+                    <h2 style={{ marginTop: 28 }}>Three<br/>terraces,<br/>one&nbsp;sky.</h2>
+                  </div>
+                  <p className="body">
+                    Each duplex opens onto a private loggia, a shaded
+                    courtyard, and a rooftop solarium with views to the Atlantic.
+                  </p>
+                  <div className="footline">
+                    <span>04 residences</span>
+                    <span>—</span>
+                    <span>Byron Ave</span>
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+
+            {/* 3. Square — Typographic quote */}
+            <DCArtboard id="sq-quote" label="Typographic" width={1080} height={1080}>
+              <div className="tpl-sq-quote">
+                <div className="head">
+                  <span className="mono" style={{ fontSize: 13 }}>LOEN&nbsp;LULLABY</span>
+                  <span className="mono" style={{ fontSize: 13 }}>Nº 01 / 04</span>
+                </div>
+                <p className="quote">
+                  &ldquo;Quietly<br/>
+                  Miami&mdash;<br/>
+                  <em>by design.</em>&rdquo;
+                </p>
+                <div className="foot">
+                  <div>
+                    <div className="mono" style={{ fontSize: 12, marginBottom: 8 }}>From the Brochure</div>
+                    <div className="attr">Loen Lullaby · Spring MMXXVI</div>
+                  </div>
+                  <span className="mono" style={{ fontSize: 12 }}>loenlullaby.com</span>
+                </div>
+              </div>
+            </DCArtboard>
+          </DCSection>
+
+          <DCSection
+            id="story"
+            title="Story · 1080 × 1920"
+            subtitle="Vertical full-bleed for Instagram & TikTok stories."
+          >
+            {/* 4. Story — Hero */}
+            <DCArtboard id="st-hero" label="Story hero" width={1080} height={1920}>
+              <div className="tpl-st-hero">
+                <Slot id="tpl-st-hero-img" placeholder="Vertical rendering — exterior or terrace" />
+                <div className="veil" />
+                <div className="top">
+                  <span className="mono" style={{ fontSize: 15 }}>LOEN&nbsp;LULLABY</span>
+                  <span className="mono" style={{ fontSize: 15 }}>NORTH BEACH · MMXXVI</span>
+                </div>
+                <div className="bot">
+                  <span className="eyebrow" style={{ fontSize: 15, color: 'rgba(247,240,223,.85)', marginBottom: 32, display: 'inline-flex' }}>
+                    Now Previewing
+                  </span>
+                  <h1>Loen<br/>Lullaby</h1>
+                  <div className="sub">
+                    Four duplex residences. Two blocks from the Atlantic.
+                  </div>
+                </div>
+                <div className="swipe">
+                  <span className="mono">↑ &nbsp;Tap to visit</span>
+                </div>
+              </div>
+            </DCArtboard>
+
+            {/* 5. Story — Detail */}
+            <DCArtboard id="st-detail" label="Story detail" width={1080} height={1920}>
+              <div className="tpl-st-detail">
+                <div className="top">
+                  <div className="head">
+                    <span className="mono" style={{ fontSize: 14 }}>The Building</span>
+                    <span className="mono" style={{ fontSize: 14 }}>Nº 01</span>
+                  </div>
+                  <div>
+                    <span className="eyebrow" style={{ fontSize: 14, color: 'var(--ink-soft)', marginBottom: 28, display: 'inline-flex' }}>
+                      An Address
+                    </span>
+                    <h2>A quiet<br/>shoreline<br/>address.</h2>
+                    <div className="specs">
+                      <div>
+                        <div className="k">Residences</div>
+                        <div className="v">04</div>
+                      </div>
+                      <div>
+                        <div className="k">Bedrooms</div>
+                        <div className="v">3 BR</div>
+                      </div>
+                      <div>
+                        <div className="k">From the Sea</div>
+                        <div className="v">2 blk</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <Slot id="tpl-st-detail-img" placeholder="Detail — material, doorway, view" />
+              </div>
+            </DCArtboard>
+          </DCSection>
+
+          <DCSection
+            id="portrait"
+            title="Portrait · 1080 × 1350"
+            subtitle="4:5 feed posts — the deepest crop Instagram allows."
+          >
+            {/* 6. Portrait — Listing */}
+            <DCArtboard id="pt-listing" label="Listing card" width={1080} height={1350}>
+              <div className="tpl-pt-listing">
+                <Slot id="tpl-pt-listing-img" placeholder="Primary rendering" />
+                <div className="panel">
+                  <div className="row1">
+                    <h2>Residence&nbsp;02<br/>Loen&nbsp;Lullaby</h2>
+                    <span className="badge">
+                      <span className="dot" />
+                      Now reserving
+                    </span>
+                  </div>
+                  <div className="row2">
+                    <div>
+                      <div className="k">Layout</div>
+                      <div className="v">Duplex</div>
+                    </div>
+                    <div>
+                      <div className="k">Bedrooms</div>
+                      <div className="v">3 BR</div>
+                    </div>
+                    <div>
+                      <div className="k">Terraces</div>
+                      <div className="v">03</div>
+                    </div>
+                    <div>
+                      <div className="k">Floor</div>
+                      <div className="v">2 / 3</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+
+            {/* 7. Portrait — Postcard */}
+            <DCArtboard id="pt-postcard" label="Postcard" width={1080} height={1350}>
+              <div className="tpl-pt-postcard">
+                <div className="head">
+                  <span className="mono" style={{ fontSize: 13 }}>LOEN&nbsp;LULLABY · Nº 01</span>
+                  <span className="mono" style={{ fontSize: 13 }}>NORTH BEACH</span>
+                </div>
+                <h2>A postcard<br/>from Byron<br/>Avenue.</h2>
+                <Slot id="tpl-pt-postcard-img" placeholder="Editorial image" />
+                <div className="foot">
+                  <p>
+                    Sand on the floors, salt in the air. Four addresses
+                    on a block that still remembers what Miami sounds like
+                    at dusk.
+                  </p>
+                  <div className="sig">
+                    <span className="big">Loen Lullaby</span>
+                    <span>loenlullaby.com</span>
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+          </DCSection>
+
+          {/* ════════════════════════════════════════════════════════════════
+              CAROUSEL A — The Last Quiet Place (5 slides)
+              Pillar 1 narrative from the market intel brief.
+          ════════════════════════════════════════════════════════════════ */}
+          <DCSection
+            id="carousel-a"
+            title="Carousel A · The Last Quiet Place"
+            subtitle="5 slides · 1080 × 1920 · pillar 1 narrative — community, calm, family"
+          >
+            {/* A1 — Cover */}
+            <DCArtboard id="ca-1" label="01 · Cover" width={1080} height={1920}>
+              <div className="car dark">
+                <Slot id="ca-1-img" placeholder="Cover image — exterior, golden hour" className="slot slot-full" />
+                <div className="veil-auto" />
+                <UploadHint />
+                <CarChrome n={1} total={5} />
+                <div className="body" style={{ color: 'var(--cream)' }}>
+                  <span className="eyebrow-line" style={{ color: 'rgba(247,240,223,.85)', marginBottom: 28 }}>
+                    A series in five
+                  </span>
+                  <h1 className="title" style={{ color: 'var(--cream)', marginTop: 28 }}>
+                    The last<br/>quiet place<br/>on Miami<br/>Beach.
+                  </h1>
+                </div>
+                <Swipe>↑ Swipe</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* A2 — Where families live */}
+            <DCArtboard id="ca-2" label="02 · The block" width={1080} height={1920}>
+              <div className="car dark">
+                <Slot id="ca-2-img" placeholder="Neighborhood — street, park, beach" className="slot slot-full" />
+                <div className="veil-auto" />
+                <UploadHint />
+                <CarChrome n={2} total={5} />
+                <div className="body" style={{ color: 'var(--cream)' }}>
+                  <span className="eyebrow-line" style={{ color: 'rgba(247,240,223,.85)' }}>
+                    North Beach · Miami Beach
+                  </span>
+                  <h1 className="title md" style={{ color: 'var(--cream)', marginTop: 26 }}>
+                    Where families<br/>live, and kids<br/>still bike to<br/>school.
+                  </h1>
+                </div>
+                <Swipe>↑ Keep going</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* A3 — The address (split) */}
+            <DCArtboard id="ca-3" label="03 · The address" width={1080} height={1920}>
+              <div className="car split sand">
+                <CarChrome n={3} total={5} />
+                <Slot id="ca-3-img" placeholder="Façade · Byron Avenue" className="slot slot-half" />
+                <UploadHint />
+                <div className="panel">
+                  <div>
+                    <span className="eyebrow-line" style={{ color: 'var(--ink-soft)' }}>
+                      An address
+                    </span>
+                    <h2 style={{ marginTop: 28 }}>7920<br/>Byron<br/>Avenue.</h2>
+                  </div>
+                  <p>
+                    Four duplex residences. Two blocks from the Atlantic.
+                    A short walk from a top-rated school and a park.
+                  </p>
+                </div>
+                <Swipe style={{ color: 'var(--ink-soft)' }}>↑ Keep going</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* A4 — What's nearby (list) */}
+            <DCArtboard id="ca-4" label="04 · Within a walk" width={1080} height={1920}>
+              <div className="car list cream">
+                <CarBg id="ca-4-img" placeholder="Optional backdrop" />
+                <CarChrome n={4} total={5} />
+                <div className="list-wrap">
+                  <div style={{ marginTop: 60 }}>
+                    <span className="eyebrow-line" style={{ color: 'var(--ink-soft)', marginBottom: 28 }}>
+                      Within a short walk
+                    </span>
+                    <h2 style={{ marginTop: 28 }}>A quiet block,<br/>close to most things.</h2>
+                  </div>
+                  <div className="rows">
+                    <div className="row"><span className="k">Biscayne Beach Elementary</span><span className="v">0.3 mi</span></div>
+                    <div className="row"><span className="k">Tatum Park</span><span className="v">Adjacent</span></div>
+                    <div className="row"><span className="k">Oceanside Park &amp; Beach</span><span className="v">2 blocks</span></div>
+                    <div className="row"><span className="k">Bal Harbour Shops</span><span className="v">5 min</span></div>
+                    <div className="row"><span className="k">South Beach</span><span className="v">15–20 min</span></div>
+                  </div>
+                </div>
+                <Swipe style={{ color: 'var(--ink-soft)' }}>↑ Last one</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* A5 — CTA */}
+            <DCArtboard id="ca-5" label="05 · Visit" width={1080} height={1920}>
+              <div className="car cta dark">
+                <CarBg id="ca-5-img" placeholder="Optional backdrop" />
+                <CarChrome n={5} total={5} />
+                <div className="cta-wrap">
+                  <div style={{ marginTop: 80 }}>
+                    <span className="eyebrow-line" style={{ color: 'rgba(247,240,223,.7)' }}>
+                      Now reserving
+                    </span>
+                    <h2 style={{ color: 'var(--cream)', marginTop: 26 }}>
+                      Come stand<br/>on the corner<br/>with us.
+                    </h2>
+                  </div>
+                  <div>
+                    <div className="pill">
+                      Book a private visit
+                      <span className="arrow" />
+                    </div>
+                    <div className="url" style={{ marginTop: 28, color: 'rgba(247,240,223,.78)' }}>
+                      loenlullaby.com
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+          </DCSection>
+
+          {/* ════════════════════════════════════════════════════════════════
+              CAROUSEL B — Four Duplexes, By the Numbers (5 slides)
+              Pillar 3 — "Space that lives differently". Product specs.
+          ════════════════════════════════════════════════════════════════ */}
+          <DCSection
+            id="carousel-b"
+            title="Carousel B · By the Numbers"
+            subtitle="5 slides · 1080 × 1920 · product specs as a swipe series"
+          >
+            {/* B1 — Cover */}
+            <DCArtboard id="cb-1" label="01 · Cover" width={1080} height={1920}>
+              <div className="car dark">
+                <Slot id="cb-1-img" placeholder="Interior — terrace at golden hour" className="slot slot-full" />
+                <div className="veil-auto" />
+                <UploadHint />
+                <CarChrome n={1} total={5} />
+                <div className="body" style={{ color: 'var(--cream)' }}>
+                  <span className="eyebrow-line" style={{ color: 'rgba(247,240,223,.85)' }}>
+                    The building
+                  </span>
+                  <h1 className="title md" style={{ color: 'var(--cream)', marginTop: 26 }}>
+                    Loen Lullaby,<br/>by the numbers.
+                  </h1>
+                  <div className="sub">A small project, told in five figures.</div>
+                </div>
+                <Swipe>↑ Swipe</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* B2 — 04 residences */}
+            <DCArtboard id="cb-2" label="02 · 04 residences" width={1080} height={1920}>
+              <div className="car stat sand">
+                <CarBg id="cb-2-img" placeholder="Optional backdrop" />
+                <CarChrome n={2} total={5} />
+                <div className="stat-wrap">
+                  <div style={{ marginTop: 60 }}>
+                    <div className="label">Residences</div>
+                    <div className="big-num">04</div>
+                  </div>
+                  <div className="cap">
+                    Four duplex apartments. No tower, no lobby line —
+                    a small building that knows its neighbours.
+                  </div>
+                </div>
+                <Swipe style={{ color: 'var(--ink-soft)' }}>↑ Keep going</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* B3 — 181 m² */}
+            <DCArtboard id="cb-3" label="03 · 181 m²" width={1080} height={1920}>
+              <div className="car stat cream">
+                <CarBg id="cb-3-img" placeholder="Optional backdrop" />
+                <CarChrome n={3} total={5} />
+                <div className="stat-wrap">
+                  <div style={{ marginTop: 60 }}>
+                    <div className="label">Per residence · 1,950 sq ft</div>
+                    <div className="big-num small">181 m²</div>
+                  </div>
+                  <div className="cap">
+                    Three bedrooms, kitchen, living, dining —
+                    plus 62.5 m² of front, rear and rooftop terraces.
+                  </div>
+                </div>
+                <Swipe style={{ color: 'var(--ink-soft)' }}>↑ Keep going</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* B4 — 34% outdoor */}
+            <DCArtboard id="cb-4" label="04 · 34% outdoor" width={1080} height={1920}>
+              <div className="car stat sand">
+                <CarBg id="cb-4-img" placeholder="Optional backdrop" />
+                <CarChrome n={4} total={5} />
+                <div className="stat-wrap">
+                  <div style={{ marginTop: 60 }}>
+                    <div className="label">Outdoor living</div>
+                    <div className="big-num">34%</div>
+                  </div>
+                  <div className="cap">
+                    Of every residence is terrace and solarium —
+                    a ratio unmatched in North Beach new construction.
+                  </div>
+                </div>
+                <Swipe style={{ color: 'var(--ink-soft)' }}>↑ Last one</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* B5 — CTA */}
+            <DCArtboard id="cb-5" label="05 · Inquire" width={1080} height={1920}>
+              <div className="car cta dark">
+                <CarBg id="cb-5-img" placeholder="Optional backdrop" />
+                <CarChrome n={5} total={5} />
+                <div className="cta-wrap">
+                  <div style={{ marginTop: 80 }}>
+                    <span className="eyebrow-line" style={{ color: 'rgba(247,240,223,.7)' }}>
+                      Reservations open
+                    </span>
+                    <h2 style={{ color: 'var(--cream)', marginTop: 26 }}>
+                      Plans, pricing,<br/>private visits.
+                    </h2>
+                    <div className="sub" style={{ color: 'rgba(247,240,223,.78)' }}>
+                      Investor materials available on request.
+                    </div>
+                  </div>
+                  <div>
+                    <div className="pill">
+                      Request the brochure
+                      <span className="arrow" />
+                    </div>
+                    <div className="url" style={{ marginTop: 28, color: 'rgba(247,240,223,.78)' }}>
+                      sales@loenlullaby.com
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+          </DCSection>
+
+          {/* ════════════════════════════════════════════════════════════════
+              CAROUSEL C — Before the Wave (4 slides)
+              Pillar 2 narrative — pre-gentrification thesis, market data.
+          ════════════════════════════════════════════════════════════════ */}
+          <DCSection
+            id="carousel-c"
+            title="Carousel C · Before the Wave"
+            subtitle="4 slides · 1080 × 1920 · market thesis from the intel brief"
+          >
+            {/* C1 — Cover */}
+            <DCArtboard id="cc-1" label="01 · Cover" width={1080} height={1920}>
+              <div className="car dark">
+                <Slot id="cc-1-img" placeholder="Aerial · North Beach coastline" className="slot slot-full" />
+                <div className="veil-auto" />
+                <UploadHint />
+                <CarChrome n={1} total={4} />
+                <div className="body" style={{ color: 'var(--cream)' }}>
+                  <span className="eyebrow-line" style={{ color: 'rgba(247,240,223,.85)' }}>
+                    A short series on timing
+                  </span>
+                  <h1 className="title md" style={{ color: 'var(--cream)', marginTop: 26 }}>
+                    Before<br/>the wave<br/>crests.
+                  </h1>
+                </div>
+                <Swipe>↑ Swipe</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* C2 — Market momentum stats */}
+            <DCArtboard id="cc-2" label="02 · The numbers" width={1080} height={1920}>
+              <div className="car list cream">
+                <CarBg id="cc-2-img" placeholder="Optional backdrop" />
+                <CarChrome n={2} total={4} />
+                <div className="list-wrap">
+                  <div style={{ marginTop: 60 }}>
+                    <span className="eyebrow-line" style={{ color: 'var(--ink-soft)' }}>
+                      Market momentum · North Beach · Q4 2025
+                    </span>
+                    <h2 style={{ marginTop: 24, fontSize: 124 }}>
+                      The data<br/>says now.
+                    </h2>
+                  </div>
+                  <div className="rows">
+                    <div className="row">
+                      <span className="k" style={{ fontSize: 40 }}>Avg price / SF</span>
+                      <span className="v" style={{ color: 'var(--accent)', fontSize: 22 }}>$858 · +25.3% YoY</span>
+                    </div>
+                    <div className="row">
+                      <span className="k" style={{ fontSize: 40 }}>Luxury price / SF</span>
+                      <span className="v" style={{ color: 'var(--accent)', fontSize: 22 }}>$1,165 · +27% YoY</span>
+                    </div>
+                    <div className="row">
+                      <span className="k" style={{ fontSize: 40 }}>Luxury sales</span>
+                      <span className="v" style={{ color: 'var(--accent)', fontSize: 22 }}>+50% YoY</span>
+                    </div>
+                    <div className="row">
+                      <span className="k" style={{ fontSize: 40 }}>Development pipeline</span>
+                      <span className="v" style={{ color: 'var(--accent)', fontSize: 22 }}>$2B+ · 1 mi radius</span>
+                    </div>
+                  </div>
+                </div>
+                <Swipe style={{ color: 'var(--ink-soft)' }}>↑ Keep going</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* C3 — Timeline */}
+            <DCArtboard id="cc-3" label="03 · The pattern" width={1080} height={1920}>
+              <div className="car timeline sand">
+                <CarBg id="cc-3-img" placeholder="Optional backdrop" />
+                <CarChrome n={3} total={4} />
+                <div className="tl-wrap">
+                  <div style={{ marginTop: 60 }}>
+                    <span className="eyebrow-line" style={{ color: 'var(--ink-soft)' }}>
+                      Every Miami address had a window
+                    </span>
+                    <h2 style={{ marginTop: 24 }}>South.<br/>Mid.<br/>North.</h2>
+                  </div>
+                  <div className="tl">
+                    <div className="item">
+                      <div className="yr">2005</div>
+                      <div className="place">
+                        South of Fifth
+                        <small>Before the world arrived.</small>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <div className="yr">2015</div>
+                      <div className="place">
+                        Mid-Beach
+                        <small>Before the towers crested.</small>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <div className="yr">Now</div>
+                      <div className="place">
+                        North Beach
+                        <small>$2B+ breaking ground inside a mile.</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <Swipe style={{ color: 'var(--ink-soft)' }}>↑ Last one</Swipe>
+              </div>
+            </DCArtboard>
+
+            {/* C4 — CTA */}
+            <DCArtboard id="cc-4" label="04 · Entry" width={1080} height={1920}>
+              <div className="car cta dark">
+                <CarBg id="cc-4-img" placeholder="Optional backdrop" />
+                <CarChrome n={4} total={4} />
+                <div className="cta-wrap">
+                  <div style={{ marginTop: 80 }}>
+                    <span className="eyebrow-line" style={{ color: 'rgba(247,240,223,.7)' }}>
+                      An entry, not a gamble
+                    </span>
+                    <h2 style={{ color: 'var(--cream)', marginTop: 26 }}>
+                      Reading<br/>the map<br/>correctly.
+                    </h2>
+                    <div className="sub" style={{ color: 'rgba(247,240,223,.78)' }}>
+                      Four duplex residences on Byron Avenue.
+                      Reservations open today.
+                    </div>
+                  </div>
+                  <div>
+                    <div className="pill">
+                      See the brief
+                      <span className="arrow" />
+                    </div>
+                    <div className="url" style={{ marginTop: 28, color: 'rgba(247,240,223,.78)' }}>
+                      loenlullaby.com
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+          </DCSection>
+
+          {/* ════════════════════════════════════════════════════════════════
+              VIDEO · 9:16 vertical
+          ════════════════════════════════════════════════════════════════ */}
+          <DCSection
+            id="video-9x16"
+            title="Video · 1080 × 1920 (9:16)"
+            subtitle="Reels, Stories, TikTok. Drop a clip to preview with the brand chrome."
+          >
+            <DCArtboard id="vid-vertical" label="Vertical · 9:16" width={1080} height={1920}>
+              <div className="vid-9x16">
+                <VideoSlot id="vid-9x16-src" label="Drop a vertical clip" />
+                <div className="vid-chrome">
+                  <span>LOEN&nbsp;LULLABY</span>
+                  <span className="dot">NOW PLAYING</span>
+                </div>
+                <div className="vid-band">
+                  <h1>A morning,<br/>slowly.</h1>
+                  <div className="sub">
+                    Loen Lullaby · 7920 Byron Avenue, Miami Beach.
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+          </DCSection>
+
+          {/* ════════════════════════════════════════════════════════════════
+              VIDEO · 16:9 horizontal
+          ════════════════════════════════════════════════════════════════ */}
+          <DCSection
+            id="video-16x9"
+            title="Video · 1920 × 1080 (16:9)"
+            subtitle="YouTube, landing pages, sales-deck loops."
+          >
+            <DCArtboard id="vid-horizontal" label="Horizontal · 16:9" width={1920} height={1080}>
+              <div className="vid-16x9">
+                <VideoSlot id="vid-16x9-src" label="Drop a landscape clip" />
+                <div className="vid-chrome">
+                  <span>LOEN&nbsp;LULLABY · NORTH BEACH</span>
+                  <span className="dot">FILM · 16:9</span>
+                </div>
+                <div className="vid-band">
+                  <h1>The building, imagined.</h1>
+                  <div className="sub">
+                    Four duplex residences on Byron Avenue, two blocks
+                    from the Atlantic.
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

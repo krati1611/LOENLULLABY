@@ -872,6 +872,33 @@ function LLFooter() {
             Designed at the edge of the Atlantic
           </div>
         </div>
+
+        <div style={{
+          marginTop: 36, paddingTop: 24,
+          borderTop: '1px solid rgba(247,240,223,.12)',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          gap: 24, flexWrap: 'wrap',
+        }}>
+          <div className="mono" style={{ opacity: .55, letterSpacing: '.18em' }}>
+            For the press &amp; marketing team
+          </div>
+          <a
+            href="Social Templates.html"
+            className="mono"
+            style={{
+              color: 'var(--cream)',
+              borderBottom: '1px solid var(--accent)',
+              paddingBottom: 2,
+              letterSpacing: '.18em',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+            }}
+          >
+            Social Templates
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
     </footer>
   );

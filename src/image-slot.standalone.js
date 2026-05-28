@@ -74,8 +74,8 @@
 
   function load() {
     if (loadP) return loadP;
-    loadP = fetch(STATE_FILE)
-      .then((r) => (r.ok ? r.json() : null))
+    const fetchP = window.__IMAGE_SLOTS_STATE ? Promise.resolve(window.__IMAGE_SLOTS_STATE) : fetch(STATE_FILE).then((r) => (r.ok ? r.json() : null));
+    loadP = fetchP
       .then((j) => {
         // Merge: sidecar loses to any in-memory change that raced ahead of
         // the fetch (drop or clear) so neither is clobbered by hydration.

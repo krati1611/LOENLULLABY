@@ -12,7 +12,7 @@ function probeVideo(url) {
     v.onloadedmetadata = () => done(true);
     v.onerror = () => done(false);
     v.src = url;
-    setTimeout(() => done(false), 2500);
+    setTimeout(() => done(false), 10000);
   });
 }
 

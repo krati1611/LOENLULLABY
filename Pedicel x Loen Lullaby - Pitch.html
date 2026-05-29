@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pedicel × Loen Lullaby — Presentation</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --sand:        #EFE6D3;
+    --sand-deep:   #E3D7BD;
+    --cream:       #F7F0DF;
+    --ink:         #1E2528;
+    --ink-2:       #232B2F;
+    --ink-soft:    #3A4144;
+    --accent:      #C97A4B;
+    --accent-deep: #A55E33;
+    --water:       #2F6B73;
+    --rule:        rgba(30,37,40,.14);
+    --rule-d:      rgba(247,240,223,.16);
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; background:#0E1416; }
+
+  deck-stage:not(:defined){ visibility:hidden; }
+  deck-stage{
+    font-family:'DM Sans',ui-sans-serif,system-ui,sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  /* ── Type atoms ──────────────────────────────────────────────────── */
+  .d{ font-family:'Italiana',serif; font-weight:400; letter-spacing:-.008em; }
+  .m{ font-family:'JetBrains Mono',ui-monospace,monospace; letter-spacing:.2em; text-transform:uppercase; }
+
+  /* Each slide gets a padded inner frame. The component sizes <section>. */
+  .pad{ position:absolute; inset:0; padding:96px 110px; display:flex; flex-direction:column; }
+
+  .bg-ink{ background:var(--ink); color:var(--cream); }
+  .bg-ink2{ background:var(--ink-2); color:var(--cream); }
+  .bg-sand{ background:var(--sand); color:var(--ink); }
+  .bg-cream{ background:var(--cream); color:var(--ink); }
+
+  /* Eyebrow */
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:16px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    letter-spacing:.2em; text-transform:uppercase; font-size:15px;
+    color:var(--accent);
+  }
+  .eyebrow::before{
+    content:""; width:42px; height:1px; background:currentColor; opacity:.7;
+  }
+  .bg-sand .eyebrow, .bg-cream .eyebrow{ color:var(--accent-deep); }
+
+  /* Running header / footer */
+  .runner{
+    position:absolute; left:110px; right:110px; z-index:5;
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:13px; letter-spacing:.2em; text-transform:uppercase;
+  }
+  .runner.top{ top:54px; }
+  .runner.bot{ bottom:54px; }
+  .runner .l{ opacity:.62; }
+  .runner .r{ opacity:.42; }
+
+  h1.title{ font-size:118px; line-height:.94; margin:0; }
+  h2.head{ font-size:84px; line-height:.98; margin:0; }
+  h3.sub{ font-size:46px; line-height:1.02; margin:0; }
+  .lede{ font-size:25px; line-height:1.5; font-weight:300; }
+  .bg-ink .lede, .bg-ink2 .lede{ color:rgba(247,240,223,.9); }
+  .bg-sand .lede, .bg-cream .lede{ color:var(--ink-soft); }
+
+  .accent{ color:var(--accent); }
+  .bg-sand .accent, .bg-cream .accent{ color:var(--accent-deep); }
+
+  /* ── Cover ───────────────────────────────────────────────────────── */
+  .cover-mark{
+    display:flex; align-items:center; gap:18px;
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:16px; letter-spacing:.24em; text-transform:uppercase;
+  }
+  .cover-mark .x{ color:var(--accent); }
+  .cover-glow{
+    position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(120% 80% at 84% 18%, rgba(201,122,75,.20) 0%, rgba(201,122,75,0) 46%),
+      radial-gradient(90% 70% at 10% 96%, rgba(47,107,115,.18) 0%, rgba(47,107,115,0) 50%);
+  }
+
+  /* ── Big numeral divider ─────────────────────────────────────────── */
+  .divnum{ font-family:'Italiana',serif; font-size:300px; line-height:.8; color:var(--accent); }
+
+  /* ── Browser chrome ──────────────────────────────────────────────── */
+  .browser{
+    border-radius:14px; overflow:hidden; background:#fff;
+    box-shadow:0 50px 90px -40px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06);
+    display:flex; flex-direction:column;
+  }
+  .browser .bar{
+    height:46px; flex:0 0 46px; background:#E9E2D1; display:flex; align-items:center;
+    gap:9px; padding:0 18px; border-bottom:1px solid rgba(30,37,40,.10);
+  }
+  .browser .bar i{ width:12px; height:12px; border-radius:50%; background:#C9BFA8; display:inline-block; }
+  .browser .bar .url{
+    margin-left:18px; flex:1; height:26px; border-radius:7px; background:#F4EEDF;
+    display:flex; align-items:center; padding:0 14px;
+    font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12px; letter-spacing:.08em;
+    color:var(--ink-soft);
+  }
+  .browser .vp{ position:relative; flex:1; overflow:hidden; background:var(--ink); }
+
+  /* Faithful hero recreation */
+  .site-hero{ position:absolute; inset:0; }
+  .site-hero img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .site-hero .scrim{
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(30,37,40,.34) 0%, rgba(30,37,40,0) 30%, rgba(30,37,40,0) 52%, rgba(30,37,40,.62) 100%);
+  }
+  .site-hero .nav{
+    position:absolute; top:30px; left:38px; right:38px; display:flex;
+    align-items:center; justify-content:space-between; color:var(--cream);
+    font-family:'JetBrains Mono',ui-monospace,monospace; font-size:13px; letter-spacing:.2em; text-transform:uppercase;
+  }
+  .site-hero .nav .btn{
+    border:1px solid rgba(247,240,223,.5); border-radius:999px; padding:9px 18px;
+    display:inline-flex; align-items:center; gap:9px;
+  }
+  .site-hero .nav .btn .dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); }
+  .site-hero .wrap{ position:absolute; left:48px; right:48px; bottom:54px; color:var(--cream); }
+  .site-hero .wm{ font-family:'Italiana',serif; font-size:128px; line-height:.86; margin:0; }
+  .site-hero .wm-sub{ margin-top:20px; font-size:21px; max-width:560px; line-height:1.45; color:rgba(247,240,223,.92); }
+
+  /* Framed screenshot panels */
+  .panel{
+    border-radius:10px; overflow:hidden; position:relative;
+    box-shadow:0 30px 60px -30px rgba(0,0,0,.5); background:var(--cream);
+  }
+  .panel img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .panel .cap{
+    position:absolute; left:0; right:0; bottom:0; padding:18px 20px 16px;
+    background:linear-gradient(180deg, rgba(30,37,40,0), rgba(30,37,40,.86));
+    color:var(--cream);
+    font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  }
+
+  /* Stat list */
+  .statrow{ display:flex; gap:64px; }
+  .stat .k{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12.5px; letter-spacing:.18em; text-transform:uppercase; opacity:.66; margin-bottom:14px; }
+  .stat .v{ font-family:'Italiana',serif; font-size:74px; line-height:.92; color:var(--accent); }
+  .bg-sand .stat .v, .bg-cream .stat .v{ color:var(--accent-deep); }
+  .stat .vsub{ font-size:13.5px; margin-top:10px; opacity:.7; max-width:200px; line-height:1.45; }
+
+  /* ── Social mockups ──────────────────────────────────────────────── */
+  .mock-square{ width:330px; height:330px; position:relative; overflow:hidden; border-radius:6px; background:var(--ink);
+    box-shadow:0 34px 60px -28px rgba(0,0,0,.55); }
+  .mock-vert{ width:208px; height:370px; position:relative; overflow:hidden; border-radius:6px; background:var(--ink);
+    box-shadow:0 34px 60px -28px rgba(0,0,0,.55); }
+  .mock-square img, .mock-vert img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .mock-scrim{ position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(30,37,40,.34) 0%, rgba(30,37,40,0) 32%, rgba(30,37,40,0) 50%, rgba(30,37,40,.84) 100%); }
+  .mock-top{ position:absolute; top:16px; left:18px; right:18px; display:flex; justify-content:space-between;
+    color:var(--cream); font-family:'JetBrains Mono',ui-monospace,monospace; font-size:8.5px; letter-spacing:.16em; text-transform:uppercase; }
+  .mock-bot{ position:absolute; left:18px; right:18px; bottom:18px; color:var(--cream); }
+  .mock-bot .mt{ font-family:'Italiana',serif; line-height:.92; }
+  .mock-square .mt{ font-size:42px; }
+  .mock-vert .mt{ font-size:30px; }
+  .mock-bot .ms{ margin-top:8px; font-size:10px; opacity:.85; line-height:1.4; }
+  .mock-flat{ /* solid color slide, no image */ }
+  .mock-dots{ display:inline-flex; gap:4px; align-items:center; }
+  .mock-dots i{ width:4px; height:4px; border-radius:50%; background:currentColor; opacity:.4; }
+  .mock-dots i.on{ opacity:1; }
+
+  /* Video mock */
+  .vmock{ position:relative; border-radius:8px; overflow:hidden; background:var(--ink);
+    box-shadow:0 36px 66px -30px rgba(0,0,0,.6); }
+  .vmock img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .vmock .vscrim{ position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(30,37,40,.4) 0%, rgba(30,37,40,0) 34%, rgba(30,37,40,0) 56%, rgba(30,37,40,.82) 100%); }
+  .vmock .play{ position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:64px; height:64px; border-radius:50%; border:1.5px solid rgba(247,240,223,.85);
+    display:flex; align-items:center; justify-content:center; color:var(--cream); }
+  .vmock .play::after{ content:""; border-left:16px solid currentColor; border-top:10px solid transparent; border-bottom:10px solid transparent; margin-left:4px; }
+  .vmock .vtop{ position:absolute; top:18px; left:20px; right:20px; display:flex; justify-content:space-between;
+    color:var(--cream); font-family:'JetBrains Mono',ui-monospace,monospace; font-size:10px; letter-spacing:.16em; text-transform:uppercase; }
+  .vmock .vbot{ position:absolute; left:20px; right:20px; bottom:18px; color:var(--cream);
+    font-family:'Italiana',serif; line-height:.95; }
+
+  /* ── Service / list cards ────────────────────────────────────────── */
+  .grid-svc{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); }
+  .bg-ink .grid-svc, .bg-ink2 .grid-svc{ background:var(--rule-d); border-color:var(--rule-d); }
+  .svc{ background:var(--cream); padding:38px 34px; display:flex; flex-direction:column; gap:14px; min-height:230px; }
+  .bg-ink .svc, .bg-ink2 .svc{ background:var(--ink); }
+  .svc .n{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:12px; letter-spacing:.2em; color:var(--accent); }
+  .svc .t{ font-family:'Italiana',serif; font-size:33px; line-height:1; }
+  .svc .d{ font-size:15px; line-height:1.5; opacity:.72; }
+  .svc.live{ position:relative; }
+  .svc .tag{ position:absolute; top:24px; right:24px; font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink);
+    background:var(--accent); border-radius:999px; padding:5px 10px; }
+
+  /* Residences list */
+  .resrow{ display:grid; grid-template-columns:48px 1fr auto; gap:20px; align-items:baseline;
+    padding:21px 0; border-top:1px solid var(--rule); }
+  .resrow .rn{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:13px; letter-spacing:.16em; color:var(--accent-deep); }
+  .resrow .rt{ font-family:'Italiana',serif; font-size:33px; line-height:1; }
+  .resrow .ra{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:13px; letter-spacing:.14em; color:var(--ink-soft); }
+
+  /* Roadmap */
+  .phase{ display:grid; grid-template-columns:200px 1fr; gap:40px; padding:34px 0; border-top:1px solid var(--rule); align-items:start; }
+  .bg-ink .phase, .bg-ink2 .phase{ border-color:var(--rule-d); }
+  .phase:last-child{ border-bottom:1px solid var(--rule); }
+  .bg-ink .phase:last-child, .bg-ink2 .phase:last-child{ border-bottom-color:var(--rule-d); }
+  .phase .ph{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:13px; letter-spacing:.18em; text-transform:uppercase; }
+  .phase .ph .st{ display:block; margin-top:10px; font-size:11px; color:var(--accent); }
+  .phase .pt{ font-family:'Italiana',serif; font-size:40px; line-height:1; margin:0 0 14px; }
+  .phase .pd{ font-size:16px; line-height:1.55; opacity:.74; max-width:780px; }
+  .phase.done .pt{ opacity:1; }
+  .phase.future .pt{ opacity:.9; }
+
+  .pills{ display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+  .pill{ font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase;
+    border:1px solid var(--rule); border-radius:999px; padding:7px 13px; opacity:.8; }
+  .bg-ink .pill, .bg-ink2 .pill{ border-color:var(--rule-d); }
+
+  /* CTA */
+  .cta-pill{ display:inline-flex; align-items:center; gap:14px; background:var(--accent); color:var(--ink);
+    border-radius:999px; padding:20px 30px; font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-size:15px; letter-spacing:.14em; text-transform:uppercase; }
+  .cta-pill .arr{ width:13px; height:13px; border-top:2px solid currentColor; border-right:2px solid currentColor; transform:rotate(45deg); }
+</style>
+</head>
+<body>
+<deck-stage width="1920" height="1080">
+
+  <!-- 01 — COVER -->
+  <section class="bg-ink" data-label="Cover">
+    <div class="cover-glow"></div>
+    <div class="runner top">
+      <span class="cover-mark"><span>PEDICEL</span><span class="x">×</span><span>LOEN&nbsp;LULLABY</span></span>
+      <span class="r">Client Presentation</span>
+    </div>
+    <div class="pad" style="justify-content:flex-end;">
+      <span class="eyebrow" style="margin-bottom:34px;">A digital launch partnership</span>
+      <h1 class="title d" style="max-width:1500px;">From a quiet address<br>to a <span class="accent">digital landmark</span>.</h1>
+      <p class="lede" style="margin:38px 0 0; max-width:880px;">
+        The website we built for Loen Lullaby — and the growth engine
+        Pedicel can build around it to take the project to market.
+      </p>
+    </div>
+    <div class="runner bot">
+      <span class="l">Prepared for the developer</span>
+      <span class="r">7920 Byron Avenue · North Beach · MMXXVI</span>
+    </div>
+  </section>
+
+  <!-- 02 — THE ASSIGNMENT -->
+  <section class="bg-sand" data-label="The assignment">
+    <div class="pad">
+      <span class="eyebrow">The assignment</span>
+      <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:90px; margin-top:46px; flex:1; align-items:center;">
+        <div>
+          <h2 class="head d">Four duplexes.<br>One narrow<br><span class="accent">window.</span></h2>
+          <p class="lede" style="margin:36px 0 0; max-width:560px;">
+            Loen Lullaby is four duplex residences on Byron Avenue, two blocks
+            from the Atlantic. North Beach is the last quiet coastal neighborhood
+            on Miami Beach — and more than two billion dollars is breaking ground
+            within a mile. The story sells itself. It just needed somewhere to live.
+          </p>
+        </div>
+        <div>
+          <div class="statrow" style="flex-wrap:wrap; gap:48px 64px;">
+            <div class="stat"><div class="k">Residences</div><div class="v">04</div><div class="vsub">Three-bed duplexes</div></div>
+            <div class="stat"><div class="k">To the ocean</div><div class="v">2&nbsp;blk</div><div class="vsub">A few minutes on foot</div></div>
+            <div class="stat"><div class="k">Pipeline · 1&nbsp;mi</div><div class="v">$2B+</div><div class="vsub">Breaking ground now</div></div>
+            <div class="stat"><div class="k">Groundbreaking</div><div class="v">Q1&nbsp;’26</div><div class="vsub">Reservations open</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 — DIVIDER 01 -->
+  <section class="bg-ink" data-label="01 — The website">
+    <div class="pad" style="justify-content:center;">
+      <div style="display:flex; align-items:center; gap:70px;">
+        <div class="divnum">01</div>
+        <div>
+          <span class="eyebrow">What we built</span>
+          <h2 class="head d" style="margin-top:24px;">A scroll that does<br>the selling.</h2>
+        </div>
+      </div>
+    </div>
+    <div class="runner bot"><span class="l">Pedicel × Loen Lullaby</span><span class="r">The website</span></div>
+  </section>
+
+  <!-- 04 — THE WEBSITE (hero recreation) -->
+  <section class="bg-ink2" data-label="loenlullaby.com">
+    <div class="pad" style="padding:84px 110px;">
+      <div style="display:grid; grid-template-columns:1fr 360px; gap:64px; flex:1; align-items:center;">
+        <div class="browser" style="height:840px;">
+          <div class="bar"><i></i><i></i><i></i><div class="url">loenlullaby.com</div></div>
+          <div class="vp">
+            <div class="site-hero">
+              <img src="deck-assets/hero-pleinair.webp" alt="">
+              <div class="scrim"></div>
+              <div class="nav">
+                <span>LOEN&nbsp;LULLABY</span>
+                <span class="btn"><span>Book a private visit</span><span class="dot"></span></span>
+              </div>
+              <div class="wrap">
+                <p class="m" style="font-size:13px; opacity:.85; margin:0 0 18px;">North Beach · Miami Beach · MMXXVI</p>
+                <h3 class="wm">Loen Lullaby</h3>
+                <p class="wm-sub">Four duplex residences on Byron Avenue, two blocks from the Atlantic — quietly Miami.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="eyebrow">The website</span>
+          <h3 class="sub d" style="margin-top:22px;">One cinematic<br>scroll.</h3>
+          <p class="lede" style="font-size:19px; margin-top:24px;">
+            A single, fast-loading page that opens on the architecture and
+            carries the buyer through renderings, plans, the neighborhood
+            and the market — straight to a private-visit request.
+          </p>
+          <div class="pills">
+            <span class="pill">Mobile-first</span>
+            <span class="pill">Sub-second load</span>
+            <span class="pill">100% on-brand</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 — THE EXPERIENCE (montage) -->
+  <section class="bg-cream" data-label="The experience">
+    <div class="pad">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:40px;">
+        <div>
+          <span class="eyebrow">The experience</span>
+          <h2 class="head d" style="margin-top:22px; font-size:72px;">Every section<br>earns the next scroll.</h2>
+        </div>
+        <p class="lede" style="max-width:420px; font-size:19px;">
+          Editorial pacing borrowed from print — image, story, proof, ask —
+          so the page reads like a brochure and converts like a funnel.
+        </p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:30px; flex:1; margin-top:50px; align-items:stretch;">
+        <div class="panel"><img src="deck-assets/render-r3.webp" alt=""><div class="cap">01 — The renderings</div></div>
+        <div class="panel"><img src="deck-assets/site-neighborhood.png" alt="" style="object-position:top;"><div class="cap">02 — The neighborhood story</div></div>
+        <div class="panel"><img src="deck-assets/site-visit.png" alt="" style="object-position:top;"><div class="cap">03 — The private-visit inquiry</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 — THE RESIDENCES / FLOOR PLANS -->
+  <section class="bg-cream" data-label="The residences">
+    <div class="pad">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:40px;">
+        <div>
+          <span class="eyebrow">The residences</span>
+          <h2 class="head d" style="margin-top:22px; font-size:68px;">Four ways<br>to live here.</h2>
+        </div>
+        <p class="lede" style="max-width:430px; font-size:18px; padding-top:10px;">
+          Four duplex homes, each ≈ 181 m² — 118 m² of interior living plus
+          62 m² of front, rear and rooftop terraces. Two parking spaces apiece.
+        </p>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1.08fr; gap:60px; flex:1; margin-top:34px; align-items:center;">
+        <!-- residences list -->
+        <div style="border-bottom:1px solid var(--rule);">
+          <div class="resrow"><span class="rn">01</span><span class="rt">Residence 01</span><span class="ra">Type A · 181.2 m²</span></div>
+          <div class="resrow"><span class="rn">02</span><span class="rt">Residence 02</span><span class="ra">Type A reverse · 181.2 m²</span></div>
+          <div class="resrow"><span class="rn">03</span><span class="rt">Residence 03</span><span class="ra">Type A · 181.2 m²</span></div>
+          <div class="resrow"><span class="rn">04</span><span class="rt">Residence 04</span><span class="ra">Type A reverse · 181.2 m²</span></div>
+          <div style="display:flex; gap:54px; margin-top:28px;">
+            <div class="stat"><div class="k">Layout</div><div style="font-size:21px; margin-top:4px;">3 BR · 3 BA · 2 parking</div></div>
+            <div class="stat"><div class="k">Living</div><div style="font-size:21px; margin-top:4px;">118 m² + 62 m² terraces</div></div>
+          </div>
+        </div>
+        <!-- plan -->
+        <div style="background:#fff; border:1px solid var(--rule); border-radius:10px; overflow:hidden; box-shadow:0 30px 60px -34px rgba(0,0,0,.4);">
+          <img src="deck-assets/plan-A.webp" alt="Plan A — second floor mezzanine" style="display:block; width:100%; height:auto;">
+          <div style="display:flex; justify-content:space-between; padding:15px 22px; border-top:1px solid var(--rule);">
+            <span class="m" style="font-size:12px; color:var(--ink-soft);">Plan A · 181.2 m²</span>
+            <span class="m" style="font-size:12px; color:var(--accent-deep);">Interactive on the site</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 — MARKET BUILT-IN -->
+  <section class="bg-ink" data-label="Market built-in">
+    <div class="pad">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; flex:1; align-items:center;">
+        <div>
+          <span class="eyebrow">Positioning, not decoration</span>
+          <h2 class="head d" style="margin-top:24px; font-size:72px;">We built the market<br>case into the page.</h2>
+          <p class="lede" style="margin-top:30px; max-width:560px;">
+            The site doesn't just show space — it argues timing. We pulled live
+            North Beach data straight into the scroll, so a buyer sees the
+            momentum before they see the price.
+          </p>
+          <div class="statrow" style="margin-top:48px; flex-wrap:wrap; gap:40px 60px;">
+            <div class="stat"><div class="k">Avg price / SF</div><div class="v">$858</div><div class="vsub">+25.3% YoY</div></div>
+            <div class="stat"><div class="k">Luxury / SF</div><div class="v">$1,165</div><div class="vsub">+27% YoY</div></div>
+            <div class="stat"><div class="k">Luxury sales</div><div class="v">+50%</div><div class="vsub">Year over year</div></div>
+          </div>
+        </div>
+        <div class="panel" style="height:760px;"><img src="deck-assets/site-investor.png" alt="" style="object-position:top;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 — DIVIDER 02 -->
+  <section class="bg-ink" data-label="02 — The ecosystem">
+    <div class="cover-glow"></div>
+    <div class="pad" style="justify-content:center;">
+      <div style="display:flex; align-items:center; gap:70px;">
+        <div class="divnum">02</div>
+        <div>
+          <span class="eyebrow">Where Pedicel comes in</span>
+          <h2 class="head d" style="margin-top:24px;">A website is the<br>beginning — not<br>the deliverable.</h2>
+        </div>
+      </div>
+    </div>
+    <div class="runner bot"><span class="l">Pedicel × Loen Lullaby</span><span class="r">The ecosystem</span></div>
+  </section>
+
+  <!-- 08 — SOCIAL SYSTEM -->
+  <section class="bg-sand" data-label="Social system">
+    <div class="pad">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:40px;">
+        <div>
+          <span class="eyebrow">The social system</span>
+          <h2 class="head d" style="margin-top:22px; font-size:72px;">On-brand in minutes,<br>not days.</h2>
+        </div>
+        <p class="lede" style="max-width:440px; font-size:19px;">
+          A template kit locked to Loen Lullaby's type and palette — square
+          posts, 4:5 portraits, 9:16 stories and multi-slide carousels.
+          Drop in a render, publish.
+        </p>
+      </div>
+      <div style="display:flex; gap:34px; flex:1; margin-top:46px; align-items:center; justify-content:center;">
+        <!-- Square post -->
+        <div class="mock-square">
+          <img src="deck-assets/render-r1.webp" alt="">
+          <div class="mock-scrim"></div>
+          <div class="mock-top"><span>LOEN&nbsp;LULLABY</span><span>MMXXVI</span></div>
+          <div class="mock-bot"><div class="mt">Quietly<br>Miami.</div><div class="ms">Four duplex residences · North Beach</div></div>
+        </div>
+        <!-- Carousel: 3 vertical slides -->
+        <div style="display:flex; gap:14px;">
+          <div class="mock-vert">
+            <img src="deck-assets/render-r2.webp" alt="">
+            <div class="mock-scrim"></div>
+            <div class="mock-top"><span>LOEN&nbsp;LULLABY</span><span class="mock-dots"><i class="on"></i><i></i><i></i></span></div>
+            <div class="mock-bot"><div class="mt">The last<br>quiet place.</div></div>
+          </div>
+          <div class="mock-vert bg-cream mock-flat" style="background:var(--cream);">
+            <div class="mock-top" style="color:var(--ink-soft);"><span>LOEN&nbsp;LULLABY</span><span class="mock-dots" style="color:var(--ink-soft);"><i></i><i class="on"></i><i></i></span></div>
+            <div class="mock-bot" style="color:var(--ink);">
+              <div class="m" style="font-size:8px; color:var(--accent-deep); letter-spacing:.16em;">Within a short walk</div>
+              <div class="mt" style="margin-top:8px;">A quiet block,<br>close to most<br>things.</div>
+            </div>
+          </div>
+          <div class="mock-vert">
+            <img src="deck-assets/render-r5.webp" alt="">
+            <div class="mock-scrim"></div>
+            <div class="mock-top"><span>LOEN&nbsp;LULLABY</span><span class="mock-dots"><i></i><i></i><i class="on"></i></span></div>
+            <div class="mock-bot"><div class="mt">Come stand<br>on the corner<br>with us.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="m" style="font-size:12px; opacity:.55; text-align:center; margin-top:8px;">Square 1080² · Portrait 1080×1350 · Story 1080×1920 · 14 ready-made carousel slides</div>
+    </div>
+  </section>
+
+  <!-- 09 — VIDEO -->
+  <section class="bg-ink2" data-label="Motion">
+    <div class="pad">
+      <div style="display:grid; grid-template-columns:1fr 1.25fr; gap:70px; flex:1; align-items:center;">
+        <div>
+          <span class="eyebrow">Motion</span>
+          <h2 class="head d" style="margin-top:22px; font-size:72px;">Built for Reels,<br>Stories &amp; the<br>sales floor.</h2>
+          <p class="lede" style="margin-top:28px; max-width:520px;">
+            Branded video frames in 9:16 and 16:9 — chrome, lower-thirds and
+            type already set. Drop a walkthrough clip and it's ready for
+            social, the website, or a loop in the sales gallery.
+          </p>
+          <div class="pills">
+            <span class="pill">9:16 vertical</span>
+            <span class="pill">16:9 landscape</span>
+            <span class="pill">Auto-captioned</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:28px; align-items:center; justify-content:center;">
+          <div class="vmock" style="width:248px; height:440px;">
+            <img src="deck-assets/render-r2.webp" alt="">
+            <div class="vscrim"></div>
+            <div class="play"></div>
+            <div class="vtop"><span>LOEN&nbsp;LULLABY</span><span>● NOW PLAYING</span></div>
+            <div class="vbot" style="font-size:34px;">A morning,<br>slowly.</div>
+          </div>
+          <div class="vmock" style="width:430px; height:242px;">
+            <img src="deck-assets/render-r3.webp" alt="">
+            <div class="vscrim"></div>
+            <div class="play"></div>
+            <div class="vtop"><span>LOEN&nbsp;LULLABY · NORTH BEACH</span><span>FILM · 16:9</span></div>
+            <div class="vbot" style="font-size:32px;">The building, imagined.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 — SERVICES GRID -->
+  <section class="bg-cream" data-label="What Pedicel builds">
+    <div class="pad">
+      <span class="eyebrow">The full growth stack</span>
+      <h2 class="head d" style="margin-top:20px; font-size:64px;">Everything around the listing.</h2>
+      <div class="grid-svc" style="margin-top:42px; flex:1;">
+        <div class="svc live"><span class="tag">Live</span><div class="n">01</div><div class="t">Website &amp; brand kit</div><div class="d">The cinematic scroll, the design system, the social &amp; video template library — done.</div></div>
+        <div class="svc"><div class="n">02</div><div class="t">Paid acquisition</div><div class="d">Meta &amp; Google campaigns targeting qualified Miami buyers and relocating HNWIs.</div></div>
+        <div class="svc"><div class="n">03</div><div class="t">Lead capture &amp; CRM</div><div class="d">Every inquiry routed, scored and assigned to sales instantly — nothing slips.</div></div>
+        <div class="svc"><div class="n">04</div><div class="t">Email &amp; nurture</div><div class="d">Automated sequences that keep prospects warm from first click to signed reservation.</div></div>
+        <div class="svc"><div class="n">05</div><div class="t">Content engine</div><div class="d">A steady cadence of posts, carousels and films produced from one render drop.</div></div>
+        <div class="svc"><div class="n">06</div><div class="t">AI ops &amp; reporting</div><div class="d">Automations and a live dashboard that show what's working and where the pipeline stands.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 — PEDICEL DIFFERENCE -->
+  <section class="bg-ink" data-label="Why Pedicel">
+    <div class="cover-glow"></div>
+    <div class="pad">
+      <span class="eyebrow">Why Pedicel</span>
+      <h2 class="head d" style="margin-top:24px; max-width:1400px;">We don't just make assets.<br>We build the machine —<br>and let <span class="accent">AI run it</span>.</h2>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:54px; margin-top:auto;">
+        <div>
+          <div class="d accent" style="font-size:56px; line-height:1;">10×</div>
+          <div class="m" style="font-size:13px; margin:18px 0 12px;">AI-assisted production</div>
+          <p class="lede" style="font-size:17px;">More on-brand content, faster and cheaper — campaigns ship in hours, not weeks.</p>
+        </div>
+        <div>
+          <div class="d accent" style="font-size:56px; line-height:1;">0</div>
+          <div class="m" style="font-size:13px; margin:18px 0 12px;">Leads lost</div>
+          <p class="lede" style="font-size:17px;">Capture → CRM → nurture runs automatically, around the clock, while you sell.</p>
+        </div>
+        <div>
+          <div class="d accent" style="font-size:56px; line-height:1;">24/7</div>
+          <div class="m" style="font-size:13px; margin:18px 0 12px;">Always-on optimization</div>
+          <p class="lede" style="font-size:17px;">Spend follows the data — budget shifts to what converts, automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 — DIVIDER 03 -->
+  <section class="bg-ink" data-label="03 — The roadmap">
+    <div class="pad" style="justify-content:center;">
+      <div style="display:flex; align-items:center; gap:70px;">
+        <div class="divnum">03</div>
+        <div>
+          <span class="eyebrow">How we get there</span>
+          <h2 class="head d" style="margin-top:24px;">The roadmap<br>to sell-out.</h2>
+        </div>
+      </div>
+    </div>
+    <div class="runner bot"><span class="l">Pedicel × Loen Lullaby</span><span class="r">The roadmap</span></div>
+  </section>
+
+  <!-- 13 — ROADMAP PHASES -->
+  <section class="bg-sand" data-label="Roadmap">
+    <div class="pad">
+      <span class="eyebrow">Three phases</span>
+      <h2 class="head d" style="margin-top:18px; font-size:60px;">From live site to sold out.</h2>
+      <div style="margin-top:30px;">
+        <div class="phase done">
+          <div class="ph">Phase 01<span class="st">● Complete</span></div>
+          <div>
+            <h3 class="pt">Foundation</h3>
+            <p class="pd">The website, the brand system, and the full social &amp; video template library — everything needed to look like a landmark from day one.</p>
+            <div class="pills"><span class="pill">Website</span><span class="pill">Brand kit</span><span class="pill">Social templates</span><span class="pill">Video frames</span></div>
+          </div>
+        </div>
+        <div class="phase future">
+          <div class="ph">Phase 02<span class="st" style="color:var(--ink-soft);">Next · ~30 days</span></div>
+          <div>
+            <h3 class="pt">Launch engine</h3>
+            <p class="pd">Turn the site into a pipeline — paid social, lead capture into CRM, and automated email nurture that works every inquiry while the sales team sells.</p>
+            <div class="pills"><span class="pill">Paid social</span><span class="pill">Lead routing</span><span class="pill">CRM</span><span class="pill">Email flows</span></div>
+          </div>
+        </div>
+        <div class="phase future">
+          <div class="ph">Phase 03<span class="st" style="color:var(--ink-soft);">Scale</span></div>
+          <div>
+            <h3 class="pt">Scale &amp; automate</h3>
+            <p class="pd">An always-on content cadence, retargeting, and an AI reporting dashboard — the machine that carries Loen Lullaby to a confident sell-out.</p>
+            <div class="pills"><span class="pill">Content engine</span><span class="pill">Retargeting</span><span class="pill">AI reporting</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 — CLOSING CTA -->
+  <section class="bg-ink" data-label="Next step">
+    <div class="cover-glow"></div>
+    <div class="runner top">
+      <span class="cover-mark"><span>PEDICEL</span><span class="x">×</span><span>LOEN&nbsp;LULLABY</span></span>
+      <span class="r">Thank you</span>
+    </div>
+    <div class="pad" style="justify-content:center;">
+      <span class="eyebrow" style="margin-bottom:30px;">The next step</span>
+      <h2 class="d" style="font-size:104px; line-height:.96; margin:0; max-width:1500px;">Let's take Loen Lullaby<br>to market.</h2>
+      <p class="lede" style="margin:36px 0 50px; max-width:820px;">
+        Phase 1 is live. Approve Phase 2 and Pedicel will stand up the
+        full launch engine — paid, capture, CRM and nurture — within the month.
+      </p>
+      <div style="display:flex; align-items:center; gap:30px;">
+        <span class="cta-pill">Start Phase 2<span class="arr"></span></span>
+        <span class="m" style="font-size:14px; opacity:.7;">hello@pedicel.co</span>
+      </div>
+    </div>
+    <div class="runner bot"><span class="l">Pedicel Marketing</span><span class="r">Growth, automated.</span></div>
+  </section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+</body>
+</html>

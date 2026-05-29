@@ -462,10 +462,10 @@ function RGSlot({ id, caption }) {
 // ── Floor plans ────────────────────────────────────────────────────────────
 
 const PLAN_LIST = [
-  { id: 'A', name: 'Residence 01 · Garden Duplex',  area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Lower duplex · East',   note: 'A two-storey home opening onto the front garden. Living, dining and kitchen on the entry level; three bedrooms above; rear and rooftop terraces.' },
-  { id: 'B', name: 'Residence 02 · Park Duplex',    area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Lower duplex · West',   note: 'Park-facing lower duplex with a quiet front terrace, full-width living, and three bedrooms upstairs.' },
-  { id: 'C', name: 'Residence 03 · Sky Duplex',     area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Upper duplex · East',   note: 'Upper duplex with east-facing terraces, an internal stair, and direct access to the rooftop solarium.' },
-  { id: 'D', name: 'Residence 04 · Sun Duplex',     area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Upper duplex · West',   note: 'A west-facing upper duplex — long afternoon light, three terraces, and a private corner of the rooftop solarium.' },
+  { id: 'A', name: 'Residence 01',  area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Type A',           note: 'The Type A duplex — kitchen, dining and living on the entry level, three bedrooms above. A front terrace, rear terrace and rooftop solarium bring outdoor space to 34% of the home.' },
+  { id: 'B', name: 'Residence 02',  area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Type A · reverse', note: 'The Type A plan, mirrored. The same two-storey, three-bedroom layout — living below, bedrooms above — with front, rear and rooftop terraces and two parking spaces.' },
+  { id: 'C', name: 'Residence 03',  area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Type A',           note: 'The Type A duplex — kitchen, dining and living on the entry level, three bedrooms above. A front terrace, rear terrace and rooftop solarium bring outdoor space to 34% of the home.' },
+  { id: 'D', name: 'Residence 04',  area: '181.2 m²', bb: '3 BR · 3 BA · 2 parking', exp: 'Type A · reverse', note: 'The Type A plan, mirrored. The same two-storey, three-bedroom layout — living below, bedrooms above — with front, rear and rooftop terraces and two parking spaces.' },
 ];
 
 function LLFloorPlans() {
@@ -546,7 +546,7 @@ function LLFloorPlans() {
                   <div style={{ fontSize: 14 }}>{plan.bb}</div>
                 </div>
                 <div>
-                  <div className="mono" style={{ color: 'var(--ink-soft)', marginBottom: 6 }}>Exposure</div>
+                  <div className="mono" style={{ color: 'var(--ink-soft)', marginBottom: 6 }}>Plan type</div>
                   <div style={{ fontSize: 14 }}>{plan.exp}</div>
                 </div>
               </div>
@@ -882,22 +882,40 @@ function LLFooter() {
           <div className="mono" style={{ opacity: .55, letterSpacing: '.18em' }}>
             For the press &amp; marketing team
           </div>
-          <a
-            href="Social Templates.html"
-            className="mono"
-            style={{
-              color: 'var(--cream)',
-              borderBottom: '1px solid var(--accent)',
-              paddingBottom: 2,
-              letterSpacing: '.18em',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-            }}
-          >
-            Social Templates
-            <span aria-hidden="true">↗</span>
-          </a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
+            <a
+              href="Pedicel x Loen Lullaby - Pitch.html"
+              className="mono"
+              style={{
+                color: 'var(--cream)',
+                borderBottom: '1px solid var(--accent)',
+                paddingBottom: 2,
+                letterSpacing: '.18em',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              Pitch Deck
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a
+              href="Social Templates.html"
+              className="mono"
+              style={{
+                color: 'var(--cream)',
+                borderBottom: '1px solid var(--accent)',
+                paddingBottom: 2,
+                letterSpacing: '.18em',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              Social Templates
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
       </div>
     </footer>

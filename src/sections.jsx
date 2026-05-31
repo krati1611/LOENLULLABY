@@ -56,9 +56,16 @@ function LLNav() {
         LOEN&nbsp;LULLABY
       </div>
       <div className="ll-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 30 }}>
-        {['Renderings', 'Plans', 'Visit'].map((s) => (
-          <a key={s} className="mono" href={`#${s.toLowerCase()}`}
-             style={{ fontSize: 10.5, opacity: .8 }}>{s}</a>
+        {[
+          { label: 'Renderings', href: '#renderings' },
+          { label: 'Plans', href: '#plans' },
+          { label: 'Visit', href: '#visit' },
+          { label: 'Sales Deck', href: 'Loen%20Lullaby%20-%20Sales%20Presentation.html', target: '_blank' },
+          { label: 'Pitch Deck', href: 'Pedicel%20x%20Loen%20Lullaby%20-%20Pitch.html', target: '_blank' },
+          { label: 'Social Templates', href: 'Social%20Templates.html', target: '_blank' }
+        ].map((item) => (
+          <a key={item.label} className="mono" href={item.href} target={item.target}
+             style={{ fontSize: 10.5, opacity: .8 }}>{item.label}</a>
         ))}
       </div>
       <a href="#visit" className="ll-nav-cta" style={{
@@ -856,6 +863,22 @@ function LLFooter() {
             For the press &amp; marketing team
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
+            <a
+              href="Loen%20Lullaby%20-%20Sales%20Presentation.html"
+              className="mono"
+              style={{
+                color: 'var(--cream)',
+                borderBottom: '1px solid var(--accent)',
+                paddingBottom: 2,
+                letterSpacing: '.18em',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              Sales Presentation
+              <span aria-hidden="true">↗</span>
+            </a>
             <a
               href="Pedicel%20x%20Loen%20Lullaby%20-%20Pitch.html"
               className="mono"

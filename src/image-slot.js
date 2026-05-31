@@ -201,18 +201,8 @@
     '  transition:border-color .12s}' +
     ':host([data-over]) .ring{border-color:#c96442}' +
     ':host([data-filled]) .ring{display:none}' +
-    // Controls sit BELOW the mask (top:100%), absolutely positioned so the
-    // author-declared slot height is unaffected. The gap is padding, not a
-    // top offset, so the hover target stays contiguous with the frame.
-    '.ctl{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:8px;' +
-    '  display:flex;gap:6px;opacity:0;pointer-events:none;transition:opacity .12s;z-index:2;' +
-    '  white-space:nowrap}' +
-    ':host([data-filled][data-editable]:hover) .ctl,:host([data-reframe]) .ctl' +
-    '  {opacity:1;pointer-events:auto}' +
-    '.ctl button{appearance:none;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;' +
-    '  background:rgba(0,0,0,.65);color:#fff;font:11px/1 system-ui,-apple-system,sans-serif;' +
-    '  backdrop-filter:blur(6px)}' +
-    '.ctl button:hover{background:rgba(0,0,0,.8)}' +
+    // Controls are hidden
+    '.ctl{display:none}' +
     '.err{position:absolute;left:8px;bottom:8px;right:8px;color:#b3261e;font-size:11px;' +
     '  background:rgba(255,255,255,.85);padding:4px 6px;border-radius:5px;pointer-events:none}';
 

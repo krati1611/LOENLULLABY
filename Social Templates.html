@@ -2401,31 +2401,6 @@ Object.assign(window, { DesignCanvas, DCSection, DCArtboard, DCPostIt });
           </DCSection>
 
           {/* ════════════════════════════════════════════════════════════════
-              VIDEO · 9:16 vertical
-          ════════════════════════════════════════════════════════════════ */}
-          <DCSection
-            id="video-9x16"
-            title="Video · 1080 × 1920 (9:16)"
-            subtitle="Reels, Stories, TikTok. Drop a clip to preview with the brand chrome."
-          >
-            <DCArtboard id="vid-vertical" label="Vertical · 9:16" width={1080} height={1920}>
-              <div className="vid-9x16">
-                <VideoSlot id="vid-9x16-src" label="Drop a vertical clip" initialSrc="uploads/0324 (1).mp4" />
-                <div className="vid-chrome">
-                  <span>LOEN&nbsp;LULLABY</span>
-                  <span className="dot">NOW PLAYING</span>
-                </div>
-                <div className="vid-band">
-                  <h1>A morning,<br/>slowly.</h1>
-                  <div className="sub">
-                    Loen Lullaby · 7920 Byron Avenue, Miami Beach.
-                  </div>
-                </div>
-              </div>
-            </DCArtboard>
-          </DCSection>
-
-          {/* ════════════════════════════════════════════════════════════════
               VIDEO · 16:9 horizontal
           ════════════════════════════════════════════════════════════════ */}
           <DCSection
@@ -2433,18 +2408,35 @@ Object.assign(window, { DesignCanvas, DCSection, DCArtboard, DCPostIt });
             title="Video · 1920 × 1080 (16:9)"
             subtitle="YouTube, landing pages, sales-deck loops."
           >
-            <DCArtboard id="vid-horizontal" label="Horizontal · 16:9" width={1920} height={1080}>
+            {/* Film 1 — The plan, lifted into the air */}
+            <DCArtboard id="vid-horizontal-1" label="Horizontal · 16:9 · Plan" width={1920} height={1080}>
               <div className="vid-16x9">
-                <VideoSlot id="vid-16x9-src" label="Drop a landscape clip" initialSrc="uploads/0525(1).mp4" />
+                <VideoSlot id="vid-16x9-src-1" label="Drop a landscape clip" initialSrc="uploads/0525.mp4" />
                 <div className="vid-chrome">
                   <span>LOEN&nbsp;LULLABY · NORTH BEACH</span>
-                  <span className="dot">FILM · 16:9</span>
+                  <span className="dot">FILM 01 · 16:9</span>
                 </div>
                 <div className="vid-band">
-                  <h1>The building, imagined.</h1>
+                  <h1>The plan, lifted into the air.</h1>
                   <div className="sub">
-                    Four duplex residences on Byron Avenue, two blocks
-                    from the Atlantic.
+                    A short film, from drafting line to finished form.
+                  </div>
+                </div>
+              </div>
+            </DCArtboard>
+
+            {/* Film 2 — The hours move differently here */}
+            <DCArtboard id="vid-horizontal-2" label="Horizontal · 16:9 · Vibe" width={1920} height={1080}>
+              <div className="vid-16x9">
+                <VideoSlot id="vid-16x9-src-2" label="Drop a landscape clip" initialSrc="uploads/Initial_Scene_-_2026-05-31_202605311742.mp4" />
+                <div className="vid-chrome">
+                  <span>LOEN&nbsp;LULLABY · NORTH BEACH</span>
+                  <span className="dot">FILM 02 · 16:9</span>
+                </div>
+                <div className="vid-band">
+                  <h1>The hours move differently here.</h1>
+                  <div className="sub">
+                    Linen curtains, salt on the air, the slow shadow of a teak ceiling.
                   </div>
                 </div>
               </div>

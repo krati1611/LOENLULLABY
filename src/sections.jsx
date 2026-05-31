@@ -85,34 +85,7 @@ function LLNav() {
 // component anchors at top:100%, off-screen here) is still reachable.
 // Proxies clicks into the slot's open shadow-DOM buttons + hidden file input.
 function FullBleedSlotControls({ slotRef }) {
-  const [filled, setFilled] = React.useState(false);
-  React.useEffect(() => {
-    const el = slotRef.current;
-    if (!el) return;
-    const check = () => setFilled(el.hasAttribute('data-filled'));
-    check();
-    const mo = new MutationObserver(check);
-    mo.observe(el, { attributes: true, attributeFilter: ['data-filled'] });
-    return () => mo.disconnect();
-  }, [slotRef]);
-
-  const fire = (act) => {
-    const el = slotRef.current;
-    if (!el || !el.shadowRoot) return;
-    const btn = el.shadowRoot.querySelector(`button[data-act="${act}"]`);
-    if (btn) btn.click();
-  };
-
-  if (!filled) return null;
-  return (
-    <div style={{
-      position: 'absolute', bottom: 22, right: 22, zIndex: 5,
-      display: 'flex', gap: 8,
-    }}>
-      <button onClick={() => fire('replace')} style={ctrlBtn}>Replace</button>
-      <button onClick={() => fire('clear')} style={ctrlBtn}>Remove</button>
-    </div>
-  );
+  return null;
 }
 const ctlMonoStyle = "JetBrains Mono, ui-monospace, monospace";
 const ctrlBtn = {
@@ -429,7 +402,7 @@ function LLRenderings() {
             <RGSlot id="r2" caption="PL.03 — The Façade, at golden hour" />
           </div>
           <div style={{ gridColumn: 'span 4', gridRow: 'span 4' }}>
-            <RGSlot id="r3" caption="PL.04 — The Sitting Room" />
+            <RGSlot id="r3" caption="PL.04 — The Bedroom" />
           </div>
           <div style={{ gridColumn: 'span 5', gridRow: 'span 4' }}>
             <RGSlot id="r4" caption="PL.05 — The Kitchen" />
@@ -884,7 +857,7 @@ function LLFooter() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
             <a
-              href="Pedicel x Loen Lullaby - Pitch.html"
+              href="Pedicel%20x%20Loen%20Lullaby%20-%20Pitch.html"
               className="mono"
               style={{
                 color: 'var(--cream)',
@@ -900,7 +873,7 @@ function LLFooter() {
               <span aria-hidden="true">↗</span>
             </a>
             <a
-              href="Social Templates.html"
+              href="Social%20Templates.html"
               className="mono"
               style={{
                 color: 'var(--cream)',

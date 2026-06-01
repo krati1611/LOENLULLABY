@@ -59,10 +59,7 @@ function LLNav() {
         {[
           { label: 'Renderings', href: '#renderings' },
           { label: 'Plans', href: '#plans' },
-          { label: 'Visit', href: '#visit' },
-          { label: 'Sales Deck', href: 'Loen%20Lullaby%20-%20Sales%20Deck.html', target: '_blank' },
-          { label: 'Pitch Deck', href: 'Pedicel%20x%20Loen%20Lullaby%20-%20Pitch.html', target: '_blank' },
-          { label: 'Social Templates', href: 'Social%20Templates.html', target: '_blank' }
+          { label: 'Visit', href: '#visit' }
         ].map((item) => (
           <a key={item.label} className="mono" href={item.href} target={item.target}
              style={{ fontSize: 10.5, opacity: .8 }}>{item.label}</a>

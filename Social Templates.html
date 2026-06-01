@@ -50,6 +50,21 @@
     font-size:11px !important;
   }
 
+  /* Hide uploader placeholders & frame patterns for specific hero/announce slots */
+  #tpl-sq-announce-img,
+  #tpl-st-hero-img,
+  #tpl-sq-announce-img::part(frame),
+  #tpl-st-hero-img::part(frame) {
+    background: transparent !important;
+  }
+  #tpl-sq-announce-img::part(empty),
+  #tpl-st-hero-img::part(empty),
+  #tpl-sq-announce-img::part(ring),
+  #tpl-st-hero-img::part(ring) {
+    display: none !important;
+    opacity: 0 !important;
+  }
+
   /* Tiny atoms */
   .eyebrow{
     display:inline-flex;align-items:center;gap:14px;
@@ -2411,7 +2426,7 @@ Object.assign(window, { DesignCanvas, DCSection, DCArtboard, DCPostIt });
             {/* Film 1 — The plan, lifted into the air */}
             <DCArtboard id="vid-horizontal-1" label="Horizontal · 16:9 · Plan" width={1920} height={1080}>
               <div className="vid-16x9">
-                <VideoSlot id="vid-16x9-src-1" label="Drop a landscape clip" initialSrc="uploads/0525.mp4" />
+                <VideoSlot id="vid-16x9-src-1" label="Drop a landscape clip" initialSrc="uploads/0525(1).mp4" />
                 <div className="vid-chrome">
                   <span>LOEN&nbsp;LULLABY · NORTH BEACH</span>
                   <span className="dot">FILM 01 · 16:9</span>
@@ -2428,7 +2443,7 @@ Object.assign(window, { DesignCanvas, DCSection, DCArtboard, DCPostIt });
             {/* Film 2 — The hours move differently here */}
             <DCArtboard id="vid-horizontal-2" label="Horizontal · 16:9 · Vibe" width={1920} height={1080}>
               <div className="vid-16x9">
-                <VideoSlot id="vid-16x9-src-2" label="Drop a landscape clip" initialSrc="uploads/Initial_Scene_-_2026-05-31_202605311742.mp4" />
+                <VideoSlot id="vid-16x9-src-2" label="Drop a landscape clip" initialSrc="uploads/vibe.mp4" />
                 <div className="vid-chrome">
                   <span>LOEN&nbsp;LULLABY · NORTH BEACH</span>
                   <span className="dot">FILM 02 · 16:9</span>

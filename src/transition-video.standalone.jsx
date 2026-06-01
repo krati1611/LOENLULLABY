@@ -37,6 +37,7 @@ function LLVideoSection({
   bg = 'var(--sand)',
   emptyTitle = 'Drop the film here.',
   emptyKicker = 'FILM · 16:9 · MP4 / WEBM / MOV',
+  children,
 }) {
   const [src, setSrc] = React.useState(null);
   const [origin, setOrigin] = React.useState('idle'); // 'file' | 'local'
@@ -210,6 +211,7 @@ function LLVideoSection({
             to persist across reloads.
           </div>
         )}
+        {children}
       </div>
     </section>
   );
@@ -242,7 +244,75 @@ function LLVibeVideo() {
       caption="PL.08 — A day inside the house"
       bg="var(--cream)"
       emptyTitle="Drop the mood film here."
-    />
+    >
+      <div style={{
+        marginTop: 64,
+        display: 'flex',
+        justifyContent: 'center',
+        gap: 24,
+        flexWrap: 'wrap'
+      }}>
+        {[
+          { label: 'Sales Deck', href: 'Loen%20Lullaby%20-%20Sales%20Deck.html' },
+          { label: 'Pitch Deck', href: 'Pedicel%20x%20Loen%20Lullaby%20-%20Pitch.html' },
+          { label: 'Social Templates', href: 'Social%20Templates.html' },
+        ].map((link) => (
+          <a
+            key={link.label}
+            className="mono"
+            href={link.href}
+            target="_blank"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 16,
+              padding: '18px 36px',
+              borderRadius: '999px',
+              background: 'transparent',
+              color: 'var(--ink)',
+              border: '1.5px solid var(--rule)',
+              fontSize: 11.5,
+              fontWeight: 500,
+              letterSpacing: '.18em',
+              textTransform: 'uppercase',
+              transition: 'all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+              cursor: 'pointer',
+              boxShadow: '0 4px 12px rgba(30,37,40,0.02)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--ink)';
+              e.currentTarget.style.color = 'var(--cream)';
+              e.currentTarget.style.borderColor = 'var(--ink)';
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 16px 32px -12px rgba(30,37,40,0.3)';
+              const arrow = e.currentTarget.querySelector('.cta-arrow');
+              if (arrow) arrow.style.transform = 'translateX(4px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.color = 'var(--ink)';
+              e.currentTarget.style.borderColor = 'var(--rule)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(30,37,40,0.02)';
+              const arrow = e.currentTarget.querySelector('.cta-arrow');
+              if (arrow) arrow.style.transform = 'translateX(0)';
+            }}
+          >
+            <span>{link.label}</span>
+            <span 
+              className="cta-arrow" 
+              style={{ 
+                fontSize: 14, 
+                transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                display: 'inline-block'
+              }}
+            >
+              →
+            </span>
+          </a>
+        ))}
+      </div>
+    </LLVideoSection>
   );
 }
 

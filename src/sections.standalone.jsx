@@ -60,7 +60,7 @@ function LLNav() {
           { label: 'Renderings', href: '#renderings' },
           { label: 'Plans', href: '#plans' },
           { label: 'Visit', href: '#visit' },
-          { label: 'Sales Deck', href: 'Loen%20Lullaby%20-%20Sales%20Presentation.html', target: '_blank' },
+          { label: 'Sales Deck', href: 'Loen%20Lullaby%20-%20Sales%20Deck.html', target: '_blank' },
           { label: 'Pitch Deck', href: 'Pedicel%20x%20Loen%20Lullaby%20-%20Pitch.html', target: '_blank' },
           { label: 'Social Templates', href: 'Social%20Templates.html', target: '_blank' }
         ].map((item) => (
@@ -116,6 +116,7 @@ function HeroPleinAir() {
       <image-slot
         ref={slotRef}
         id="hero-pleinair"
+        src="deck-assets/hero-pleinair.png"
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
         shape="rect"
         placeholder="Hero rendering — exterior elevation, golden hour"
@@ -864,7 +865,7 @@ function LLFooter() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
             <a
-              href="Loen%20Lullaby%20-%20Sales%20Presentation.html"
+              href="Loen%20Lullaby%20-%20Sales%20Deck.html"
               className="mono"
               style={{
                 color: 'var(--cream)',

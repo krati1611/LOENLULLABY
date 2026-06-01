@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Loen Lullaby — Sales Presentation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Italiana&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --sand: #EFE6D3;
+      --sand-deep: #E3D7BD;
+      --cream: #F7F0DF;
+      --ink: #1E2528;
+      --ink-2: #232B2F;
+      --ink-soft: #3A4144;
+      --accent: #C97A4B;
+      --accent-deep: #A55E33;
+      --water: #2F6B73;
+      --rule: rgba(30, 37, 40, .14);
+      --rule-d: rgba(247, 240, 223, .16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0E1416;
+    }
+
+    deck-stage:not(:defined) {
+      visibility: hidden;
+    }
+
+    deck-stage {
+      font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ── Type atoms ──────────────────────────────────────────────────── */
+    .d {
+      font-family: 'Italiana', serif;
+      font-weight: 400;
+      letter-spacing: -.008em;
+    }
+
+    .m {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .pad {
+      position: absolute;
+      inset: 0;
+      padding: 96px 110px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bg-ink {
+      background: var(--ink);
+      color: var(--cream);
+    }
+
+    .bg-ink2 {
+      background: var(--ink-2);
+      color: var(--cream);
+    }
+
+    .bg-sand {
+      background: var(--sand);
+      color: var(--ink);
+    }
+
+    .bg-cream {
+      background: var(--cream);
+      color: var(--ink);
+    }
+
+    /* Eyebrow */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      font-size: 15px;
+      color: var(--accent);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: currentColor;
+      opacity: .7;
+    }
+
+    .bg-sand .eyebrow,
+    .bg-cream .eyebrow {
+      color: var(--accent-deep);
+    }
+
+    /* Running header / footer */
+    .runner {
+      position: absolute;
+      left: 110px;
+      right: 110px;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 13px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    .runner.top {
+      top: 54px;
+    }
+
+    .runner.bot {
+      bottom: 54px;
+    }
+
+    .runner .l {
+      opacity: .62;
+    }
+
+    .runner .r {
+      opacity: .42;
+    }
+
+    .wordmark {
+      font-family: 'Italiana', serif;
+      font-size: 21px;
+      letter-spacing: .02em;
+      text-transform: none;
+      opacity: .9;
+    }
+
+    h1.title {
+      font-size: 118px;
+      line-height: .94;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    h2.head {
+      font-size: 84px;
+      line-height: .98;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    h3.sub {
+      font-size: 46px;
+      line-height: 1.02;
+      margin: 0;
+    }
+
+    .lede {
+      font-size: 25px;
+      line-height: 1.5;
+      font-weight: 300;
+    }
+
+    .bg-ink .lede,
+    .bg-ink2 .lede {
+      color: rgba(247, 240, 223, .9);
+    }
+
+    .bg-sand .lede,
+    .bg-cream .lede {
+      color: var(--ink-soft);
+    }
+
+    .accent {
+      color: var(--accent);
+    }
+
+    .bg-sand .accent,
+    .bg-cream .accent {
+      color: var(--accent-deep);
+    }
+
+    /* ── Cover ───────────────────────────────────────────────────────── */
+    .cover-img {
+      position: absolute;
+      inset: 0;
+    }
+
+    .cover-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cover-scrim {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(20, 26, 28, .56) 0%, rgba(20, 26, 28, .16) 22%, rgba(20, 26, 28, .30) 46%, rgba(20, 26, 28, .74) 72%, rgba(20, 26, 28, .90) 100%);
+    }
+
+    /* Big numeral divider */
+    .divnum {
+      font-family: 'Italiana', serif;
+      font-size: 300px;
+      line-height: .8;
+      color: var(--accent);
+    }
+
+    /* Framed image panels */
+    .panel {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .5);
+      background: var(--cream);
+    }
+
+    .panel img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .panel .cap {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 20px 22px 18px;
+      background: linear-gradient(180deg, rgba(30, 37, 40, 0), rgba(30, 37, 40, .86));
+      color: var(--cream);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    /* Stat list */
+    .statrow {
+      display: flex;
+      gap: 64px;
+    }
+
+    .stat .k {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 12.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      opacity: .66;
+      margin-bottom: 14px;
+    }
+
+    .stat .v {
+      font-family: 'Italiana', serif;
+      font-size: 74px;
+      line-height: .92;
+      color: var(--accent);
+    }
+
+    .bg-sand .stat .v,
+    .bg-cream .stat .v {
+      color: var(--accent-deep);
+    }
+
+    .stat .vsub {
+      font-size: 13.5px;
+      margin-top: 10px;
+      opacity: .7;
+      max-width: 210px;
+      line-height: 1.45;
+    }
+
+    /* Residences list */
+    .resrow {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      gap: 20px;
+      align-items: baseline;
+      padding: 21px 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .resrow .rn {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 13px;
+      letter-spacing: .16em;
+      color: var(--accent-deep);
+    }
+
+    .resrow .rt {
+      font-family: 'Italiana', serif;
+      font-size: 33px;
+      line-height: 1;
+    }
+
+    .resrow .ra {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 13px;
+      letter-spacing: .14em;
+      color: var(--ink-soft);
+      white-space: nowrap;
+    }
+
+    /* Process steps */
+    .step {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 36px;
+      padding: 34px 0;
+      border-top: 1px solid var(--rule);
+      align-items: start;
+    }
+
+    .step:last-child {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .step .sn {
+      font-family: 'Italiana', serif;
+      font-size: 62px;
+      line-height: .85;
+      color: var(--accent-deep);
+    }
+
+    .step .st {
+      font-family: 'Italiana', serif;
+      font-size: 38px;
+      line-height: 1;
+      margin: 0 0 12px;
+    }
+
+    .step .sd {
+      font-size: 17px;
+      line-height: 1.55;
+      opacity: .74;
+      max-width: 760px;
+    }
+
+    /* Pills */
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 11.5px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 7px 13px;
+      opacity: .8;
+    }
+
+    .bg-ink .pill,
+    .bg-ink2 .pill {
+      border-color: var(--rule-d);
+    }
+
+    /* Lifestyle line overlay */
+    .quietline {
+      font-family: 'Italiana', serif;
+      font-size: 64px;
+      line-height: .98;
+    }
+
+    /* CTA */
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--accent);
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 20px 30px;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 15px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .cta-pill .arr {
+      width: 13px;
+      height: 13px;
+      border-top: 2px solid currentColor;
+      border-right: 2px solid currentColor;
+      transform: rotate(45deg);
+    }
+  </style>
+</head>
+
+<body>
+  <deck-stage width="1920" height="1080">
+
+    <!-- 01 — COVER -->
+    <section class="bg-ink" data-label="Cover" data-screen-label="01 — Cover">
+      <div class="cover-img">
+        <img src="deck-assets/render-r3.webp" alt="Loen Lullaby living room">
+        <div class="cover-scrim"></div>
+      </div>
+      <div class="runner top" style="color:var(--cream);">
+        <span class="wordmark">Loen&nbsp;Lullaby</span>
+        <span class="m" style="font-size:13px; opacity:.8;">North Beach · Miami Beach</span>
+      </div>
+      <div class="pad" style="justify-content:flex-end; color:var(--cream);">
+        <span class="eyebrow" style="margin-bottom:30px;">Four duplex residences · MMXXVI</span>
+        <h1 class="title d" style="max-width:1400px;">Quietly<br>Miami.</h1>
+        <p class="lede" style="margin:36px 0 0; max-width:760px; color:rgba(247,240,223,.92);">
+          Four duplex homes on Byron Avenue, two blocks from the Atlantic —
+          in the last quiet coastal neighborhood on Miami Beach.
+        </p>
+      </div>
+      <div class="runner bot" style="color:var(--cream);">
+        <span class="l">7920 Byron Avenue</span>
+        <span class="r">A private presentation</span>
+      </div>
+    </section>
+
+    <!-- 02 — INVITATION / STATEMENT -->
+    <section class="bg-sand" data-label="Invitation" data-screen-label="02 — Invitation">
+      <div class="pad" style="justify-content:center;">
+        <span class="eyebrow" style="margin-bottom:40px;">Welcome</span>
+        <h2 class="head d" style="max-width:1500px; font-size:92px;">
+          Most of Miami Beach shouts.<br>
+          <span class="accent">Loen Lullaby</span> simply<br>
+          lets you exhale.
+        </h2>
+        <p class="lede" style="margin:46px 0 0; max-width:880px;">
+          North Beach is where Miami slows down — tree-lined streets, low Art-Deco
+          blocks, the ocean a short walk away. Loen Lullaby is four homes built for
+          that pace: generous, light-filled, and quietly yours.
+        </p>
+      </div>
+      <div class="runner bot"><span class="l wordmark">Loen Lullaby</span><span class="r">The invitation</span></div>
+    </section>
+
+    <!-- 03 — WHY NORTH BEACH NOW -->
+    <section class="bg-ink" data-label="Why North Beach now" data-screen-label="03 — Why North Beach">
+      <div class="pad">
+        <div style="display:grid; grid-template-columns:1fr 1.05fr; gap:72px; flex:1; align-items:center;">
+          <div>
+            <span class="eyebrow">Why North Beach, now</span>
+            <h2 class="head d" style="margin-top:24px; font-size:72px;">The last quiet<br>corner — right<br>before it
+              isn't.</h2>
+            <p class="lede" style="margin-top:30px; max-width:560px;">
+              More than two billion dollars is breaking ground within a mile.
+              The neighborhood is being rediscovered — and Loen Lullaby sits at
+              the calm centre of it, two blocks from the sand.
+            </p>
+            <div class="statrow" style="margin-top:48px; flex-wrap:wrap; gap:40px 64px;">
+              <div class="stat">
+                <div class="k">To the ocean</div>
+                <div class="v">2&nbsp;blk</div>
+                <div class="vsub">A few minutes on foot</div>
+              </div>
+              <div class="stat">
+                <div class="k">Pipeline · 1&nbsp;mi</div>
+                <div class="v">$2B+</div>
+                <div class="vsub">Breaking ground now</div>
+              </div>
+              <div class="stat">
+                <div class="k">Residences</div>
+                <div class="v">04</div>
+                <div class="vsub">Three-bed duplexes</div>
+              </div>
+            </div>
+          </div>
+          <div class="panel" style="height:820px;">
+            <img src="deck-assets/context-aerial.png" alt="Loen Lullaby in its North Beach context">
+            <div class="cap">Byron Avenue · two blocks from the Atlantic</div>
+          </div>
+        </div>
+      </div>
+      <div class="runner bot"><span class="l wordmark">Loen Lullaby</span><span class="r">The neighborhood</span></div>
+    </section>
+
+    <!-- 04 — THE BUILDING -->
+    <section class="bg-cream" data-label="The building" data-screen-label="04 — The building">
+      <div class="pad">
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:40px;">
+          <div>
+            <span class="eyebrow">The building</span>
+            <h2 class="head d" style="margin-top:22px; font-size:68px;">Four homes,<br>stacked to the sky.</h2>
+          </div>
+          <p class="lede" style="max-width:430px; font-size:18px; padding-bottom:6px;">
+            Each duplex opens to its own terraces — front, rear and rooftop —
+            crowned by a private rooftop retreat with space for a spa.
+          </p>
+        </div>
+        <div
+          style="position:relative; flex:1; margin-top:24px; display:flex; align-items:center; justify-content:center;">
+          <img src="deck-assets/building-axo.png" alt="Loen Lullaby cutaway"
+            style="max-width:100%; max-height:720px; object-fit:contain; mix-blend-mode:multiply;">
+        </div>
+      </div>
+      <div class="runner bot"><span class="l wordmark">Loen Lullaby</span><span class="r">The architecture</span></div>
+    </section>
+
+    <!-- 05 — THE RESIDENCES -->
+    <section class="bg-cream" data-label="The residences" data-screen-label="05 — The residences">
+      <div class="pad">
+        <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:40px;">
+          <div>
+            <span class="eyebrow">The residences</span>
+            <h2 class="head d" style="margin-top:22px; font-size:68px;">Four ways<br>to live here.</h2>
+          </div>
+          <p class="lede" style="max-width:430px; font-size:18px; padding-top:10px;">
+            Four duplex homes, each ≈ 181 m² (1,950 sq ft) — 118 m² of interior
+            living plus 62 m² of front, rear and rooftop terraces. Two parking
+            spaces apiece.
+          </p>
+        </div>
+        <div
+          style="display:grid; grid-template-columns:1fr 1.08fr; gap:60px; flex:1; margin-top:34px; align-items:center;">
+          <div style="border-bottom:1px solid var(--rule);">
+            <div class="resrow"><span class="rn">01</span><span class="rt">Residence 01</span><span class="ra">Type A ·
+                181.2 m²</span></div>
+            <div class="resrow"><span class="rn">02</span><span class="rt">Residence 02</span><span class="ra">Type A
+                reverse · 181.2 m²</span></div>
+            <div class="resrow"><span class="rn">03</span><span class="rt">Residence 03</span><span class="ra">Type A ·
+                181.2 m²</span></div>
+            <div class="resrow"><span class="rn">04</span><span class="rt">Residence 04</span><span class="ra">Type A
+                reverse · 181.2 m²</span></div>
+            <div style="display:flex; gap:54px; margin-top:28px;">
+              <div class="stat">
+                <div class="k">Layout</div>
+                <div style="font-size:21px; margin-top:4px;">3 BR · 3 BA · 2 parking</div>
+              </div>
+              <div class="stat">
+                <div class="k">Living</div>
+                <div style="font-size:21px; margin-top:4px;">118 m² + 62 m² terraces</div>
+              </div>
+            </div>
+          </div>
+          <div
+            style="background:#fff; border:1px solid var(--rule); border-radius:10px; overflow:hidden; box-shadow:0 30px 60px -34px rgba(0,0,0,.4);">
+            <img src="deck-assets/plan-A.webp" alt="Plan A — second floor mezzanine"
+              style="display:block; width:100%; height:auto;">
+            <div
+              style="display:flex; justify-content:space-between; padding:15px 22px; border-top:1px solid var(--rule);">
+              <span class="m" style="font-size:12px; color:var(--ink-soft);">Plan A · Mezzanine level</span>
+              <span class="m" style="font-size:12px; color:var(--accent-deep);">Double-height living</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 — LIFESTYLE: BEDROOM -->
+    <section class="bg-ink" data-label="Primary Bedroom" data-screen-label="06 — Lifestyle">
+      <div class="pad" style="padding:0;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; flex:1;">
+          <div style="position:relative; overflow:hidden;">
+            <img src="deck-assets/render-r3.jpg" alt="Loen Lullaby Primary Bedroom"
+              style="width:100%; height:100%; object-fit:cover; object-position:center;">
+          </div>
+          <div style="display:flex; flex-direction:column; justify-content:center; padding:96px 96px 96px 88px;">
+            <span class="eyebrow">A quiet sanctuary</span>
+            <div class="quietline d" style="margin-top:26px; font-size:60px;">Wake to the<br>morning light,<br>softly.</div>
+            <p class="lede" style="margin-top:28px; max-width:480px; font-size:20px;">
+              The primary suite is a peaceful retreat of timber, stone, and linen — flooded with soft coastal light and opening onto your private terrace. A space designed purely to let you unwind.
+            </p>
+            <div class="pills">
+              <span class="pill">Primary retreat</span>
+              <span class="pill">Floor-to-ceiling glass</span>
+              <span class="pill">Private terrace</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 — THE INTERIORS (montage) -->
+    <section class="bg-sand" data-label="The interiors" data-screen-label="07 — The interiors">
+      <div class="pad">
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:40px;">
+          <div>
+            <span class="eyebrow">Inside</span>
+            <h2 class="head d" style="margin-top:22px; font-size:68px;">Warm, natural,<br>unhurried.</h2>
+          </div>
+          <p class="lede" style="max-width:440px; font-size:19px;">
+            Timber, stone and linen in a quiet palette — interiors that feel like
+            a long exhale, finished to a standard you can move straight into.
+          </p>
+        </div>
+        <div style="display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:24px; flex:1; margin-top:44px;">
+          <div class="panel"><img src="deck-assets/hero-pleinair.png" alt="Living room">
+            <div class="cap">Open-plan living</div>
+          </div>
+          <div class="panel"><img src="deck-assets/render-r1.webp" alt="Styled interior">
+            <div class="cap">Curated finishes</div>
+          </div>
+          <div class="panel"><img src="deck-assets/patio-optimized.jpg" alt="Interior detail">
+            <div class="cap">Light & material</div>
+          </div>
+        </div>
+      </div>
+      <div class="runner bot"><span class="l wordmark">Loen Lullaby</span><span class="r">The interiors</span></div>
+    </section>
+
+    <!-- 08 — THE MARKET -->
+    <section class="bg-ink" data-label="The market" data-screen-label="08 — The market">
+      <div class="pad">
+        <span class="eyebrow">The market case</span>
+        <h2 class="head d" style="margin-top:20px; max-width:1400px; font-size:72px;">
+          The timing is the<br>quiet luxury.
+        </h2>
+        <p class="lede" style="margin-top:28px; max-width:840px;">
+          North Beach values are climbing fast as the wider neighborhood is
+          rediscovered — and they're still a fraction of South Beach and Bal Harbour.
+          Buying here today is buying ahead of the curve.
+        </p>
+        <div class="statrow" style="margin-top:auto; flex-wrap:wrap; gap:46px 90px;">
+          <div class="stat">
+            <div class="k">Avg price / SF</div>
+            <div class="v">$858</div>
+            <div class="vsub">+25.3% year over year</div>
+          </div>
+          <div class="stat">
+            <div class="k">Luxury price / SF</div>
+            <div class="v">$1,165</div>
+            <div class="vsub">+27% year over year</div>
+          </div>
+          <div class="stat">
+            <div class="k">Luxury sales volume</div>
+            <div class="v">+50%</div>
+            <div class="vsub">Year over year</div>
+          </div>
+        </div>
+      </div>
+      <div class="runner bot"><span class="l wordmark">Loen Lullaby</span><span class="r">North Beach · trailing 12
+          months</span></div>
+    </section>
+
+    <!-- 09 — THE PRIVATE VISIT -->
+    <section class="bg-cream" data-label="The private visit" data-screen-label="09 — The private visit">
+      <div class="pad">
+        <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:40px;">
+          <div>
+            <span class="eyebrow">How it works</span>
+            <h2 class="head d" style="margin-top:22px; font-size:64px;">Three steps to<br>your residence.</h2>
+          </div>
+          <p class="lede" style="max-width:430px; font-size:18px; padding-bottom:6px;">
+            Reservations are open now, ahead of the Q1 2026 groundbreaking —
+            first to choose, first to claim the best terraces and light.
+          </p>
+        </div>
+        <div style="margin-top:30px;">
+          <div class="step">
+            <div class="sn">01</div>
+            <div>
+              <h3 class="st">Visit privately</h3>
+              <p class="sd">Walk the site and the sales gallery with us. We'll show the renderings, the plans and the
+                neighborhood, and answer everything — no pressure, no crowd.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="sn">02</div>
+            <div>
+              <h3 class="st">Choose your home</h3>
+              <p class="sd">Four residences, two orientations. We'll help you weigh light, terraces and rooftop, and
+                hold the one that's right for you while you decide.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="sn">03</div>
+            <div>
+              <h3 class="st">Reserve</h3>
+              <p class="sd">A simple reservation agreement secures your residence and locks today's pricing — ahead of
+                groundbreaking and the next release.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 — CLOSE -->
+    <section class="bg-ink" data-label="Book a visit" data-screen-label="10 — Close">
+      <div class="cover-img">
+        <img src="deck-assets/render-r2.webp" alt="" style="object-position:center 38%;">
+        <div class="cover-scrim"
+          style="background:linear-gradient(180deg, rgba(20,26,28,.62) 0%, rgba(20,26,28,.55) 40%, rgba(20,26,28,.86) 100%);">
+        </div>
+      </div>
+      <div class="runner top" style="color:var(--cream);">
+        <span class="wordmark">Loen&nbsp;Lullaby</span>
+        <span class="r">Thank you</span>
+      </div>
+      <div class="pad" style="justify-content:center; color:var(--cream);">
+        <span class="eyebrow" style="margin-bottom:30px;">The next step</span>
+        <h2 class="d" style="font-size:104px; line-height:.96; margin:0; max-width:1500px;">Come stand on<br>the
+          corner<br>with us.</h2>
+        <p class="lede" style="margin:36px 0 50px; max-width:780px; color:rgba(247,240,223,.92);">
+          Book a private visit to Loen Lullaby and choose your residence before
+          groundbreaking. Four homes. One quiet block. The right time.
+        </p>
+        <div style="display:flex; align-items:center; gap:30px; flex-wrap:wrap;">
+          <span class="cta-pill">Book a private visit<span class="arr"></span></span>
+          <span class="m" style="font-size:14px; opacity:.8;">7920 Byron Avenue · North Beach · Miami Beach</span>
+        </div>
+      </div>
+      <div class="runner bot" style="color:var(--cream);"><span class="l">Loen Lullaby · MMXXVI</span><span
+          class="r">Quietly Miami</span></div>
+    </section>
+
+  </deck-stage>
+
+  <script src="deck-stage.js"></script>
+</body>
+
+</html>

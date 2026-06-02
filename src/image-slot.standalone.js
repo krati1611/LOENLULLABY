@@ -167,13 +167,13 @@
     // same left/top/width/height in frame-%, computed by _applyView(), so the
     // inside-mask crop and the outside-mask spill stay pixel-aligned.
     '.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);' +
-    '  -webkit-user-drag:none;user-select:none;touch-action:none}' +
+    '  -webkit-user-drag:none;user-select:none}' +
     // Reframe mode (double-click): the full image spills past the mask. The
     // spill layer is sized to the IMAGE bounds so its corners are where the
     // resize handles belong. The ghost <img> inside is translucent; the real
     // clipped <img> underneath shows the opaque in-mask crop.
     '.spill{position:absolute;transform:translate(-50%,-50%);display:none;z-index:1;' +
-    '  cursor:grab;touch-action:none}' +
+    '  cursor:grab}' +
     ':host([data-panning]) .spill{cursor:grabbing}' +
     '.spill .ghost{position:absolute;inset:0;width:100%;height:100%;opacity:.35;' +
     '  pointer-events:none;-webkit-user-drag:none;user-select:none;' +
@@ -186,7 +186,8 @@
     '.spill .handle[data-c=sw]{left:0;top:100%;cursor:nesw-resize}' +
     '.spill .handle[data-c=se]{left:100%;top:100%;cursor:nwse-resize}' +
     ':host([data-reframe]){z-index:10}' +
-    ':host([data-reframe]) .spill{display:block}' +
+    ':host([data-reframe]) .frame img{touch-action:none}' +
+    ':host([data-reframe]) .spill{display:block;touch-action:none}' +
     ':host([data-reframe]) .frame{box-shadow:0 0 0 2px #c96442}' +
     '.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;' +
     '  justify-content:center;gap:6px;text-align:center;padding:12px;box-sizing:border-box;' +

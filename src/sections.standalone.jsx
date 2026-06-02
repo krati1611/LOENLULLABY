@@ -33,6 +33,9 @@ function Rule({ color, margin = '0' }) {
 
 function LLNav() {
   const [scrolled, setScrolled] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [isMobile, setIsMobile] = React.useState(false);
+
   React.useEffect(() => {
     const on = () => setScrolled(window.scrollY > 60);
     on();
@@ -40,46 +43,150 @@ function LLNav() {
     return () => window.removeEventListener('scroll', on);
   }, []);
 
+  React.useEffect(() => {
+    const media = window.matchMedia('(max-width: 980px)');
+    const listener = () => setIsMobile(media.matches);
+    listener();
+    media.addEventListener('change', listener);
+    return () => media.removeEventListener('change', listener);
+  }, []);
+
+  React.useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
   return (
-    <nav className="ll-nav" style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-      padding: scrolled ? '14px 4vw' : '22px 4vw',
-      transition: 'padding .3s ease, background .3s ease, backdrop-filter .3s ease',
-      background: scrolled ? 'rgba(239,230,211,.78)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
-      WebkitBackdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
-      borderBottom: scrolled ? '1px solid var(--rule)' : '1px solid transparent',
-      color: 'var(--ink)',
-    }}>
-      <div className="mono" style={{ letterSpacing: '.22em', fontSize: 11 }}>
-        LOEN&nbsp;LULLABY
-      </div>
-      <div className="ll-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 30 }}>
-        {[
-          { label: 'Renderings', href: '#renderings' },
-          { label: 'Plans', href: '#plans' },
-          { label: 'Visit', href: '#visit' }
-        ].map((item) => (
-          <a key={item.label} className="mono" href={item.href} target={item.target}
-             style={{ fontSize: 10.5, opacity: .8 }}>{item.label}</a>
-        ))}
-      </div>
-      <a href="#visit" className="ll-nav-cta" style={{
-          display: 'inline-flex', alignItems: 'center', gap: 10,
-          padding: '10px 18px', borderRadius: 999,
-          background: 'var(--ink)', color: 'var(--cream)',
-          fontSize: 13, fontWeight: 500, letterSpacing: '.02em',
-          whiteSpace: 'nowrap',
+    <>
+      <nav className="ll-nav" style={{
+        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: scrolled || menuOpen ? '14px 4vw' : '22px 4vw',
+        transition: 'padding .3s ease, background .3s ease, backdrop-filter .3s ease',
+        background: scrolled || menuOpen ? 'rgba(247,240,223,.96)' : 'transparent',
+        backdropFilter: scrolled || menuOpen ? 'blur(14px) saturate(140%)' : 'none',
+        WebkitBackdropFilter: scrolled || menuOpen ? 'blur(14px) saturate(140%)' : 'none',
+        borderBottom: scrolled || menuOpen ? '1px solid var(--rule)' : '1px solid transparent',
+        color: 'var(--ink)',
+      }}>
+        <div className="mono" style={{ letterSpacing: '.22em', fontSize: 11 }}>
+          LOEN&nbsp;LULLABY
+        </div>
+        <div className="ll-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 30 }}>
+          {[
+            { label: 'Renderings', href: '#renderings' },
+            { label: 'Plans', href: '#plans' },
+            { label: 'Visit', href: '#visit' }
+          ].map((item) => (
+            <a key={item.label} className="mono" href={item.href} style={{ fontSize: 10.5, opacity: .8 }}>{item.label}</a>
+          ))}
+        </div>
+        
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <a href="#visit" className="ll-nav-cta" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 10,
+            padding: '10px 18px', borderRadius: 999,
+            background: 'var(--ink)', color: 'var(--cream)',
+            fontSize: 13, fontWeight: 500, letterSpacing: '.02em',
+            whiteSpace: 'nowrap',
+          }}>
+            <span className="ll-nav-cta-label">Book a private visit</span>
+            <span className="ll-nav-cta-short" style={{ display: 'none' }}>Visit</span>
+            <span style={{
+              display: 'inline-block', width: 6, height: 6, borderRadius: '50%',
+              background: 'var(--accent)',
+            }} />
+          </a>
+
+          {isMobile && (
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="mono"
+              aria-label="Toggle menu"
+              style={{
+                background: 'transparent',
+                border: 0,
+                padding: '8px 4px',
+                color: 'var(--ink)',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                fontSize: 11,
+                letterSpacing: '.14em',
+                textTransform: 'uppercase',
+                outline: 'none',
+              }}
+            >
+              {menuOpen ? 'CLOSE ✕' : 'MENU ☰'}
+            </button>
+          )}
+        </div>
+      </nav>
+
+      {/* Mobile Drawer Menu overlay */}
+      <div style={{
+        position: 'fixed',
+        inset: 0,
+        background: 'var(--cream)',
+        zIndex: 48,
+        display: menuOpen ? 'flex' : 'none',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '120px 8vw 60px',
+        opacity: menuOpen ? 1 : 0,
+        transform: menuOpen ? 'translateY(0)' : 'translateY(-20px)',
+        transition: 'opacity .35s cubic-bezier(0.2, 0.8, 0.2, 1), transform .35s cubic-bezier(0.2, 0.8, 0.2, 1)',
+        overflowY: 'auto',
+      }}>
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 32,
+          maxWidth: 600,
+          margin: '0 auto',
+          width: '100%',
         }}>
-          <span className="ll-nav-cta-label">Book a private visit</span>
-          <span className="ll-nav-cta-short" style={{ display: 'none' }}>Visit</span>
-          <span style={{
-            display: 'inline-block', width: 6, height: 6, borderRadius: '50%',
-            background: 'var(--accent)',
-          }} />
-        </a>
-    </nav>
+          {[
+            { label: 'Renderings', href: '#renderings' },
+            { label: 'Plans', href: '#plans' },
+            { label: 'Visit', href: '#visit' }
+          ].map((item) => (
+            <a
+              key={item.label}
+              className="display"
+              href={item.href}
+              onClick={() => setMenuOpen(false)}
+              style={{
+                fontSize: 'clamp(40px, 10vw, 64px)',
+                color: 'var(--ink)',
+                borderBottom: '1px solid var(--rule)',
+                paddingBottom: 16,
+                display: 'block',
+                textDecoration: 'none',
+                lineHeight: 1.1,
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
+          
+          <div style={{ marginTop: 40 }} className="mono">
+            <div style={{ color: 'var(--ink-soft)', marginBottom: 8, fontSize: 10, letterSpacing: '.18em' }}>THE ADDRESS</div>
+            <div style={{ color: 'var(--ink)', fontSize: 13, lineHeight: 1.6, letterSpacing: '.05em' }}>
+              7920 BYRON AVENUE<br/>
+              MIAMI BEACH, FL 33141
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -533,7 +640,7 @@ function LLFloorPlans() {
 
           {/* Plan rendering — slot per plan, only the active shows */}
           <div style={{ position: 'relative' }}>
-            <div className="ll-plan-canvas" style={{ position: 'relative', aspectRatio: '4 / 3', background: 'var(--sand)' }}>
+            <div className="ll-plan-canvas" style={{ position: 'relative', aspectRatio: '1.8', background: 'var(--sand)' }}>
               {PLAN_LIST.map((p) => (
                 <div key={p.id} style={{
                   position: 'absolute', inset: 0,
@@ -752,7 +859,7 @@ function LLVisit() {
               <iframe
                 title="LOEN LULLABY location"
                 src="https://www.google.com/maps?q=7920+Byron+Ave,+Miami+Beach,+FL+33141&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, filter: 'grayscale(.35) contrast(.95) saturate(.85)' }}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0, filter: 'grayscale(.35) contrast(.95) saturate(.85)', pointerEvents: 'none' }}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />

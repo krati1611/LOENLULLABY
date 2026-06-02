@@ -102,23 +102,25 @@
     .ll-render-grid > *:first-child{ grid-column: span 2 !important; }
     .ll-stats-4{ grid-template-columns: repeat(2,1fr) !important; gap:28px !important; }
     .ll-nav-links{ display:none !important; }
+    .ll-hero-postcard-stats{ grid-template-columns: repeat(2,1fr) !important; gap:20px !important; }
   }
   @media (max-width: 640px){
     .ll-section-py{ padding-top:72px !important; padding-bottom:72px !important; }
-    .ll-hero-postcard-stats{ grid-template-columns: repeat(2,1fr) !important; }
+    .ll-hero-postcard-stats{ grid-template-columns: 1fr !important; gap:16px !important; }
     .ll-render-grid{ grid-template-columns: 1fr !important; grid-auto-rows: 240px !important; }
     .ll-render-grid > *:first-child{ grid-column: span 1 !important; }
     .ll-stats-4{ grid-template-columns: 1fr !important; }
     .ll-form-2{ grid-template-columns: 1fr !important; gap:18px !important; }
     .ll-nav{ padding:14px 5vw !important; }
     .ll-nav-cta-label{ display:none !important; }
+    .ll-nav-cta-short{ display:inline !important; }
     .ll-nav-cta{ padding:10px 14px !important; }
     .ll-video-shell{ aspect-ratio: 4 / 3 !important; }
     .ll-visit-grid{ gap:36px !important; }
     .ll-section h2{ text-wrap: balance; }
   }
   @media (max-width: 420px){
-    .ll-plan-canvas{ aspect-ratio: 1 / 1 !important; }
+    .ll-plan-canvas{ aspect-ratio: 1.8 !important; }
     .ll-interest-pills button{ font-size: 12px !important; padding: 8px 12px !important; }
   }
 </style>

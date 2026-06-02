@@ -212,6 +212,7 @@ function LLNeighborhood() {
           </div>
 
           <div
+            className="ll-form-2"
             style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',

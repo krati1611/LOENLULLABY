@@ -172,7 +172,7 @@ function HeroEditorial() {
           Loen<br/>Lullaby
         </h1>
         <Rule margin="48px 0 28px" />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28, maxWidth: 520 }}>
+        <div className="ll-form-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28, maxWidth: 520 }}>
           <div>
             <div className="mono" style={{ color: 'var(--ink-soft)', marginBottom: 6 }}>The Building</div>
             <div style={{ fontSize: 15.5, color: 'var(--ink-soft)' }}>
@@ -287,12 +287,12 @@ function LLHero({ variation }) {
 
 function LLVision() {
   return (
-    <section id="vision" data-screen-label="Vision" style={{
+    <section id="vision" data-screen-label="Vision" className="ll-section ll-section-py" style={{
       ...llSectionStyle,
       padding: '160px 6vw 140px',
       background: 'var(--cream)',
     }}>
-      <div style={{
+      <div className="ll-2col" style={{
         display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '8vw',
         maxWidth: 1480, margin: '0 auto',
       }}>
@@ -341,7 +341,7 @@ function LLVision() {
             the surf from.
           </p>
 
-          <div style={{
+          <div className="ll-form-2" style={{
             marginTop: 56, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 36,
             maxWidth: 620,
           }}>
@@ -665,7 +665,7 @@ function LLVisit() {
           {/* Form */}
           <div style={{
             background: 'var(--cream)',
-            padding: '44px 44px 40px',
+            padding: '44px clamp(24px, 5vw, 44px) 40px',
             borderRadius: 2,
             border: '1px solid var(--rule)',
           }}>
@@ -760,7 +760,7 @@ function LLVisit() {
 
             <div style={{
               background: 'var(--cream)',
-              padding: '24px 28px',
+              padding: 'clamp(18px, 4vw, 24px) clamp(18px, 4vw, 28px)',
               border: '1px solid var(--rule)',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, alignItems: 'flex-start' }}>
@@ -841,7 +841,7 @@ function LLFooter() {
           <div className="mono" style={{ letterSpacing: '.22em' }}>
             LOEN&nbsp;LULLABY · MMXXVI
           </div>
-          <div style={{ display: 'flex', gap: 24 }} className="mono">
+          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }} className="mono">
             <span>7920 BYRON AVE</span>
             <span>MIAMI BEACH</span>
             <span>FL 33141</span>

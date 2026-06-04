@@ -1,4 +1,4 @@
-// Reusable video section component.
+54// Reusable video section component.
 // Two ways to load a video:
 //   1) Upload to the slug paths (uploads/<slug>.mp4 / .webm / .mov) — persists.
 //   2) Drag-and-drop / click to pick locally — in-memory only.
@@ -293,10 +293,10 @@ function LLVibeVideo() {
             }}
           >
             <span>{link.label}</span>
-            <span 
-              className="cta-arrow" 
-              style={{ 
-                fontSize: 14, 
+            <span
+              className="cta-arrow"
+              style={{
+                fontSize: 14,
                 transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
                 display: 'inline-block'
               }}

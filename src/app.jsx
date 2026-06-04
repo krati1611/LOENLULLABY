@@ -26,6 +26,7 @@ function App() {
       <LLHero variation={t.hero} />
       <LLRenderings />
       <LLFloorPlans />
+      <LLWalkthrough />
       <LLNeighborhood />
       <LLTransitionVideo />
       <LLInvestorBand />

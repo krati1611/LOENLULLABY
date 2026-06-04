@@ -672,6 +672,165 @@ function LLFloorPlans() {
   );
 }
 
+// ── Walkthrough ────────────────────────────────────────────────────────────
+
+const WALKTHROUGH_STEPS = [
+  { type: 'video', src: 'walkthrough-assets/intro.mp4', label: 'The Approach' },
+  { type: 'image', src: 'walkthrough-assets/01.jpg', label: 'The Living Room' },
+  { type: 'image', src: 'walkthrough-assets/02.jpg', label: 'The Kitchen' },
+  { type: 'image', src: 'walkthrough-assets/03.jpg', label: 'Grand Living Space' },
+  { type: 'image', src: 'walkthrough-assets/04.jpg', label: 'Primary Bedroom' },
+  { type: 'image', src: 'walkthrough-assets/05.jpg', label: 'The Staircase' },
+  { type: 'image', src: 'walkthrough-assets/06.jpg', label: 'Guest Bedroom' },
+  { type: 'image', src: 'walkthrough-assets/07.jpg', label: 'Primary Bath' },
+  { type: 'image', src: 'walkthrough-assets/08.jpg', label: 'Covered Terrace' },
+  { type: 'image', src: 'walkthrough-assets/09.jpg', label: 'Guest Bath' },
+  { type: 'image', src: 'walkthrough-assets/10.jpg', label: 'Rooftop Aerial' },
+  { type: 'image', src: 'walkthrough-assets/11.jpg', label: 'Sunset Terrace' },
+  { type: 'image', src: 'walkthrough-assets/12.jpg', label: 'Outdoor Bar' },
+  { type: 'image', src: 'walkthrough-assets/13.jpg', label: 'Rooftop Lounge' },
+  { type: 'image', src: 'walkthrough-assets/14.jpg', label: 'Grand Dining' },
+  { type: 'image', src: 'walkthrough-assets/15.jpg', label: 'The Spa' },
+  { type: 'image', src: 'walkthrough-assets/16.jpg', label: 'Walk-in Closet' },
+];
+
+function LLWalkthrough() {
+  const [step, setStep] = React.useState(0);
+  
+  const handleNext = () => {
+    setStep((prev) => (prev + 1) % WALKTHROUGH_STEPS.length);
+  };
+  
+  const handlePrev = (e) => {
+    e.stopPropagation();
+    setStep((prev) => (prev === 0 ? WALKTHROUGH_STEPS.length - 1 : prev - 1));
+  };
+  
+  const currentStep = WALKTHROUGH_STEPS[step];
+  
+  return (
+    <section id="walkthrough" data-screen-label="Walkthrough" className="ll-section ll-section-py" style={{
+      ...llSectionStyle,
+      padding: '140px 6vw 140px',
+      background: 'var(--ink)',
+      color: 'var(--cream)',
+    }}>
+      <div style={{ maxWidth: 1480, margin: '0 auto' }}>
+        <div style={{
+          display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
+          gap: 40, marginBottom: 64, flexWrap: 'wrap',
+        }}>
+          <div>
+            <EyebrowLine color="rgba(247,240,223,.7)">Chapter Four — The Walkthrough</EyebrowLine>
+            <h2 className="display" style={{
+              fontSize: 'clamp(48px, 6vw, 88px)', margin: '20px 0 0', lineHeight: 1,
+            }}>
+              Step inside.
+            </h2>
+          </div>
+          <div style={{ maxWidth: 380, color: 'rgba(247,240,223,.7)', fontSize: 15 }}>
+            Experience the flow of light and space. Click anywhere on the frame to walk through the residence.
+          </div>
+        </div>
+
+        <div 
+          onClick={handleNext}
+          style={{ 
+            position: 'relative', 
+            width: '100%', 
+            aspectRatio: '16 / 9', 
+            background: '#000',
+            cursor: 'pointer',
+            overflow: 'hidden',
+            borderRadius: '4px',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.4)',
+          }}
+        >
+          {WALKTHROUGH_STEPS.map((s, idx) => {
+            const isActive = idx === step;
+            return (
+              <div 
+                key={idx}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  opacity: isActive ? 1 : 0,
+                  transform: isActive ? 'scale(1)' : 'scale(1.05)',
+                  transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  pointerEvents: isActive ? 'auto' : 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {s.type === 'video' ? (
+                  <video 
+                    src={s.src} 
+                    autoPlay 
+                    muted 
+                    loop 
+                    playsInline 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                ) : (
+                  <img 
+                    src={s.src} 
+                    alt={s.label} 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                )}
+              </div>
+            );
+          })}
+          
+          {/* Overlay controls */}
+          <div style={{
+            position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '24px', pointerEvents: 'none',
+          }}>
+            <div className="mono" style={{ display: 'flex', justifyContent: 'space-between', color: '#fff', textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+              <span>WALKTHROUGH</span>
+              <span>{step + 1} / {WALKTHROUGH_STEPS.length}</span>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+              <div className="display" style={{ 
+                fontSize: 'clamp(32px, 5vw, 56px)', 
+                color: '#fff', 
+                textShadow: '0 4px 16px rgba(0,0,0,0.6)',
+                lineHeight: 1
+              }}>
+                {currentStep.label}
+              </div>
+              
+              <div style={{ display: 'flex', gap: '12px', pointerEvents: 'auto' }}>
+                <button onClick={handlePrev} className="mono" style={{
+                  background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.2)', padding: '12px 20px', color: '#fff', cursor: 'pointer', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', borderRadius: '99px', transition: 'background 0.3s'
+                }} onMouseOver={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.8)'} onMouseOut={(e) => e.currentTarget.style.background = 'rgba(0,0,0,0.5)'}>
+                  PREV
+                </button>
+                <button onClick={(e) => { e.stopPropagation(); handleNext(); }} className="mono" style={{
+                  background: '#fff', border: '1px solid #fff', padding: '12px 20px', color: '#000', cursor: 'pointer', borderRadius: '99px', transition: 'background 0.3s'
+                }} onMouseOver={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.8)'} onMouseOut={(e) => e.currentTarget.style.background = '#fff'}>
+                  NEXT
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Progress bar */}
+        <div style={{ width: '100%', height: '2px', background: 'rgba(255,255,255,0.1)', marginTop: '32px', borderRadius: '2px', overflow: 'hidden' }}>
+          <div style={{ 
+            height: '100%', 
+            background: 'var(--cream)', 
+            width: `${((step + 1) / WALKTHROUGH_STEPS.length) * 100}%`,
+            transition: 'width 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+          }} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── Quiet investor band ────────────────────────────────────────────────────
 
 function LLInvestorBand() {
@@ -1024,6 +1183,6 @@ function LLFooter() {
 }
 
 Object.assign(window, {
-  LLNav, LLHero, LLVision, LLRenderings, LLFloorPlans,
+  LLNav, LLHero, LLVision, LLRenderings, LLFloorPlans, LLWalkthrough,
   LLInvestorBand, LLVisit, LLFooter,
 });

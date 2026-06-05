@@ -694,6 +694,101 @@ const WALKTHROUGH_STEPS = [
   { type: 'image', src: 'walkthrough-assets/16.jpg', label: 'Walk-in Closet' },
 ];
 
+function FlatPanViewer({ src }) {
+  const containerRef = React.useRef(null);
+  const imgRef = React.useRef(null);
+  const [translate, setTranslate] = React.useState(0);
+  const isDragging = React.useRef(false);
+  const startX = React.useRef(0);
+  const currentTranslate = React.useRef(0);
+
+  const handlePointerDown = (e) => {
+    isDragging.current = true;
+    startX.current = e.clientX;
+    e.currentTarget.style.cursor = 'grabbing';
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isDragging.current) return;
+    const x = e.clientX;
+    const deltaX = x - startX.current;
+    
+    if (containerRef.current && imgRef.current) {
+      const containerW = containerRef.current.clientWidth;
+      const imgW = imgRef.current.clientWidth;
+      const maxTranslate = Math.max(0, imgW - containerW);
+      
+      let newTranslate = currentTranslate.current + deltaX;
+      if (newTranslate > 0) newTranslate = 0;
+      if (newTranslate < -maxTranslate) newTranslate = -maxTranslate;
+      
+      setTranslate(newTranslate);
+    }
+  };
+
+  const handlePointerUp = (e) => {
+    isDragging.current = false;
+    currentTranslate.current = translate;
+    if (e.currentTarget) e.currentTarget.style.cursor = 'grab';
+  };
+
+  React.useEffect(() => {
+    const onResize = () => {
+      if (containerRef.current && imgRef.current) {
+        const containerW = containerRef.current.clientWidth;
+        const imgW = imgRef.current.clientWidth;
+        const maxTranslate = Math.max(0, imgW - containerW);
+        let newTranslate = currentTranslate.current;
+        if (newTranslate < -maxTranslate) newTranslate = -maxTranslate;
+        setTranslate(newTranslate);
+        currentTranslate.current = newTranslate;
+      }
+    };
+    window.addEventListener('resize', onResize);
+    // Reset translate when src changes
+    setTranslate(0);
+    currentTranslate.current = 0;
+    return () => window.removeEventListener('resize', onResize);
+  }, [src]);
+
+  return (
+    <div 
+      ref={containerRef}
+      style={{ position: 'relative', width: '100%', height: '100%', borderRadius: 'inherit', overflow: 'hidden', cursor: 'grab', touchAction: 'pan-y' }} 
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerLeave={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+    >
+      <img 
+        ref={imgRef}
+        src={src} 
+        alt="Interactive Render"
+        draggable={false}
+        style={{
+          display: 'block',
+          height: '100%',
+          width: 'auto',
+          maxWidth: 'none',
+          transform: `translateX(${translate}px)`,
+          transition: isDragging.current ? 'none' : 'transform 0.1s ease-out'
+        }} 
+      />
+      {/* Top Badge */}
+      <div style={{ position: 'absolute', top: 16, right: 16, background: '#D99166', color: '#fff', padding: '6px 12px', borderRadius: '6px', fontSize: '13px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '6px', pointerEvents: 'none', zIndex: 10, boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 3h6v6"></path><path d="M9 21H3v-6"></path><path d="M21 3l-7 7"></path><path d="M3 21l7-7"></path></svg>
+        Interactive Pan
+      </div>
+      {/* Bottom hint overlay */}
+      <div style={{ position: 'absolute', bottom: 20, left: '50%', transform: 'translateX(-50%)', background: 'rgba(30, 37, 40, 0.65)', backdropFilter: 'blur(4px)', color: '#fff', padding: '8px 16px', borderRadius: '24px', fontSize: '13px', fontWeight: 500, display: 'flex', alignItems: 'center', gap: '8px', pointerEvents: 'none', zIndex: 10, whiteSpace: 'nowrap' }}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l-6-6 6-6"></path><path d="M15 6l6 6-6 6"></path></svg>
+        Drag horizontally to pan
+      </div>
+    </div>
+  );
+}
+
 function LLWalkthrough() {
   const [step, setStep] = React.useState(0);
   
@@ -729,18 +824,18 @@ function LLWalkthrough() {
             </h2>
           </div>
           <div style={{ maxWidth: 380, color: 'rgba(247,240,223,.7)', fontSize: 15 }}>
-            Experience the flow of light and space. Click anywhere on the frame to walk through the residence.
+            Experience the flow of light and space. Drag to look around, and use the controls to walk through the residence.
           </div>
         </div>
 
         <div 
-          onClick={handleNext}
           style={{ 
             position: 'relative', 
             width: '100%', 
+            maxWidth: '1120px',
+            margin: '0 auto',
             aspectRatio: '16 / 9', 
             background: '#000',
-            cursor: 'pointer',
             overflow: 'hidden',
             borderRadius: '4px',
             boxShadow: '0 24px 64px rgba(0,0,0,0.4)',
@@ -772,6 +867,8 @@ function LLWalkthrough() {
                     playsInline 
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
+                ) : isActive ? (
+                  <FlatPanViewer src={window.__resources ? (window.__resources[s.src] || s.src) : s.src} />
                 ) : (
                   <img 
                     src={window.__resources ? (window.__resources[s.src] || s.src) : s.src} 

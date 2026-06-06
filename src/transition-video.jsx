@@ -37,10 +37,11 @@ function LLVideoSection({
   bg = 'var(--sand)',
   emptyTitle = 'Drop the film here.',
   emptyKicker = 'FILM · 16:9 · MP4 / WEBM / MOV',
+  youtubeId = null,     // YouTube video ID — used as fallback when no local file
   children,
 }) {
   const [src, setSrc] = React.useState(null);
-  const [origin, setOrigin] = React.useState('idle'); // 'file' | 'local'
+  const [origin, setOrigin] = React.useState('idle'); // 'file' | 'local' | 'youtube'
   const [drag, setDrag] = React.useState(false);
   const [playing, setPlaying] = React.useState(true);
   const videoRef = React.useRef(null);
@@ -64,8 +65,13 @@ function LLVideoSection({
           return;
         }
       }
+      // No local file found — fall back to YouTube embed if an ID is provided
+      if (youtubeId) {
+        setSrc(null);
+        setOrigin('youtube');
+      }
     })();
-  }, [defaults]);
+  }, [defaults, youtubeId]);
 
   const handleFile = (file) => {
     if (!file || !file.type.startsWith('video/')) return;
@@ -156,6 +162,72 @@ function LLVideoSection({
                 </button>
               </div>
             </>
+          ) : origin === 'youtube' && youtubeId ? (
+            window.location.protocol === 'file:' ? (
+              // file:// — YouTube iframes are blocked; show clickable thumbnail instead
+              <a
+                href={`https://www.youtube.com/watch?v=${youtubeId}`}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  position: 'absolute', inset: 0,
+                  display: 'block', textDecoration: 'none',
+                }}
+              >
+                <img
+                  src={`https://i.ytimg.com/vi/${youtubeId}/maxresdefault.jpg`}
+                  onError={(e) => { e.target.src = `https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`; }}
+                  alt=""
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                />
+                <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,.32)' }} />
+                <div style={{
+                  position: 'absolute', left: 0, right: 0, bottom: 0, height: '40%',
+                  background: 'linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.6) 100%)',
+                }} />
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <div style={{
+                    width: 72, height: 72, borderRadius: '50%',
+                    background: 'rgba(255,255,255,.92)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    boxShadow: '0 8px 32px rgba(0,0,0,.35)',
+                  }}>
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="#1E2528">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div className="mono" style={{
+                  position: 'absolute', left: 22, bottom: 22, color: '#F7F0DF', opacity: .85,
+                }}>
+                  {caption}
+                </div>
+                <div className="mono" style={{
+                  position: 'absolute', top: 22, right: 22,
+                  background: 'rgba(0,0,0,.55)', color: '#F7F0DF',
+                  padding: '8px 14px', borderRadius: 999,
+                  fontSize: 10.5, letterSpacing: '.14em',
+                  backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+                }}>
+                  Watch on YouTube ↗
+                </div>
+              </a>
+            ) : (
+              // http/https — embed plays inline
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1`}
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                style={{
+                  position: 'absolute', inset: 0,
+                  width: '100%', height: '100%',
+                  border: 0, display: 'block',
+                }}
+              />
+            )
           ) : (
             <div style={{
               position: 'absolute', inset: 0,
@@ -208,6 +280,7 @@ function LLVideoSection({
             to persist across reloads.
           </div>
         )}
+
         {children}
       </div>
     </section>
@@ -226,6 +299,7 @@ function LLTransitionVideo() {
       blurb="A short film, from drafting line to finished form. Best with sound."
       caption="PL.07 — Plan → Building"
       bg="var(--sand)"
+      youtubeId="g_cgeN-uAF0"
     />
   );
 }
@@ -241,6 +315,7 @@ function LLVibeVideo() {
       caption="PL.08 — A day inside the house"
       bg="var(--cream)"
       emptyTitle="Drop the mood film here."
+      youtubeId="h5-nbJJPc34"
     >
       <div style={{
         marginTop: 64,

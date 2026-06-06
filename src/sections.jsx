@@ -676,22 +676,14 @@ function LLFloorPlans() {
 
 const WALKTHROUGH_STEPS = [
   { type: 'video', src: 'walkthrough-assets/intro.mp4', label: 'The Approach' },
-  { type: 'image', src: 'walkthrough-assets/01.jpg', label: 'The Living Room' },
-  { type: 'image', src: 'walkthrough-assets/02-new.jpg', label: 'The Kitchen' },
-  { type: 'image', src: 'walkthrough-assets/03.jpg', label: 'Grand Living Space' },
-  { type: 'image', src: 'walkthrough-assets/04.jpg', label: 'Primary Bedroom' },
-  { type: 'image', src: 'walkthrough-assets/05.jpg', label: 'The Staircase' },
-  { type: 'image', src: 'walkthrough-assets/06.jpg', label: 'Guest Bedroom' },
-  { type: 'image', src: 'walkthrough-assets/07.jpg', label: 'Primary Bath' },
-  { type: 'image', src: 'walkthrough-assets/08.jpg', label: 'Covered Terrace' },
-  { type: 'image', src: 'walkthrough-assets/09.jpg', label: 'Guest Bath' },
-  { type: 'image', src: 'walkthrough-assets/10.jpg', label: 'Rooftop Aerial' },
-  { type: 'image', src: 'walkthrough-assets/11.jpg', label: 'Sunset Terrace' },
-  { type: 'image', src: 'walkthrough-assets/12.jpg', label: 'Outdoor Bar' },
-  { type: 'image', src: 'walkthrough-assets/13.jpg', label: 'Rooftop Lounge' },
-  { type: 'image', src: 'walkthrough-assets/14.jpg', label: 'Grand Dining' },
-  { type: 'image', src: 'walkthrough-assets/15.jpg', label: 'The Spa' },
-  { type: 'image', src: 'walkthrough-assets/16.jpg', label: 'Walk-in Closet' },
+  { src: 'walkthrough-assets/01.png', label: 'The Living Area' },
+  { src: 'walkthrough-assets/02.png', label: 'The Kitchen' },
+  { src: 'walkthrough-assets/03.png', label: 'Primary Bedroom' },
+  { src: 'walkthrough-assets/04.png', label: 'Ocean View Terrace' },
+  { src: 'walkthrough-assets/05.png', label: 'Primary Bath' },
+  { src: 'walkthrough-assets/06.png', label: 'Sunset Terrace' },
+  { src: 'walkthrough-assets/07.png', label: 'Outdoor Bar' },
+  { src: 'walkthrough-assets/08.png', label: 'Rooftop Lounge' },
 ];
 
 function PanoramaViewer({ src, isActive }) {
@@ -709,10 +701,10 @@ function PanoramaViewer({ src, isActive }) {
             vaov: 180,
             vOffset: 0,
             ignoreAxis: true,
-            minYaw: -45,
-            maxYaw: 45,
-            minPitch: -15,
-            maxPitch: 15,
+            minYaw: -180,
+            maxYaw: 180,
+            minPitch: -90,
+            maxPitch: 90,
             yaw: 0,
             pitch: 0,
             hfov: 90,
@@ -725,17 +717,7 @@ function PanoramaViewer({ src, isActive }) {
         }
       }, 100);
     }
-    if (!isActive && viewerRef.current) {
-      viewerRef.current.destroy();
-      viewerRef.current = null;
-    }
-    return () => {
-      if (viewerRef.current) {
-        viewerRef.current.destroy();
-        viewerRef.current = null;
-      }
-    };
-  }, [isActive, src]);
+  }, [src, isActive]);
 
   return (
     <>
@@ -744,6 +726,36 @@ function PanoramaViewer({ src, isActive }) {
       `}</style>
       <div ref={containerRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', cursor: 'grab' }} />
     </>
+  );
+}
+
+function WalkthroughVideoStep({ src, isActive }) {
+  const videoRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (isActive) {
+      v.currentTime = 0;
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+    }
+  }, [isActive]);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      muted
+      loop
+      playsInline
+      style={{
+        position: 'absolute', inset: 0,
+        width: '100%', height: '100%',
+        objectFit: 'cover', display: 'block',
+      }}
+    />
   );
 }
 
@@ -802,6 +814,7 @@ function LLWalkthrough() {
         >
           {WALKTHROUGH_STEPS.map((s, idx) => {
             const isActive = idx === step;
+            const resolvedSrc = window.__resources ? (window.__resources[s.src] || s.src) : s.src;
             return (
               <div 
                 key={idx}
@@ -815,19 +828,9 @@ function LLWalkthrough() {
                 }}
               >
                 {s.type === 'video' ? (
-                  <video 
-                    src={window.__resources ? (window.__resources[s.src] || s.src) : s.src} 
-                    autoPlay 
-                    muted 
-                    loop 
-                    playsInline 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  />
+                  <WalkthroughVideoStep src={resolvedSrc} isActive={isActive} />
                 ) : (
-                  <PanoramaViewer 
-                    src={window.__resources ? (window.__resources[s.src] || s.src) : s.src} 
-                    isActive={isActive} 
-                  />
+                  <PanoramaViewer src={resolvedSrc} isActive={isActive} />
                 )}
               </div>
             );

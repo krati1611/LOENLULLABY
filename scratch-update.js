@@ -31,6 +31,7 @@ if (extMatch) {
 
 const appUuid = "2ecce471-d2bd-4464-a054-3c79427d837a";
 const sectionsUuid = "4ebf2209-6b16-47ff-bd3c-29d8c3f89f29";
+const transitionVideoUuid = "ba09824f-efac-4a6e-9e27-d4267029840e";
 
 function updateManifestEntry(uuid, filePath, mimeType) {
     const content = fs.readFileSync(path.join(__dirname, filePath));
@@ -45,7 +46,8 @@ function updateManifestEntry(uuid, filePath, mimeType) {
 // Ensure mime types match original
 updateManifestEntry(appUuid, 'src/app.jsx', 'application/javascript');
 updateManifestEntry(sectionsUuid, 'src/sections.jsx', 'application/javascript');
-console.log("Updated app.jsx and sections.jsx in manifest.");
+updateManifestEntry(transitionVideoUuid, 'src/transition-video.jsx', 'application/javascript');
+console.log("Updated app.jsx, sections.jsx and transition-video.jsx in manifest.");
 
 // Clean out old walkthrough assets and upload videos to prevent duplicates blooming the file size
 const newExtResources = [];
@@ -58,6 +60,14 @@ for (const entry of extResources) {
     }
 }
 extResources = newExtResources;
+
+// Inject Pannellum
+if (typeof template === 'string' && !template.includes('pannellum')) {
+    template = template.replace(
+        '</head>',
+        '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>\n<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>\n</head>'
+    );
+}
 
 // Helper to bundle a directory of media files
 function bundleAssets(dirName, idPrefix) {
@@ -115,10 +125,12 @@ for (const file of ['transition.mp4', 'vibe.mp4']) {
 }
 
 // Write back
+const newTemplateHtml = `<script type="__bundler/template">${JSON.stringify(template).replace(/<\/script>/g, '<\\/script>')}</script>`;
 const newManifestHtml = `<script type="__bundler/manifest">${JSON.stringify(manifest)}</script>`;
 const newExtHtml = `<script type="__bundler/ext_resources">${JSON.stringify(extResources)}</script>`;
 
 let newHtml = html.replace(manifestRegex, newManifestHtml);
+newHtml = newHtml.replace(templateRegex, newTemplateHtml);
 
 if (extMatch) {
     newHtml = newHtml.replace(extRegex, newExtHtml);

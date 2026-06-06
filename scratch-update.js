@@ -47,10 +47,10 @@ updateManifestEntry(appUuid, 'src/app.jsx', 'application/javascript');
 updateManifestEntry(sectionsUuid, 'src/sections.jsx', 'application/javascript');
 console.log("Updated app.jsx and sections.jsx in manifest.");
 
-// Clean out old walkthrough assets to prevent duplicates blooming the file size
+// Clean out old walkthrough assets and upload videos to prevent duplicates blooming the file size
 const newExtResources = [];
 for (const entry of extResources) {
-    if (entry.id.startsWith('walkthrough-assets/')) {
+    if (entry.id.startsWith('walkthrough-assets/') || entry.id.startsWith('uploads/')) {
         // remove from manifest
         delete manifest[entry.uuid];
     } else {
@@ -59,28 +59,55 @@ for (const entry of extResources) {
 }
 extResources = newExtResources;
 
-// Add walkthrough assets to manifest and extResources
-const assetsDir = path.join(__dirname, 'walkthrough-assets');
-const files = fs.readdirSync(assetsDir);
-for (const file of files) {
-    if (file.endsWith('.jpg') || file.endsWith('.mp4')) {
-        const filePath = path.join(assetsDir, file);
+// Helper to bundle a directory of media files
+function bundleAssets(dirName, idPrefix) {
+    const dirPath = path.join(__dirname, dirName);
+    if (!fs.existsSync(dirPath)) return;
+    const files = fs.readdirSync(dirPath);
+    for (const file of files) {
+        if (file.endsWith('.jpg') || file.endsWith('.mp4')) {
+            const filePath = path.join(dirPath, file);
+            const data = fs.readFileSync(filePath);
+            const compressed = zlib.gzipSync(data);
+            const mime = file.endsWith('.jpg') ? 'image/jpeg' : 'video/mp4';
+            
+            const uuid = crypto.randomUUID();
+            manifest[uuid] = {
+                mime: mime,
+                data: compressed.toString('base64'),
+                compressed: true
+            };
+            
+            extResources.push({
+                id: `${idPrefix}${file}`,
+                uuid: uuid
+            });
+            console.log(`Added ${idPrefix}${file} as ${uuid}`);
+        }
+    }
+}
+
+// Add assets
+bundleAssets('walkthrough-assets', 'walkthrough-assets/');
+
+// Only bundle the specific videos we need, otherwise the file becomes too large for GitHub
+const uploadsPath = path.join(__dirname, 'uploads');
+for (const file of ['transition.mp4', 'vibe.mp4']) {
+    const filePath = path.join(uploadsPath, file);
+    if (fs.existsSync(filePath)) {
         const data = fs.readFileSync(filePath);
         const compressed = zlib.gzipSync(data);
-        const mime = file.endsWith('.jpg') ? 'image/jpeg' : 'video/mp4';
-        
         const uuid = crypto.randomUUID();
         manifest[uuid] = {
-            mime: mime,
+            mime: 'video/mp4',
             data: compressed.toString('base64'),
             compressed: true
         };
-        
         extResources.push({
-            id: `walkthrough-assets/${file}`,
+            id: `uploads/${file}`,
             uuid: uuid
         });
-        console.log(`Added walkthrough-assets/${file} as ${uuid}`);
+        console.log(`Added uploads/${file} as ${uuid}`);
     }
 }
 

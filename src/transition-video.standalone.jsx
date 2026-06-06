@@ -46,17 +46,14 @@ function LLVideoSection({
   const videoRef = React.useRef(null);
   const inputRef = React.useRef(null);
 
-  const defaults = React.useMemo(() => {
-    const lifted =
-      (typeof window !== 'undefined' && window.__resources && window.__resources['video_' + slug])
-      || null;
-    if (lifted) return [lifted];
-    return [
-      `uploads/${slug}.mp4`,
-      `uploads/${slug}.webm`,
-      `uploads/${slug}.mov`,
-    ];
-  }, [slug]);
+  const defaults = React.useMemo(() => ([
+    window.__resources?.[`uploads/${slug}.mp4`],
+    window.__resources?.[`uploads/${slug}.webm`],
+    window.__resources?.[`uploads/${slug}.mov`],
+    `uploads/${slug}.mp4`,
+    `uploads/${slug}.webm`,
+    `uploads/${slug}.mov`,
+  ].filter(Boolean)), [slug]);
 
   React.useEffect(() => {
     (async () => {

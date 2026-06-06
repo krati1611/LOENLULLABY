@@ -47,12 +47,12 @@ function LLVideoSection({
   const inputRef = React.useRef(null);
 
   const defaults = React.useMemo(() => ([
-    window.__resources?.[`uploads/${slug}.mp4`],
-    window.__resources?.[`uploads/${slug}.webm`],
-    window.__resources?.[`uploads/${slug}.mov`],
     `uploads/${slug}.mp4`,
     `uploads/${slug}.webm`,
     `uploads/${slug}.mov`,
+    window.__resources?.[`uploads/${slug}.mp4`],
+    window.__resources?.[`uploads/${slug}.webm`],
+    window.__resources?.[`uploads/${slug}.mov`],
   ].filter(Boolean)), [slug]);
 
   React.useEffect(() => {

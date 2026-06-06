@@ -677,7 +677,7 @@ function LLFloorPlans() {
 const WALKTHROUGH_STEPS = [
   { type: 'video', src: 'walkthrough-assets/intro.mp4', label: 'The Approach' },
   { type: 'image', src: 'walkthrough-assets/01.jpg', label: 'The Living Room' },
-  { type: 'image', src: 'walkthrough-assets/02.jpg', label: 'The Kitchen' },
+  { type: 'image', src: 'walkthrough-assets/02-new.jpg', label: 'The Kitchen' },
   { type: 'image', src: 'walkthrough-assets/03.jpg', label: 'Grand Living Space' },
   { type: 'image', src: 'walkthrough-assets/04.jpg', label: 'Primary Bedroom' },
   { type: 'image', src: 'walkthrough-assets/05.jpg', label: 'The Staircase' },
@@ -695,88 +695,53 @@ const WALKTHROUGH_STEPS = [
 ];
 
 function PanoramaViewer({ src, isActive }) {
-  const [offset, setOffset] = React.useState(0);
-  const [isDragging, setIsDragging] = React.useState(false);
-  const dragStartX = React.useRef(0);
-  const offsetStart = React.useRef(0);
-  const velocity = React.useRef(-0.05);
-  const rafRef = React.useRef(null);
+  const containerRef = React.useRef(null);
+  const viewerRef = React.useRef(null);
 
   React.useEffect(() => {
-    if (!isActive) {
-      setOffset(0);
-      return;
+    if (isActive && !viewerRef.current && window.pannellum) {
+      setTimeout(() => {
+        if (containerRef.current) {
+          viewerRef.current = window.pannellum.viewer(containerRef.current, {
+            type: 'equirectangular',
+            panorama: src,
+            minYaw: -60,
+            maxYaw: 60,
+            minPitch: -20,
+            maxPitch: 20,
+            yaw: 0,
+            pitch: 0,
+            hfov: 90,
+            autoLoad: true,
+            autoRotate: 0,
+            showControls: false,
+            mouseZoom: false,
+            compass: false,
+          });
+        }
+      }, 100);
     }
-    
-    const loop = () => {
-      if (!isDragging) {
-        setOffset(prev => {
-          let next = prev + velocity.current;
-          if (next <= -15) { next = -15; velocity.current *= -1; }
-          if (next >= 15) { next = 15; velocity.current *= -1; }
-          return next;
-        });
+    if (!isActive && viewerRef.current) {
+      viewerRef.current.destroy();
+      viewerRef.current = null;
+    }
+    return () => {
+      if (viewerRef.current) {
+        viewerRef.current.destroy();
+        viewerRef.current = null;
       }
-      rafRef.current = requestAnimationFrame(loop);
     };
-    rafRef.current = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [isActive, isDragging]);
-
-  const handlePointerDown = (e) => {
-    setIsDragging(true);
-    dragStartX.current = e.clientX || (e.touches && e.touches[0].clientX);
-    offsetStart.current = offset;
-  };
-
-  const handlePointerMove = (e) => {
-    if (!isDragging) return;
-    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-    const dx = clientX - dragStartX.current;
-    let newOffset = offsetStart.current + (dx / window.innerWidth) * 30;
-    if (newOffset <= -15) newOffset = -15;
-    if (newOffset >= 15) newOffset = 15;
-    
-    if (dx !== 0) {
-      velocity.current = dx > 0 ? Math.abs(velocity.current) : -Math.abs(velocity.current);
-    }
-    
-    setOffset(newOffset);
-  };
-
-  const handlePointerUp = () => {
-    setIsDragging(false);
-  };
+  }, [isActive, src]);
 
   return (
-    <div 
-      style={{ position: 'absolute', inset: 0, overflow: 'hidden', cursor: isDragging ? 'grabbing' : 'grab' }}
-      onMouseDown={handlePointerDown}
-      onMouseMove={handlePointerMove}
-      onMouseUp={handlePointerUp}
-      onMouseLeave={handlePointerUp}
-      onTouchStart={handlePointerDown}
-      onTouchMove={handlePointerMove}
-      onTouchEnd={handlePointerUp}
-      onTouchCancel={handlePointerUp}
-    >
-      <img 
-        src={src} 
-        alt="Walkthrough view"
-        style={{
-          width: '130%', 
-          height: '130%', 
-          objectFit: 'cover',
-          position: 'absolute',
-          top: '-15%',
-          left: '-15%',
-          transform: `translateX(${offset}%)`,
-          pointerEvents: 'none',
-          willChange: 'transform',
-        }}
-        draggable={false}
-      />
-    </div>
+    <>
+      <style>{`
+        .pnlm-container { width: 100%; height: 100%; position: relative; overflow: hidden; background: #000; }
+        .pnlm-render-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+        .pnlm-about-msg { display: none !important; }
+      `}</style>
+      <div ref={containerRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', cursor: 'grab' }} />
+    </>
   );
 }
 

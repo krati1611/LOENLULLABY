@@ -65,11 +65,14 @@ function bundleAssets(dirName, idPrefix) {
     if (!fs.existsSync(dirPath)) return;
     const files = fs.readdirSync(dirPath);
     for (const file of files) {
-        if (file.endsWith('.jpg') || file.endsWith('.mp4')) {
+        if (file.endsWith('.jpg') || file.endsWith('.png') || file.endsWith('.mp4')) {
             const filePath = path.join(dirPath, file);
             const data = fs.readFileSync(filePath);
             const compressed = zlib.gzipSync(data);
-            const mime = file.endsWith('.jpg') ? 'image/jpeg' : 'video/mp4';
+            
+            let mime = 'video/mp4';
+            if (file.endsWith('.jpg')) mime = 'image/jpeg';
+            else if (file.endsWith('.png')) mime = 'image/png';
             
             const uuid = crypto.randomUUID();
             manifest[uuid] = {

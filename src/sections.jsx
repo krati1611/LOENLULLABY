@@ -705,6 +705,10 @@ function PanoramaViewer({ src, isActive }) {
           viewerRef.current = window.pannellum.viewer(containerRef.current, {
             type: 'equirectangular',
             panorama: src,
+            haov: 360,
+            vaov: 180,
+            vOffset: 0,
+            ignoreAxis: true,
             minYaw: -45,
             maxYaw: 45,
             minPitch: -15,

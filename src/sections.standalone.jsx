@@ -705,13 +705,15 @@ function PanoramaViewer({ src, isActive }) {
           viewerRef.current = window.pannellum.viewer(containerRef.current, {
             type: 'equirectangular',
             panorama: src,
-            minYaw: -60,
-            maxYaw: 60,
-            minPitch: -20,
-            maxPitch: 20,
+            haov: 100,
+            vaov: 56.25,
+            minYaw: -20,
+            maxYaw: 20,
+            minPitch: -10,
+            maxPitch: 10,
             yaw: 0,
             pitch: 0,
-            hfov: 90,
+            hfov: 60,
             autoLoad: true,
             autoRotate: 0,
             showControls: false,
@@ -736,8 +738,6 @@ function PanoramaViewer({ src, isActive }) {
   return (
     <>
       <style>{`
-        .pnlm-container { width: 100%; height: 100%; position: relative; overflow: hidden; background: #000; }
-        .pnlm-render-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
         .pnlm-about-msg { display: none !important; }
       `}</style>
       <div ref={containerRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', cursor: 'grab' }} />

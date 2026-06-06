@@ -47,6 +47,18 @@ updateManifestEntry(appUuid, 'src/app.jsx', 'application/javascript');
 updateManifestEntry(sectionsUuid, 'src/sections.jsx', 'application/javascript');
 console.log("Updated app.jsx and sections.jsx in manifest.");
 
+// Clean out old walkthrough assets to prevent duplicates blooming the file size
+const newExtResources = [];
+for (const entry of extResources) {
+    if (entry.id.startsWith('walkthrough-assets/')) {
+        // remove from manifest
+        delete manifest[entry.uuid];
+    } else {
+        newExtResources.push(entry);
+    }
+}
+extResources = newExtResources;
+
 // Add walkthrough assets to manifest and extResources
 const assetsDir = path.join(__dirname, 'walkthrough-assets');
 const files = fs.readdirSync(assetsDir);

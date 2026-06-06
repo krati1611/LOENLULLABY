@@ -694,6 +694,92 @@ const WALKTHROUGH_STEPS = [
   { type: 'image', src: 'walkthrough-assets/16.jpg', label: 'Walk-in Closet' },
 ];
 
+function PanoramaViewer({ src, isActive }) {
+  const [offset, setOffset] = React.useState(0);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const dragStartX = React.useRef(0);
+  const offsetStart = React.useRef(0);
+  const velocity = React.useRef(-0.05);
+  const rafRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (!isActive) {
+      setOffset(0);
+      return;
+    }
+    
+    const loop = () => {
+      if (!isDragging) {
+        setOffset(prev => {
+          let next = prev + velocity.current;
+          if (next <= -15) { next = -15; velocity.current *= -1; }
+          if (next >= 15) { next = 15; velocity.current *= -1; }
+          return next;
+        });
+      }
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [isActive, isDragging]);
+
+  const handlePointerDown = (e) => {
+    setIsDragging(true);
+    dragStartX.current = e.clientX || (e.touches && e.touches[0].clientX);
+    offsetStart.current = offset;
+  };
+
+  const handlePointerMove = (e) => {
+    if (!isDragging) return;
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const dx = clientX - dragStartX.current;
+    let newOffset = offsetStart.current + (dx / window.innerWidth) * 30;
+    if (newOffset <= -15) newOffset = -15;
+    if (newOffset >= 15) newOffset = 15;
+    
+    if (dx !== 0) {
+      velocity.current = dx > 0 ? Math.abs(velocity.current) : -Math.abs(velocity.current);
+    }
+    
+    setOffset(newOffset);
+  };
+
+  const handlePointerUp = () => {
+    setIsDragging(false);
+  };
+
+  return (
+    <div 
+      style={{ position: 'absolute', inset: 0, overflow: 'hidden', cursor: isDragging ? 'grabbing' : 'grab' }}
+      onMouseDown={handlePointerDown}
+      onMouseMove={handlePointerMove}
+      onMouseUp={handlePointerUp}
+      onMouseLeave={handlePointerUp}
+      onTouchStart={handlePointerDown}
+      onTouchMove={handlePointerMove}
+      onTouchEnd={handlePointerUp}
+      onTouchCancel={handlePointerUp}
+    >
+      <img 
+        src={src} 
+        alt="Walkthrough view"
+        style={{
+          width: '130%', 
+          height: '130%', 
+          objectFit: 'cover',
+          position: 'absolute',
+          top: '-15%',
+          left: '-15%',
+          transform: `translateX(${offset}%)`,
+          pointerEvents: 'none',
+          willChange: 'transform',
+        }}
+        draggable={false}
+      />
+    </div>
+  );
+}
+
 function LLWalkthrough() {
   const [step, setStep] = React.useState(0);
   
@@ -711,7 +797,7 @@ function LLWalkthrough() {
   return (
     <section id="walkthrough" data-screen-label="Walkthrough" className="ll-section ll-section-py" style={{
       ...llSectionStyle,
-      padding: '140px 6vw 140px',
+      padding: '80px 6vw 80px',
       background: 'var(--ink)',
       color: 'var(--cream)',
     }}>
@@ -734,13 +820,14 @@ function LLWalkthrough() {
         </div>
 
         <div 
-          onClick={handleNext}
           style={{ 
             position: 'relative', 
-            width: '100%', 
+            width: '100%',
+            maxWidth: '1200px',
+            margin: '0 auto',
             aspectRatio: '16 / 9', 
+            maxHeight: '65vh',
             background: '#000',
-            cursor: 'pointer',
             overflow: 'hidden',
             borderRadius: '4px',
             boxShadow: '0 24px 64px rgba(0,0,0,0.4)',
@@ -758,9 +845,6 @@ function LLWalkthrough() {
                   transform: isActive ? 'scale(1)' : 'scale(1.05)',
                   transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 2s cubic-bezier(0.4, 0, 0.2, 1)',
                   pointerEvents: isActive ? 'auto' : 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
                 }}
               >
                 {s.type === 'video' ? (
@@ -773,10 +857,9 @@ function LLWalkthrough() {
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
                 ) : (
-                  <img 
+                  <PanoramaViewer 
                     src={window.__resources ? (window.__resources[s.src] || s.src) : s.src} 
-                    alt={s.label} 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    isActive={isActive} 
                   />
                 )}
               </div>

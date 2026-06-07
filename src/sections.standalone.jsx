@@ -213,7 +213,7 @@ function HeroPleinAir() {
   const slotRef = React.useRef(null);
   return (
     <section data-screen-label="Hero" className="ll-section" style={{
-      position: 'relative', minHeight: '100vh', overflow: 'hidden',
+      position: 'relative', minHeight: '100vh',
       display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
       padding: '0 0 8vh',
     }}>

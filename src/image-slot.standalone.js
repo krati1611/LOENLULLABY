@@ -161,19 +161,20 @@
   // ── Custom element ──────────────────────────────────────────────────────
   const stylesheet =
     ':host{display:inline-block;position:relative;vertical-align:top;' +
-    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px}' +
-    '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04)}' +
+    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px;' +
+    '  touch-action:auto}' +
+    '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04);touch-action:auto}' +
     // .frame img (clipped) and .spill (unclipped ghost + handles) share the
     // same left/top/width/height in frame-%, computed by _applyView(), so the
     // inside-mask crop and the outside-mask spill stay pixel-aligned.
     '.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);' +
-    '  -webkit-user-drag:none;user-select:none}' +
+    '  -webkit-user-drag:none;user-select:none;touch-action:auto}' +
     // Reframe mode (double-click): the full image spills past the mask. The
     // spill layer is sized to the IMAGE bounds so its corners are where the
     // resize handles belong. The ghost <img> inside is translucent; the real
     // clipped <img> underneath shows the opaque in-mask crop.
     '.spill{position:absolute;transform:translate(-50%,-50%);display:none;z-index:1;' +
-    '  cursor:grab}' +
+    '  cursor:grab;touch-action:none}' +
     ':host([data-panning]) .spill{cursor:grabbing}' +
     '.spill .ghost{position:absolute;inset:0;width:100%;height:100%;opacity:.35;' +
     '  pointer-events:none;-webkit-user-drag:none;user-select:none;' +
@@ -185,7 +186,7 @@
     '.spill .handle[data-c=ne]{left:100%;top:0;cursor:nesw-resize}' +
     '.spill .handle[data-c=sw]{left:0;top:100%;cursor:nesw-resize}' +
     '.spill .handle[data-c=se]{left:100%;top:100%;cursor:nwse-resize}' +
-    ':host([data-reframe]){z-index:10}' +
+    ':host([data-reframe]){z-index:10;touch-action:none}' +
     ':host([data-reframe]) .frame img{touch-action:none}' +
     ':host([data-reframe]) .spill{display:block;touch-action:none}' +
     ':host([data-reframe]) .frame{box-shadow:0 0 0 2px #c96442}' +

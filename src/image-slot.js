@@ -160,8 +160,9 @@
   // ── Custom element ──────────────────────────────────────────────────────
   const stylesheet =
     ':host{display:inline-block;position:relative;vertical-align:top;' +
-    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px}' +
-    '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04)}' +
+    '  font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px;' +
+    '  touch-action:auto}' +
+    '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04);touch-action:auto}' +
     // .frame img (clipped) and .spill (unclipped ghost + handles) share the
     // same left/top/width/height in frame-%, computed by _applyView(), so the
     // inside-mask crop and the outside-mask spill stay pixel-aligned.
@@ -187,7 +188,7 @@
     '.spill .handle[data-c=ne]{left:100%;top:0;cursor:nesw-resize}' +
     '.spill .handle[data-c=sw]{left:0;top:100%;cursor:nesw-resize}' +
     '.spill .handle[data-c=se]{left:100%;top:100%;cursor:nwse-resize}' +
-    ':host([data-reframe]){z-index:10}' +
+    ':host([data-reframe]){z-index:10;touch-action:none}' +
     ':host([data-reframe]) .spill{display:block}' +
     ':host([data-reframe]) .frame{box-shadow:0 0 0 2px #c96442}' +
     '.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;' +

@@ -719,7 +719,7 @@ function PanoramaViewer({ src, isActive }) {
       <style>{`
         .pnlm-about-msg { display: none !important; }
       `}</style>
-      <div ref={containerRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', cursor: 'pointer', pointerEvents: 'none' }} />
+      <div ref={containerRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', cursor: 'pointer' }} />
     </>
   );
 }
@@ -756,7 +756,6 @@ function WalkthroughVideoStep({ src, isActive }) {
 
 function LLWalkthrough() {
   const [step, setStep] = React.useState(0);
-  const [touchStart, setTouchStart] = React.useState(null);
   
   const handleNext = () => {
     setStep((prev) => (prev + 1) % WALKTHROUGH_STEPS.length);
@@ -765,23 +764,6 @@ function LLWalkthrough() {
   const handlePrev = (e) => {
     if (e) e.stopPropagation();
     setStep((prev) => (prev === 0 ? WALKTHROUGH_STEPS.length - 1 : prev - 1));
-  };
-
-  const onTouchStart = (e) => {
-    setTouchStart(e.touches[0].clientX);
-  };
-
-  const onTouchEnd = (e) => {
-    if (!touchStart) return;
-    const touchEnd = e.changedTouches[0].clientX;
-    const distance = touchStart - touchEnd;
-    
-    if (distance > 50) {
-      handleNext();
-    } else if (distance < -50) {
-      handlePrev();
-    }
-    setTouchStart(null);
   };
   
   const currentStep = WALKTHROUGH_STEPS[step];
@@ -813,8 +795,6 @@ function LLWalkthrough() {
 
         <div 
           onClick={handleNext}
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
           style={{ 
             position: 'relative', 
             width: '100%',

@@ -1,0 +1,21 @@
+{
+  "name": "loenlullaby",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".image-slots.state.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krati1611/LOENLULLABY.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/krati1611/LOENLULLABY/issues"
+  },
+  "homepage": "https://github.com/krati1611/LOENLULLABY#readme"
+}

@@ -217,15 +217,11 @@ function HeroPleinAir() {
       display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
       padding: '0 0 8vh',
     }}>
-      <image-slot
-        ref={slotRef}
-        id="hero-pleinair"
-        src="deck-assets/hero-pleinair.png"
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-        shape="rect"
-        placeholder="Hero rendering — exterior elevation, golden hour"
-      ></image-slot>
-      <FullBleedSlotControls slotRef={slotRef} />
+      <img
+        src="deck-assets/hero-pleinair.jpg"
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        alt="Hero rendering — exterior elevation, golden hour"
+      />
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
         background: 'linear-gradient(180deg, rgba(30,37,40,.32) 0%, rgba(30,37,40,0) 28%, rgba(30,37,40,0) 50%, rgba(30,37,40,.62) 100%)',
@@ -310,13 +306,13 @@ function HeroEditorial() {
       </div>
 
       <div style={{ position: 'relative' }}>
-        <image-slot
+        <img
           id="hero-editorial"
-          class="ll-hero-editorial-img"
-          style={{ width: '100%', aspectRatio: '4 / 5', display: 'block' }}
-          shape="rounded" radius="2"
-          placeholder="Hero rendering — portrait, exterior or interior moment"
-        ></image-slot>
+          className="ll-hero-editorial-img"
+          src="deck-assets/tpl-sq-editorial-img.webp"
+          style={{ width: '100%', aspectRatio: '4 / 5', display: 'block', objectFit: 'cover', borderRadius: '2px' }}
+          alt="Hero rendering — portrait, exterior or interior moment"
+        />
         <div className="mono" style={{
           position: 'absolute', bottom: -28, right: 0,
           color: 'var(--ink-soft)',
@@ -357,12 +353,12 @@ function HeroPostcard() {
         </div>
       </div>
 
-      <image-slot
+      <img
         id="hero-postcard"
-        style={{ width: '100%', aspectRatio: '21 / 9', display: 'block' }}
-        shape="rounded" radius="2"
-        placeholder="Hero rendering — wide exterior, postcard format"
-      ></image-slot>
+        src="deck-assets/tpl-pt-postcard-img.jpg"
+        style={{ width: '100%', aspectRatio: '21 / 9', display: 'block', objectFit: 'cover', borderRadius: '2px' }}
+        alt="Hero rendering — wide exterior, postcard format"
+      />
 
       <div className="ll-hero-postcard-stats" style={{
         display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
@@ -412,12 +408,12 @@ function LLVision() {
             A quiet rise on the cusp of a new North Beach.
           </h2>
           <div style={{ marginTop: 40, maxWidth: 360 }}>
-            <image-slot
+            <img
               id="vision-detail"
-              style={{ width: '100%', aspectRatio: '4 / 5', display: 'block' }}
-              shape="rounded" radius="2"
-              placeholder="Material study — travertine, teak, brass"
-            ></image-slot>
+              src="deck-assets/vision-detail.webp"
+              style={{ width: '100%', aspectRatio: '4 / 5', display: 'block', objectFit: 'cover', borderRadius: '2px' }}
+              alt="Material study — travertine, teak, brass"
+            />
             <div className="mono" style={{
               color: 'var(--ink-soft)', marginTop: 12,
             }}>
@@ -531,12 +527,13 @@ function LLRenderings() {
 function RGSlot({ id, caption }) {
   return (
     <figure style={{ margin: 0, height: '100%', display: 'flex', flexDirection: 'column', gap: 10 }}>
-      <image-slot
-        id={`render-${id}`}
-        style={{ flex: 1, width: '100%', display: 'block' }}
-        shape="rounded" radius="2"
-        placeholder={caption}
-      ></image-slot>
+      <div style={{ flex: 1, width: '100%', display: 'block', overflow: 'hidden', borderRadius: '2px', backgroundColor: 'rgba(30,37,40,.04)' }}>
+        <img
+          src={`deck-assets/render-${id}.${{ r1: 'webp', r2: 'jpg', r3: 'jpg', r4: 'webp', r5: 'jpg' }[id] || 'jpg'}`}
+          alt={caption}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+        />
+      </div>
       <figcaption className="mono" style={{ color: 'var(--ink-soft)' }}>
         {caption}
       </figcaption>
@@ -648,13 +645,11 @@ function LLFloorPlans() {
                   transition: 'opacity .35s ease',
                   pointerEvents: p.id === active ? 'auto' : 'none',
                 }}>
-                  <image-slot
-                    id={`plan-${p.id}`}
-                    style={{ width: '100%', height: '100%', display: 'block' }}
-                    shape="rect"
-                    fit="contain"
-                    placeholder={`Floor plan — Residence ${p.id}`}
-                  ></image-slot>
+                  <img
+                    src={`deck-assets/plan-${p.id}.webp`}
+                    style={{ width: '100%', height: '100%', display: 'block', objectFit: 'contain' }}
+                    alt={`Floor plan — Residence ${p.id}`}
+                  />
                 </div>
               ))}
             </div>

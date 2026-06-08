@@ -794,7 +794,6 @@ function LLWalkthrough() {
         </div>
 
         <div 
-          onClick={handleNext}
           style={{ 
             position: 'relative', 
             width: '100%',
